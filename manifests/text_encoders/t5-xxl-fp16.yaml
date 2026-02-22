@@ -1,0 +1,28 @@
+id: t5-xxl-fp16
+name: "T5-XXL Text Encoder (fp16)"
+type: text_encoder
+architecture: t5
+author: comfyanonymous
+license: apache-2.0
+homepage: https://huggingface.co/comfyanonymous/flux_text_encoders
+description: |
+  T5-XXL text encoder in fp16 precision. Required by FLUX models
+  for prompt processing. Large model — 9.8 GB.
+  Use fp8 variant if you have less than 24 GB VRAM.
+
+variants:
+  - id: fp16
+    file: t5xxl_fp16.safetensors
+    url: https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors
+    sha256: "VERIFY_t5xxl_fp16"
+    size: 9787849216
+    format: safetensors
+    precision: fp16
+    vram_required: 12288
+    vram_recommended: 16384
+
+tags: [t5, text-encoder, flux, fp16]
+rating: 5.0
+downloads: 2400000
+added: "2024-08-01"
+updated: "2024-08-01"

@@ -1,0 +1,38 @@
+id: sdxl-base-1.0
+name: "Stable Diffusion XL Base 1.0"
+type: checkpoint
+architecture: sdxl
+author: stabilityai
+license: openrail++
+homepage: https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0
+description: |
+  Stable Diffusion XL base model. High resolution text-to-image generation
+  at 1024x1024. Works great with LoRAs and ControlNets.
+
+variants:
+  - id: fp16
+    file: sd_xl_base_1.0.safetensors
+    url: https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors
+    sha256: "VERIFY_sdxl_base_fp16"
+    size: 6938078334
+    format: safetensors
+    precision: fp16
+    vram_required: 8192
+    vram_recommended: 12288
+
+requires:
+  - id: sdxl-vae-fp16-fix
+    type: vae
+    reason: "Recommended VAE for SDXL (fixes fp16 NaN issues)"
+
+defaults:
+  steps: 30
+  cfg: 7.0
+  sampler: dpmpp_2m
+  scheduler: karras
+
+tags: [sdxl, text-to-image, stable-diffusion, high-resolution]
+rating: 4.6
+downloads: 5400000
+added: "2023-07-26"
+updated: "2024-06-01"

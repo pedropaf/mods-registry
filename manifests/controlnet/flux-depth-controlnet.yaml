@@ -1,0 +1,25 @@
+id: flux-depth-controlnet
+name: "FLUX.1 Depth ControlNet"
+type: controlnet
+architecture: flux
+author: InstantX
+license: apache-2.0
+homepage: https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union
+description: |
+  Depth-conditioned ControlNet for FLUX.1 Dev. Allows generating images
+  that follow the depth structure of an input image.
+
+base_models: [flux-dev]
+preprocessor: depth_midas
+
+file:
+  url: https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/resolve/main/diffusion_pytorch_model.safetensors
+  sha256: "VERIFY_flux_depth_cn"
+  size: 6596901888
+  format: safetensors
+
+tags: [flux, controlnet, depth, instantx]
+rating: 4.5
+downloads: 380000
+added: "2024-10-01"
+updated: "2025-01-01"

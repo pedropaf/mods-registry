@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "manifests/**"
+      - "scripts/**"
+      - "schemas/**"
+
+jobs:
+  validate:
+    name: Validate Manifests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Validate all manifests
+        run: python scripts/validate.py
+
+      - name: Build index (dry run)
+        run: python scripts/build_index.py --output /tmp/index.json
+
+      - name: Verify index is valid JSON
+        run: python -c "import json; json.load(open('/tmp/index.json'))"

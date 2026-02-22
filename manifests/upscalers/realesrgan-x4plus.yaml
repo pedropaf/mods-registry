@@ -1,0 +1,24 @@
+id: realesrgan-x4plus
+name: "RealESRGAN x4plus"
+type: upscaler
+author: xinntao
+license: bsd-3-clause
+homepage: https://github.com/xinntao/Real-ESRGAN
+description: |
+  General-purpose 4x upscaler from the Real-ESRGAN project.
+  Good balance of quality and speed. Works well for both
+  photos and AI-generated images.
+
+scale_factor: 4
+
+file:
+  url: https://huggingface.co/ai-forever/Real-ESRGAN/resolve/main/RealESRGAN_x4.pth
+  sha256: "VERIFY_realesrgan_x4"
+  size: 67040989
+  format: pth
+
+tags: [upscaler, 4x, realesrgan, general-purpose]
+rating: 4.7
+downloads: 4500000
+added: "2022-06-01"
+updated: "2024-01-01"

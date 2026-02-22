@@ -1,0 +1,22 @@
+id: clip-l
+name: "CLIP-L Text Encoder"
+type: text_encoder
+architecture: clip
+author: comfyanonymous
+license: apache-2.0
+homepage: https://huggingface.co/comfyanonymous/flux_text_encoders
+description: |
+  CLIP-L (Large) text encoder. Used as secondary text encoder by FLUX models
+  alongside T5-XXL. Small and lightweight — 246 MB.
+
+file:
+  url: https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors
+  sha256: "VERIFY_clip_l"
+  size: 246144152
+  format: safetensors
+
+tags: [clip, text-encoder, flux, lightweight]
+rating: 5.0
+downloads: 2600000
+added: "2024-08-01"
+updated: "2024-08-01"

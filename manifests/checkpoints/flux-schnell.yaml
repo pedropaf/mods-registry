@@ -1,0 +1,61 @@
+id: flux-schnell
+name: "FLUX.1 Schnell"
+type: checkpoint
+architecture: flux
+author: black-forest-labs
+license: apache-2.0
+homepage: https://huggingface.co/black-forest-labs/FLUX.1-schnell
+description: |
+  Fast text-to-image model from Black Forest Labs.
+  Optimized for speed — best with 1-4 steps, CFG 0 (distilled model).
+  Apache 2.0 license — free for commercial use.
+
+variants:
+  - id: fp16
+    file: flux1-schnell.safetensors
+    url: https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/flux1-schnell.safetensors
+    sha256: "VERIFY_flux1_schnell_fp16"
+    size: 23802932552
+    format: safetensors
+    precision: fp16
+    vram_required: 24576
+    vram_recommended: 24576
+  - id: fp8
+    file: flux1-schnell-fp8-e4m3fn.safetensors
+    url: https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-schnell-fp8-e4m3fn.safetensors
+    sha256: "VERIFY_flux1_schnell_fp8"
+    size: 11903959040
+    format: safetensors
+    precision: fp8-e4m3fn
+    vram_required: 12288
+    vram_recommended: 16384
+    note: "Quantized to fp8. Slight quality reduction vs fp16."
+
+requires:
+  - id: flux-vae
+    type: vae
+    reason: "Flux models require the Flux-specific VAE (ae.safetensors)"
+  - id: t5-xxl-fp16
+    type: text_encoder
+    reason: "T5-XXL for prompt processing"
+    optional_variant: t5-xxl-fp8
+  - id: clip-l
+    type: text_encoder
+    reason: "CLIP-L for secondary text encoding"
+
+auth:
+  provider: huggingface
+  terms_url: https://huggingface.co/black-forest-labs/FLUX.1-schnell
+  gated: true
+
+defaults:
+  steps: 4
+  cfg: 0
+  sampler: euler
+  scheduler: normal
+
+tags: [flux, text-to-image, fast, distilled, bfl]
+rating: 4.7
+downloads: 1920000
+added: "2024-08-01"
+updated: "2025-01-15"

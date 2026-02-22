@@ -1,0 +1,61 @@
+id: flux-dev
+name: "FLUX.1 Dev"
+type: checkpoint
+architecture: flux
+author: black-forest-labs
+license: flux-1-dev-non-commercial
+homepage: https://huggingface.co/black-forest-labs/FLUX.1-dev
+description: |
+  High-quality text-to-image model from Black Forest Labs.
+  Best results with 20-30 steps, CFG 3.5-4.0, euler sampler.
+  Non-commercial license. Requires accepting terms on HuggingFace.
+
+variants:
+  - id: fp16
+    file: flux1-dev.safetensors
+    url: https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors
+    sha256: "VERIFY_flux1_dev_fp16"
+    size: 23802932552
+    format: safetensors
+    precision: fp16
+    vram_required: 24576
+    vram_recommended: 24576
+  - id: fp8
+    file: flux1-dev-fp8-e4m3fn.safetensors
+    url: https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8-e4m3fn.safetensors
+    sha256: "VERIFY_flux1_dev_fp8"
+    size: 11903959040
+    format: safetensors
+    precision: fp8-e4m3fn
+    vram_required: 12288
+    vram_recommended: 16384
+    note: "Quantized to fp8. Slight quality reduction vs fp16."
+
+requires:
+  - id: flux-vae
+    type: vae
+    reason: "Flux models require the Flux-specific VAE (ae.safetensors)"
+  - id: t5-xxl-fp16
+    type: text_encoder
+    reason: "T5-XXL for prompt processing"
+    optional_variant: t5-xxl-fp8
+  - id: clip-l
+    type: text_encoder
+    reason: "CLIP-L for secondary text encoding"
+
+auth:
+  provider: huggingface
+  terms_url: https://huggingface.co/black-forest-labs/FLUX.1-dev
+  gated: true
+
+defaults:
+  steps: 20
+  cfg: 3.5
+  sampler: euler
+  scheduler: normal
+
+tags: [flux, text-to-image, high-quality, bfl]
+rating: 4.9
+downloads: 2850000
+added: "2024-08-01"
+updated: "2025-01-15"

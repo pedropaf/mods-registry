@@ -1,0 +1,38 @@
+id: sd-1.5
+name: "Stable Diffusion 1.5"
+type: checkpoint
+architecture: sd15
+author: runwayml
+license: creativeml-openrail-m
+homepage: https://huggingface.co/runwayml/stable-diffusion-v1-5
+description: |
+  The original Stable Diffusion 1.5. Lightweight, fast, huge ecosystem
+  of LoRAs, embeddings, and ControlNets. 512x512 native resolution.
+
+variants:
+  - id: fp16
+    file: v1-5-pruned-emaonly.safetensors
+    url: https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.safetensors
+    sha256: "VERIFY_sd15_fp16"
+    size: 4265146304
+    format: safetensors
+    precision: fp16
+    vram_required: 4096
+    vram_recommended: 8192
+
+requires:
+  - id: sd-vae-ft-mse
+    type: vae
+    reason: "Recommended VAE for SD 1.5 (sharper outputs)"
+
+defaults:
+  steps: 25
+  cfg: 7.5
+  sampler: dpmpp_2m
+  scheduler: karras
+
+tags: [sd15, text-to-image, stable-diffusion, lightweight]
+rating: 4.3
+downloads: 12000000
+added: "2022-10-20"
+updated: "2024-01-01"

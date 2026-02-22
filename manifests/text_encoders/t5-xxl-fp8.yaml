@@ -1,0 +1,28 @@
+id: t5-xxl-fp8
+name: "T5-XXL Text Encoder (fp8)"
+type: text_encoder
+architecture: t5
+author: comfyanonymous
+license: apache-2.0
+homepage: https://huggingface.co/comfyanonymous/flux_text_encoders
+description: |
+  T5-XXL text encoder quantized to fp8 precision. Uses half the VRAM
+  of the fp16 version with minimal quality impact.
+  Recommended for 12-16 GB VRAM setups using FLUX models.
+
+variants:
+  - id: fp8
+    file: t5xxl_fp8_e4m3fn.safetensors
+    url: https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors
+    sha256: "VERIFY_t5xxl_fp8"
+    size: 4893843456
+    format: safetensors
+    precision: fp8-e4m3fn
+    vram_required: 6144
+    vram_recommended: 8192
+
+tags: [t5, text-encoder, flux, fp8, quantized]
+rating: 4.8
+downloads: 1800000
+added: "2024-08-01"
+updated: "2024-08-01"

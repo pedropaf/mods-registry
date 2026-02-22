@@ -1,0 +1,23 @@
+id: sdxl-vae-fp16-fix
+name: "SDXL VAE (fp16 NaN fix)"
+type: vae
+architecture: sdxl
+author: madebyollin
+license: apache-2.0
+homepage: https://huggingface.co/madebyollin/sdxl-vae-fp16-fix
+description: |
+  Fixed SDXL VAE that works correctly in fp16 precision.
+  The original SDXL VAE produces NaN values in fp16 mode — this version
+  fixes that issue. Recommended for all SDXL workflows.
+
+file:
+  url: https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/main/diffusion_pytorch_model.safetensors
+  sha256: "VERIFY_sdxl_vae_fp16_fix"
+  size: 334643268
+  format: safetensors
+
+tags: [sdxl, vae, fp16-fix]
+rating: 4.9
+downloads: 4100000
+added: "2023-08-15"
+updated: "2024-01-01"

@@ -1,0 +1,23 @@
+id: 4x-ultrasharp
+name: "4x UltraSharp Upscaler"
+type: upscaler
+author: Kim2091
+license: cc-by-nc-sa-4.0
+homepage: https://openmodeldb.info/models/4x-UltraSharp
+description: |
+  High-quality 4x upscaler. Excellent for photo-realistic upscaling.
+  One of the most popular upscalers in the AI image generation community.
+
+scale_factor: 4
+
+file:
+  url: https://huggingface.co/Kim2091/UltraSharp/resolve/main/4x-UltraSharp.pth
+  sha256: "VERIFY_4x_ultrasharp"
+  size: 66921375
+  format: pth
+
+tags: [upscaler, 4x, photo-realistic, esrgan]
+rating: 4.9
+downloads: 3200000
+added: "2023-01-01"
+updated: "2024-01-01"

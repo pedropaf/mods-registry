@@ -1,0 +1,50 @@
+name: Publish Index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "manifests/**"
+
+  # Allow manual trigger
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    name: Build and Publish Index
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Validate manifests
+        run: python scripts/validate.py
+
+      - name: Build index.json
+        run: python scripts/build_index.py --output index.json
+
+      - name: Get manifest count
+        id: count
+        run: |
+          COUNT=$(python -c "import json; print(len(json.load(open('index.json'))['items']))")
+          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: index-${{ github.sha }}
+          name: "Registry Index (${{ steps.count.outputs.count }} models)"
+          body: |
+            Auto-generated registry index with ${{ steps.count.outputs.count }} models.
+            Commit: ${{ github.sha }}
+          files: index.json
+          make_latest: true

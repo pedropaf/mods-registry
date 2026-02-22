@@ -1,0 +1,22 @@
+id: flux-vae
+name: "FLUX VAE (ae.safetensors)"
+type: vae
+architecture: flux
+author: black-forest-labs
+license: apache-2.0
+homepage: https://huggingface.co/black-forest-labs/FLUX.1-schnell
+description: |
+  The VAE used by all FLUX models. Required for FLUX.1 Dev and Schnell.
+  Same file (ae.safetensors) is bundled in both the Dev and Schnell repos.
+
+file:
+  url: https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors
+  sha256: "VERIFY_flux_vae"
+  size: 335304388
+  format: safetensors
+
+tags: [flux, vae, bfl]
+rating: 5.0
+downloads: 3200000
+added: "2024-08-01"
+updated: "2024-08-01"

@@ -1,0 +1,22 @@
+id: sd-vae-ft-mse
+name: "SD VAE ft-MSE"
+type: vae
+architecture: sd15
+author: stabilityai
+license: creativeml-openrail-m
+homepage: https://huggingface.co/stabilityai/sd-vae-ft-mse
+description: |
+  Fine-tuned VAE for Stable Diffusion 1.5. Produces sharper, more
+  detailed outputs compared to the default VAE. MSE-optimized.
+
+file:
+  url: https://huggingface.co/stabilityai/sd-vae-ft-mse/resolve/main/vae-ft-mse-840000-ema-pruned.safetensors
+  sha256: "VERIFY_sd_vae_ft_mse"
+  size: 334695950
+  format: safetensors
+
+tags: [sd15, vae, fine-tuned, mse]
+rating: 4.7
+downloads: 6800000
+added: "2023-01-01"
+updated: "2024-01-01"
