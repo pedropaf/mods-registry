@@ -1,0 +1,497 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "4x-ultrasharp",
+      "name": "4x UltraSharp Upscaler",
+      "type": "upscaler",
+      "author": "Kim2091",
+      "license": "cc-by-nc-sa-4.0",
+      "homepage": "https://openmodeldb.info/models/4x-UltraSharp",
+      "description": "High-quality 4x upscaler. Excellent for photo-realistic upscaling.\nOne of the most popular upscalers in the AI image generation community.\n",
+      "scale_factor": 4,
+      "file": {
+        "url": "https://huggingface.co/Kim2091/UltraSharp/resolve/main/4x-UltraSharp.pth",
+        "sha256": "VERIFY_4x_ultrasharp",
+        "size": 66921375,
+        "format": "pth"
+      },
+      "tags": [
+        "upscaler",
+        "4x",
+        "photo-realistic",
+        "esrgan"
+      ],
+      "rating": 4.9,
+      "downloads": 3200000,
+      "added": "2023-01-01",
+      "updated": "2024-01-01"
+    },
+    {
+      "id": "clip-l",
+      "name": "CLIP-L Text Encoder",
+      "type": "text_encoder",
+      "architecture": "clip",
+      "author": "comfyanonymous",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/comfyanonymous/flux_text_encoders",
+      "description": "CLIP-L (Large) text encoder. Used as secondary text encoder by FLUX models\nalongside T5-XXL. Small and lightweight — 246 MB.\n",
+      "file": {
+        "url": "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors",
+        "sha256": "VERIFY_clip_l",
+        "size": 246144152,
+        "format": "safetensors"
+      },
+      "tags": [
+        "clip",
+        "text-encoder",
+        "flux",
+        "lightweight"
+      ],
+      "rating": 5.0,
+      "downloads": 2600000,
+      "added": "2024-08-01",
+      "updated": "2024-08-01"
+    },
+    {
+      "id": "flux-depth-controlnet",
+      "name": "FLUX.1 Depth ControlNet",
+      "type": "controlnet",
+      "architecture": "flux",
+      "author": "InstantX",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union",
+      "description": "Depth-conditioned ControlNet for FLUX.1 Dev. Allows generating images\nthat follow the depth structure of an input image.\n",
+      "base_models": [
+        "flux-dev"
+      ],
+      "preprocessor": "depth_midas",
+      "file": {
+        "url": "https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/resolve/main/diffusion_pytorch_model.safetensors",
+        "sha256": "VERIFY_flux_depth_cn",
+        "size": 6596901888,
+        "format": "safetensors"
+      },
+      "tags": [
+        "flux",
+        "controlnet",
+        "depth",
+        "instantx"
+      ],
+      "rating": 4.5,
+      "downloads": 380000,
+      "added": "2024-10-01",
+      "updated": "2025-01-01"
+    },
+    {
+      "id": "flux-dev",
+      "name": "FLUX.1 Dev",
+      "type": "checkpoint",
+      "architecture": "flux",
+      "author": "black-forest-labs",
+      "license": "flux-1-dev-non-commercial",
+      "homepage": "https://huggingface.co/black-forest-labs/FLUX.1-dev",
+      "description": "High-quality text-to-image model from Black Forest Labs.\nBest results with 20-30 steps, CFG 3.5-4.0, euler sampler.\nNon-commercial license. Requires accepting terms on HuggingFace.\n",
+      "variants": [
+        {
+          "id": "fp16",
+          "file": "flux1-dev.safetensors",
+          "url": "https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors",
+          "sha256": "VERIFY_flux1_dev_fp16",
+          "size": 23802932552,
+          "format": "safetensors",
+          "precision": "fp16",
+          "vram_required": 24576,
+          "vram_recommended": 24576
+        },
+        {
+          "id": "fp8",
+          "file": "flux1-dev-fp8-e4m3fn.safetensors",
+          "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8-e4m3fn.safetensors",
+          "sha256": "VERIFY_flux1_dev_fp8",
+          "size": 11903959040,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 12288,
+          "vram_recommended": 16384,
+          "note": "Quantized to fp8. Slight quality reduction vs fp16."
+        }
+      ],
+      "requires": [
+        {
+          "id": "flux-vae",
+          "type": "vae",
+          "reason": "Flux models require the Flux-specific VAE (ae.safetensors)"
+        },
+        {
+          "id": "t5-xxl-fp16",
+          "type": "text_encoder",
+          "reason": "T5-XXL for prompt processing",
+          "optional_variant": "t5-xxl-fp8"
+        },
+        {
+          "id": "clip-l",
+          "type": "text_encoder",
+          "reason": "CLIP-L for secondary text encoding"
+        }
+      ],
+      "auth": {
+        "provider": "huggingface",
+        "terms_url": "https://huggingface.co/black-forest-labs/FLUX.1-dev",
+        "gated": true
+      },
+      "defaults": {
+        "steps": 20,
+        "cfg": 3.5,
+        "sampler": "euler",
+        "scheduler": "normal"
+      },
+      "tags": [
+        "flux",
+        "text-to-image",
+        "high-quality",
+        "bfl"
+      ],
+      "rating": 4.9,
+      "downloads": 2850000,
+      "added": "2024-08-01",
+      "updated": "2025-01-15"
+    },
+    {
+      "id": "flux-schnell",
+      "name": "FLUX.1 Schnell",
+      "type": "checkpoint",
+      "architecture": "flux",
+      "author": "black-forest-labs",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
+      "description": "Fast text-to-image model from Black Forest Labs.\nOptimized for speed — best with 1-4 steps, CFG 0 (distilled model).\nApache 2.0 license — free for commercial use.\n",
+      "variants": [
+        {
+          "id": "fp16",
+          "file": "flux1-schnell.safetensors",
+          "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/flux1-schnell.safetensors",
+          "sha256": "VERIFY_flux1_schnell_fp16",
+          "size": 23802932552,
+          "format": "safetensors",
+          "precision": "fp16",
+          "vram_required": 24576,
+          "vram_recommended": 24576
+        },
+        {
+          "id": "fp8",
+          "file": "flux1-schnell-fp8-e4m3fn.safetensors",
+          "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-schnell-fp8-e4m3fn.safetensors",
+          "sha256": "VERIFY_flux1_schnell_fp8",
+          "size": 11903959040,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 12288,
+          "vram_recommended": 16384,
+          "note": "Quantized to fp8. Slight quality reduction vs fp16."
+        }
+      ],
+      "requires": [
+        {
+          "id": "flux-vae",
+          "type": "vae",
+          "reason": "Flux models require the Flux-specific VAE (ae.safetensors)"
+        },
+        {
+          "id": "t5-xxl-fp16",
+          "type": "text_encoder",
+          "reason": "T5-XXL for prompt processing",
+          "optional_variant": "t5-xxl-fp8"
+        },
+        {
+          "id": "clip-l",
+          "type": "text_encoder",
+          "reason": "CLIP-L for secondary text encoding"
+        }
+      ],
+      "auth": {
+        "provider": "huggingface",
+        "terms_url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
+        "gated": true
+      },
+      "defaults": {
+        "steps": 4,
+        "cfg": 0,
+        "sampler": "euler",
+        "scheduler": "normal"
+      },
+      "tags": [
+        "flux",
+        "text-to-image",
+        "fast",
+        "distilled",
+        "bfl"
+      ],
+      "rating": 4.7,
+      "downloads": 1920000,
+      "added": "2024-08-01",
+      "updated": "2025-01-15"
+    },
+    {
+      "id": "flux-vae",
+      "name": "FLUX VAE (ae.safetensors)",
+      "type": "vae",
+      "architecture": "flux",
+      "author": "black-forest-labs",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
+      "description": "The VAE used by all FLUX models. Required for FLUX.1 Dev and Schnell.\nSame file (ae.safetensors) is bundled in both the Dev and Schnell repos.\n",
+      "file": {
+        "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors",
+        "sha256": "VERIFY_flux_vae",
+        "size": 335304388,
+        "format": "safetensors"
+      },
+      "tags": [
+        "flux",
+        "vae",
+        "bfl"
+      ],
+      "rating": 5.0,
+      "downloads": 3200000,
+      "added": "2024-08-01",
+      "updated": "2024-08-01"
+    },
+    {
+      "id": "realesrgan-x4plus",
+      "name": "RealESRGAN x4plus",
+      "type": "upscaler",
+      "author": "xinntao",
+      "license": "bsd-3-clause",
+      "homepage": "https://github.com/xinntao/Real-ESRGAN",
+      "description": "General-purpose 4x upscaler from the Real-ESRGAN project.\nGood balance of quality and speed. Works well for both\nphotos and AI-generated images.\n",
+      "scale_factor": 4,
+      "file": {
+        "url": "https://huggingface.co/ai-forever/Real-ESRGAN/resolve/main/RealESRGAN_x4.pth",
+        "sha256": "VERIFY_realesrgan_x4",
+        "size": 67040989,
+        "format": "pth"
+      },
+      "tags": [
+        "upscaler",
+        "4x",
+        "realesrgan",
+        "general-purpose"
+      ],
+      "rating": 4.7,
+      "downloads": 4500000,
+      "added": "2022-06-01",
+      "updated": "2024-01-01"
+    },
+    {
+      "id": "sd-1.5",
+      "name": "Stable Diffusion 1.5",
+      "type": "checkpoint",
+      "architecture": "sd15",
+      "author": "runwayml",
+      "license": "creativeml-openrail-m",
+      "homepage": "https://huggingface.co/runwayml/stable-diffusion-v1-5",
+      "description": "The original Stable Diffusion 1.5. Lightweight, fast, huge ecosystem\nof LoRAs, embeddings, and ControlNets. 512x512 native resolution.\n",
+      "variants": [
+        {
+          "id": "fp16",
+          "file": "v1-5-pruned-emaonly.safetensors",
+          "url": "https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.safetensors",
+          "sha256": "VERIFY_sd15_fp16",
+          "size": 4265146304,
+          "format": "safetensors",
+          "precision": "fp16",
+          "vram_required": 4096,
+          "vram_recommended": 8192
+        }
+      ],
+      "requires": [
+        {
+          "id": "sd-vae-ft-mse",
+          "type": "vae",
+          "reason": "Recommended VAE for SD 1.5 (sharper outputs)"
+        }
+      ],
+      "defaults": {
+        "steps": 25,
+        "cfg": 7.5,
+        "sampler": "dpmpp_2m",
+        "scheduler": "karras"
+      },
+      "tags": [
+        "sd15",
+        "text-to-image",
+        "stable-diffusion",
+        "lightweight"
+      ],
+      "rating": 4.3,
+      "downloads": 12000000,
+      "added": "2022-10-20",
+      "updated": "2024-01-01"
+    },
+    {
+      "id": "sd-vae-ft-mse",
+      "name": "SD VAE ft-MSE",
+      "type": "vae",
+      "architecture": "sd15",
+      "author": "stabilityai",
+      "license": "creativeml-openrail-m",
+      "homepage": "https://huggingface.co/stabilityai/sd-vae-ft-mse",
+      "description": "Fine-tuned VAE for Stable Diffusion 1.5. Produces sharper, more\ndetailed outputs compared to the default VAE. MSE-optimized.\n",
+      "file": {
+        "url": "https://huggingface.co/stabilityai/sd-vae-ft-mse/resolve/main/vae-ft-mse-840000-ema-pruned.safetensors",
+        "sha256": "VERIFY_sd_vae_ft_mse",
+        "size": 334695950,
+        "format": "safetensors"
+      },
+      "tags": [
+        "sd15",
+        "vae",
+        "fine-tuned",
+        "mse"
+      ],
+      "rating": 4.7,
+      "downloads": 6800000,
+      "added": "2023-01-01",
+      "updated": "2024-01-01"
+    },
+    {
+      "id": "sdxl-base-1.0",
+      "name": "Stable Diffusion XL Base 1.0",
+      "type": "checkpoint",
+      "architecture": "sdxl",
+      "author": "stabilityai",
+      "license": "openrail++",
+      "homepage": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0",
+      "description": "Stable Diffusion XL base model. High resolution text-to-image generation\nat 1024x1024. Works great with LoRAs and ControlNets.\n",
+      "variants": [
+        {
+          "id": "fp16",
+          "file": "sd_xl_base_1.0.safetensors",
+          "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors",
+          "sha256": "VERIFY_sdxl_base_fp16",
+          "size": 6938078334,
+          "format": "safetensors",
+          "precision": "fp16",
+          "vram_required": 8192,
+          "vram_recommended": 12288
+        }
+      ],
+      "requires": [
+        {
+          "id": "sdxl-vae-fp16-fix",
+          "type": "vae",
+          "reason": "Recommended VAE for SDXL (fixes fp16 NaN issues)"
+        }
+      ],
+      "defaults": {
+        "steps": 30,
+        "cfg": 7.0,
+        "sampler": "dpmpp_2m",
+        "scheduler": "karras"
+      },
+      "tags": [
+        "sdxl",
+        "text-to-image",
+        "stable-diffusion",
+        "high-resolution"
+      ],
+      "rating": 4.6,
+      "downloads": 5400000,
+      "added": "2023-07-26",
+      "updated": "2024-06-01"
+    },
+    {
+      "id": "sdxl-vae-fp16-fix",
+      "name": "SDXL VAE (fp16 NaN fix)",
+      "type": "vae",
+      "architecture": "sdxl",
+      "author": "madebyollin",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/madebyollin/sdxl-vae-fp16-fix",
+      "description": "Fixed SDXL VAE that works correctly in fp16 precision.\nThe original SDXL VAE produces NaN values in fp16 mode — this version\nfixes that issue. Recommended for all SDXL workflows.\n",
+      "file": {
+        "url": "https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/main/diffusion_pytorch_model.safetensors",
+        "sha256": "VERIFY_sdxl_vae_fp16_fix",
+        "size": 334643268,
+        "format": "safetensors"
+      },
+      "tags": [
+        "sdxl",
+        "vae",
+        "fp16-fix"
+      ],
+      "rating": 4.9,
+      "downloads": 4100000,
+      "added": "2023-08-15",
+      "updated": "2024-01-01"
+    },
+    {
+      "id": "t5-xxl-fp16",
+      "name": "T5-XXL Text Encoder (fp16)",
+      "type": "text_encoder",
+      "architecture": "t5",
+      "author": "comfyanonymous",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/comfyanonymous/flux_text_encoders",
+      "description": "T5-XXL text encoder in fp16 precision. Required by FLUX models\nfor prompt processing. Large model — 9.8 GB.\nUse fp8 variant if you have less than 24 GB VRAM.\n",
+      "variants": [
+        {
+          "id": "fp16",
+          "file": "t5xxl_fp16.safetensors",
+          "url": "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors",
+          "sha256": "VERIFY_t5xxl_fp16",
+          "size": 9787849216,
+          "format": "safetensors",
+          "precision": "fp16",
+          "vram_required": 12288,
+          "vram_recommended": 16384
+        }
+      ],
+      "tags": [
+        "t5",
+        "text-encoder",
+        "flux",
+        "fp16"
+      ],
+      "rating": 5.0,
+      "downloads": 2400000,
+      "added": "2024-08-01",
+      "updated": "2024-08-01"
+    },
+    {
+      "id": "t5-xxl-fp8",
+      "name": "T5-XXL Text Encoder (fp8)",
+      "type": "text_encoder",
+      "architecture": "t5",
+      "author": "comfyanonymous",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/comfyanonymous/flux_text_encoders",
+      "description": "T5-XXL text encoder quantized to fp8 precision. Uses half the VRAM\nof the fp16 version with minimal quality impact.\nRecommended for 12-16 GB VRAM setups using FLUX models.\n",
+      "variants": [
+        {
+          "id": "fp8",
+          "file": "t5xxl_fp8_e4m3fn.safetensors",
+          "url": "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors",
+          "sha256": "VERIFY_t5xxl_fp8",
+          "size": 4893843456,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 6144,
+          "vram_recommended": 8192
+        }
+      ],
+      "tags": [
+        "t5",
+        "text-encoder",
+        "flux",
+        "fp8",
+        "quantized"
+      ],
+      "rating": 4.8,
+      "downloads": 1800000,
+      "added": "2024-08-01",
+      "updated": "2024-08-01"
+    }
+  ]
+}
