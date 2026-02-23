@@ -1,0 +1,38 @@
+id: flux-fill-dev
+name: "FLUX.1 Fill Dev"
+type: diffusion_model
+architecture: flux
+author: black-forest-labs
+license: flux-1-dev-non-commercial-license
+homepage: https://huggingface.co/black-forest-labs/FLUX.1-Fill-dev
+description: |
+  FLUX.1 Fill Dev — inpainting and outpainting model based on FLUX architecture.
+  Supports masked image fill with text-guided generation. Gated model.
+
+auth:
+  provider: huggingface
+  gated: true
+  terms_url: https://huggingface.co/black-forest-labs/FLUX.1-Fill-dev
+
+file:
+  url: https://huggingface.co/black-forest-labs/FLUX.1-Fill-dev/resolve/main/flux1-fill-dev.safetensors
+  sha256: "VERIFY_flux_fill_dev"
+  size: 23800000000
+  format: safetensors
+
+requires:
+  - id: clip-l
+    type: text_encoder
+    reason: "CLIP-L text encoder for FLUX"
+  - id: t5-xxl-fp8
+    type: text_encoder
+    reason: "T5-XXL text encoder for FLUX"
+  - id: flux-vae
+    type: vae
+    reason: "FLUX VAE"
+
+tags: [flux, inpainting, outpainting, fill]
+rating: 4.8
+downloads: 650000
+added: "2024-10-01"
+updated: "2025-01-01"

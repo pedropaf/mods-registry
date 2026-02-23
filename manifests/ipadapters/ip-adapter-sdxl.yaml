@@ -1,0 +1,24 @@
+id: ip-adapter-sdxl
+name: "IP-Adapter SDXL (ViT-H)"
+type: ipadapter
+architecture: sdxl
+author: h94
+license: apache-2.0
+homepage: https://huggingface.co/h94/IP-Adapter
+description: |
+  IP-Adapter for SDXL using ViT-H image encoder. Enables image-prompted
+  generation by conditioning on reference images. Style transfer and composition.
+
+base_models: [sdxl-base-1.0]
+
+file:
+  url: https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/ip-adapter_sdxl_vit-h.safetensors
+  sha256: "ebf05d918348aec7abb02a5e9ecef77e0aaea6914a5c4ea13f50d45eb1681831"
+  size: 731906048
+  format: safetensors
+
+tags: [sdxl, ipadapter, image-prompt, style-transfer]
+rating: 4.7
+downloads: 1200000
+added: "2023-08-20"
+updated: "2024-06-01"

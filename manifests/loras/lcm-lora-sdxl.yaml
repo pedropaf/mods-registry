@@ -1,0 +1,24 @@
+id: lcm-lora-sdxl
+name: "LCM LoRA (SDXL)"
+type: lora
+architecture: sdxl
+author: latent-consistency
+license: openrail++
+homepage: https://huggingface.co/latent-consistency/lcm-lora-sdxl
+description: |
+  Latent Consistency Model LoRA for SDXL. Enables fast 2-8 step inference
+  via distillation. Drop-in acceleration for any SDXL model.
+
+base_models: [sdxl-base-1.0, sdxl-turbo]
+
+file:
+  url: https://huggingface.co/latent-consistency/lcm-lora-sdxl/resolve/main/pytorch_lora_weights.safetensors
+  sha256: "a764e6859b6e04047cd761c08ff0cee96413a8e004c9f07707530cd776b19141"
+  size: 393854976
+  format: safetensors
+
+tags: [sdxl, lora, lcm, fast-inference, distillation]
+rating: 4.6
+downloads: 2200000
+added: "2023-10-06"
+updated: "2024-06-01"

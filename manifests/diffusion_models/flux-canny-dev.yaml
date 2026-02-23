@@ -1,0 +1,38 @@
+id: flux-canny-dev
+name: "FLUX.1 Canny Dev"
+type: diffusion_model
+architecture: flux
+author: black-forest-labs
+license: flux-1-dev-non-commercial-license
+homepage: https://huggingface.co/black-forest-labs/FLUX.1-Canny-dev
+description: |
+  FLUX.1 Canny Dev — canny edge conditioned generation model on FLUX architecture.
+  Structural control via canny edge maps. Gated model.
+
+auth:
+  provider: huggingface
+  gated: true
+  terms_url: https://huggingface.co/black-forest-labs/FLUX.1-Canny-dev
+
+file:
+  url: https://huggingface.co/black-forest-labs/FLUX.1-Canny-dev/resolve/main/flux1-canny-dev.safetensors
+  sha256: "VERIFY_flux_canny_dev"
+  size: 23800000000
+  format: safetensors
+
+requires:
+  - id: clip-l
+    type: text_encoder
+    reason: "CLIP-L text encoder for FLUX"
+  - id: t5-xxl-fp8
+    type: text_encoder
+    reason: "T5-XXL text encoder for FLUX"
+  - id: flux-vae
+    type: vae
+    reason: "FLUX VAE"
+
+tags: [flux, controlnet, canny, edge-detection]
+rating: 4.7
+downloads: 480000
+added: "2024-10-01"
+updated: "2025-01-01"

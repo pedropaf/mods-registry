@@ -1,0 +1,28 @@
+id: sd-2.1
+name: "Stable Diffusion 2.1"
+type: checkpoint
+architecture: sd21
+author: stabilityai
+license: openrail++
+homepage: https://huggingface.co/stabilityai/stable-diffusion-2-1
+description: |
+  Stable Diffusion 2.1, fine-tuned from SD 2.0 with improved aesthetics.
+  Generates at 768x768 resolution. Uses OpenCLIP ViT-H/14 text encoder.
+
+file:
+  url: https://huggingface.co/stabilityai/stable-diffusion-2-1/resolve/main/v2-1_768-ema-pruned.safetensors
+  sha256: "ad2a33c361c1f593c4a1571e8b1f328c6b1c7b7d8d5eabe3cee16e241c1f3b50"
+  size: 5214865152
+  format: safetensors
+
+defaults:
+  steps: 30
+  cfg: 7.5
+  sampler: dpmpp_2m
+  scheduler: karras
+
+tags: [sd21, text-to-image, stable-diffusion, "768"]
+rating: 4.4
+downloads: 3200000
+added: "2022-12-07"
+updated: "2024-01-01"

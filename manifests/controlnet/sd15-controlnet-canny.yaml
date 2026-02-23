@@ -1,0 +1,25 @@
+id: sd15-controlnet-canny
+name: "ControlNet v1.1 Canny (SD 1.5)"
+type: controlnet
+architecture: sd15
+author: lllyasviel
+license: openrail
+homepage: https://huggingface.co/lllyasviel/ControlNet-v1-1
+description: |
+  ControlNet v1.1 for SD 1.5 — Canny edge detection conditioned generation.
+  Provides structural control using canny edge maps. The most popular ControlNet.
+
+base_models: [sd-1.5]
+preprocessor: canny
+
+file:
+  url: https://huggingface.co/lllyasviel/ControlNet-v1-1/resolve/main/control_v11p_sd15_canny.pth
+  sha256: "f99cfe4c70910e38e3fece9918a4979ed7d3dcf9b81cee293e1755363af5406a"
+  size: 1557135360
+  format: pth
+
+tags: [sd15, controlnet, canny, edge-detection]
+rating: 4.8
+downloads: 4200000
+added: "2023-04-14"
+updated: "2024-01-01"

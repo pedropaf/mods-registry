@@ -109,6 +109,54 @@
       "updated": "2024-08-01"
     },
     {
+      "id": "flux-canny-dev",
+      "name": "FLUX.1 Canny Dev",
+      "type": "diffusion_model",
+      "architecture": "flux",
+      "author": "black-forest-labs",
+      "license": "flux-1-dev-non-commercial-license",
+      "homepage": "https://huggingface.co/black-forest-labs/FLUX.1-Canny-dev",
+      "description": "FLUX.1 Canny Dev — canny edge conditioned generation model on FLUX architecture.\nStructural control via canny edge maps. Gated model.\n",
+      "auth": {
+        "provider": "huggingface",
+        "gated": true,
+        "terms_url": "https://huggingface.co/black-forest-labs/FLUX.1-Canny-dev"
+      },
+      "file": {
+        "url": "https://huggingface.co/black-forest-labs/FLUX.1-Canny-dev/resolve/main/flux1-canny-dev.safetensors",
+        "sha256": "VERIFY_flux_canny_dev",
+        "size": 23800000000,
+        "format": "safetensors"
+      },
+      "requires": [
+        {
+          "id": "clip-l",
+          "type": "text_encoder",
+          "reason": "CLIP-L text encoder for FLUX"
+        },
+        {
+          "id": "t5-xxl-fp8",
+          "type": "text_encoder",
+          "reason": "T5-XXL text encoder for FLUX"
+        },
+        {
+          "id": "flux-vae",
+          "type": "vae",
+          "reason": "FLUX VAE"
+        }
+      ],
+      "tags": [
+        "flux",
+        "controlnet",
+        "canny",
+        "edge-detection"
+      ],
+      "rating": 4.7,
+      "downloads": 480000,
+      "added": "2024-10-01",
+      "updated": "2025-01-01"
+    },
+    {
       "id": "flux-depth-controlnet",
       "name": "FLUX.1 Depth ControlNet",
       "type": "controlnet",
@@ -213,6 +261,85 @@
       "updated": "2025-01-15"
     },
     {
+      "id": "flux-fill-dev",
+      "name": "FLUX.1 Fill Dev",
+      "type": "diffusion_model",
+      "architecture": "flux",
+      "author": "black-forest-labs",
+      "license": "flux-1-dev-non-commercial-license",
+      "homepage": "https://huggingface.co/black-forest-labs/FLUX.1-Fill-dev",
+      "description": "FLUX.1 Fill Dev — inpainting and outpainting model based on FLUX architecture.\nSupports masked image fill with text-guided generation. Gated model.\n",
+      "auth": {
+        "provider": "huggingface",
+        "gated": true,
+        "terms_url": "https://huggingface.co/black-forest-labs/FLUX.1-Fill-dev"
+      },
+      "file": {
+        "url": "https://huggingface.co/black-forest-labs/FLUX.1-Fill-dev/resolve/main/flux1-fill-dev.safetensors",
+        "sha256": "VERIFY_flux_fill_dev",
+        "size": 23800000000,
+        "format": "safetensors"
+      },
+      "requires": [
+        {
+          "id": "clip-l",
+          "type": "text_encoder",
+          "reason": "CLIP-L text encoder for FLUX"
+        },
+        {
+          "id": "t5-xxl-fp8",
+          "type": "text_encoder",
+          "reason": "T5-XXL text encoder for FLUX"
+        },
+        {
+          "id": "flux-vae",
+          "type": "vae",
+          "reason": "FLUX VAE"
+        }
+      ],
+      "tags": [
+        "flux",
+        "inpainting",
+        "outpainting",
+        "fill"
+      ],
+      "rating": 4.8,
+      "downloads": 650000,
+      "added": "2024-10-01",
+      "updated": "2025-01-01"
+    },
+    {
+      "id": "flux-redux-dev",
+      "name": "FLUX.1 Redux Dev",
+      "type": "ipadapter",
+      "architecture": "flux",
+      "author": "black-forest-labs",
+      "license": "flux-1-dev-non-commercial-license",
+      "homepage": "https://huggingface.co/black-forest-labs/FLUX.1-Redux-dev",
+      "description": "FLUX.1 Redux Dev — image variation adapter for FLUX. Takes image input and\ngenerates variations, similar to IP-Adapter functionality. Gated model.\n",
+      "auth": {
+        "provider": "huggingface",
+        "gated": true,
+        "terms_url": "https://huggingface.co/black-forest-labs/FLUX.1-Redux-dev"
+      },
+      "file": {
+        "url": "https://huggingface.co/black-forest-labs/FLUX.1-Redux-dev/resolve/main/flux1-redux-dev.safetensors",
+        "sha256": "VERIFY_flux_redux_dev",
+        "size": 135266304,
+        "format": "safetensors"
+      },
+      "tags": [
+        "flux",
+        "ipadapter",
+        "image-variation",
+        "redux"
+      ],
+      "rating": 4.6,
+      "downloads": 320000,
+      "added": "2024-10-01",
+      "updated": "2025-01-01"
+    },
+    {
       "id": "flux-schnell",
       "name": "FLUX.1 Schnell",
       "type": "checkpoint",
@@ -311,6 +438,126 @@
       "downloads": 3200000,
       "added": "2024-08-01",
       "updated": "2024-08-01"
+    },
+    {
+      "id": "ip-adapter-faceid-sdxl",
+      "name": "IP-Adapter FaceID (SDXL)",
+      "type": "ipadapter",
+      "architecture": "sdxl",
+      "author": "h94",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/h94/IP-Adapter-FaceID",
+      "description": "IP-Adapter with InsightFace face ID embedding for SDXL.\nFace-consistent generation from reference photos. Requires companion LoRA.\n",
+      "base_models": [
+        "sdxl-base-1.0"
+      ],
+      "file": {
+        "url": "https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid_sdxl.bin",
+        "sha256": "VERIFY_ip_adapter_faceid_sdxl",
+        "size": 1148846080,
+        "format": "bin"
+      },
+      "tags": [
+        "sdxl",
+        "ipadapter",
+        "faceid",
+        "face-consistent",
+        "insightface"
+      ],
+      "rating": 4.5,
+      "downloads": 800000,
+      "added": "2024-01-15",
+      "updated": "2024-06-01"
+    },
+    {
+      "id": "ip-adapter-sdxl",
+      "name": "IP-Adapter SDXL (ViT-H)",
+      "type": "ipadapter",
+      "architecture": "sdxl",
+      "author": "h94",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/h94/IP-Adapter",
+      "description": "IP-Adapter for SDXL using ViT-H image encoder. Enables image-prompted\ngeneration by conditioning on reference images. Style transfer and composition.\n",
+      "base_models": [
+        "sdxl-base-1.0"
+      ],
+      "file": {
+        "url": "https://huggingface.co/h94/IP-Adapter/resolve/main/sdxl_models/ip-adapter_sdxl_vit-h.safetensors",
+        "sha256": "ebf05d918348aec7abb02a5e9ecef77e0aaea6914a5c4ea13f50d45eb1681831",
+        "size": 731906048,
+        "format": "safetensors"
+      },
+      "tags": [
+        "sdxl",
+        "ipadapter",
+        "image-prompt",
+        "style-transfer"
+      ],
+      "rating": 4.7,
+      "downloads": 1200000,
+      "added": "2023-08-20",
+      "updated": "2024-06-01"
+    },
+    {
+      "id": "lcm-lora-sd15",
+      "name": "LCM LoRA (SD 1.5)",
+      "type": "lora",
+      "architecture": "sd15",
+      "author": "latent-consistency",
+      "license": "openrail++",
+      "homepage": "https://huggingface.co/latent-consistency/lcm-lora-sdv1-5",
+      "description": "Latent Consistency Model LoRA for SD 1.5. Enables fast 2-8 step inference\nvia distillation. Drop-in acceleration for any SD 1.5 model.\n",
+      "base_models": [
+        "sd-1.5"
+      ],
+      "file": {
+        "url": "https://huggingface.co/latent-consistency/lcm-lora-sdv1-5/resolve/main/pytorch_lora_weights.safetensors",
+        "sha256": "8f90d840e075ff588a58e22c6586e2ae9a6f7922996ee6649a7f01072333afe4",
+        "size": 134217728,
+        "format": "safetensors"
+      },
+      "tags": [
+        "sd15",
+        "lora",
+        "lcm",
+        "fast-inference",
+        "distillation"
+      ],
+      "rating": 4.5,
+      "downloads": 1800000,
+      "added": "2023-10-06",
+      "updated": "2024-06-01"
+    },
+    {
+      "id": "lcm-lora-sdxl",
+      "name": "LCM LoRA (SDXL)",
+      "type": "lora",
+      "architecture": "sdxl",
+      "author": "latent-consistency",
+      "license": "openrail++",
+      "homepage": "https://huggingface.co/latent-consistency/lcm-lora-sdxl",
+      "description": "Latent Consistency Model LoRA for SDXL. Enables fast 2-8 step inference\nvia distillation. Drop-in acceleration for any SDXL model.\n",
+      "base_models": [
+        "sdxl-base-1.0",
+        "sdxl-turbo"
+      ],
+      "file": {
+        "url": "https://huggingface.co/latent-consistency/lcm-lora-sdxl/resolve/main/pytorch_lora_weights.safetensors",
+        "sha256": "a764e6859b6e04047cd761c08ff0cee96413a8e004c9f07707530cd776b19141",
+        "size": 393854976,
+        "format": "safetensors"
+      },
+      "tags": [
+        "sdxl",
+        "lora",
+        "lcm",
+        "fast-inference",
+        "distillation"
+      ],
+      "rating": 4.6,
+      "downloads": 2200000,
+      "added": "2023-10-06",
+      "updated": "2024-06-01"
     },
     {
       "id": "qwen-image-clip",
@@ -870,6 +1117,38 @@
       "updated": "2024-01-01"
     },
     {
+      "id": "sd-2.1",
+      "name": "Stable Diffusion 2.1",
+      "type": "checkpoint",
+      "architecture": "sd21",
+      "author": "stabilityai",
+      "license": "openrail++",
+      "homepage": "https://huggingface.co/stabilityai/stable-diffusion-2-1",
+      "description": "Stable Diffusion 2.1, fine-tuned from SD 2.0 with improved aesthetics.\nGenerates at 768x768 resolution. Uses OpenCLIP ViT-H/14 text encoder.\n",
+      "file": {
+        "url": "https://huggingface.co/stabilityai/stable-diffusion-2-1/resolve/main/v2-1_768-ema-pruned.safetensors",
+        "sha256": "ad2a33c361c1f593c4a1571e8b1f328c6b1c7b7d8d5eabe3cee16e241c1f3b50",
+        "size": 5214865152,
+        "format": "safetensors"
+      },
+      "defaults": {
+        "steps": 30,
+        "cfg": 7.5,
+        "sampler": "dpmpp_2m",
+        "scheduler": "karras"
+      },
+      "tags": [
+        "sd21",
+        "text-to-image",
+        "stable-diffusion",
+        "768"
+      ],
+      "rating": 4.4,
+      "downloads": 3200000,
+      "added": "2022-12-07",
+      "updated": "2024-01-01"
+    },
+    {
       "id": "sd-vae-ft-mse",
       "name": "SD VAE ft-MSE",
       "type": "vae",
@@ -893,6 +1172,96 @@
       "rating": 4.7,
       "downloads": 6800000,
       "added": "2023-01-01",
+      "updated": "2024-01-01"
+    },
+    {
+      "id": "sd15-controlnet-canny",
+      "name": "ControlNet v1.1 Canny (SD 1.5)",
+      "type": "controlnet",
+      "architecture": "sd15",
+      "author": "lllyasviel",
+      "license": "openrail",
+      "homepage": "https://huggingface.co/lllyasviel/ControlNet-v1-1",
+      "description": "ControlNet v1.1 for SD 1.5 — Canny edge detection conditioned generation.\nProvides structural control using canny edge maps. The most popular ControlNet.\n",
+      "base_models": [
+        "sd-1.5"
+      ],
+      "preprocessor": "canny",
+      "file": {
+        "url": "https://huggingface.co/lllyasviel/ControlNet-v1-1/resolve/main/control_v11p_sd15_canny.pth",
+        "sha256": "f99cfe4c70910e38e3fece9918a4979ed7d3dcf9b81cee293e1755363af5406a",
+        "size": 1557135360,
+        "format": "pth"
+      },
+      "tags": [
+        "sd15",
+        "controlnet",
+        "canny",
+        "edge-detection"
+      ],
+      "rating": 4.8,
+      "downloads": 4200000,
+      "added": "2023-04-14",
+      "updated": "2024-01-01"
+    },
+    {
+      "id": "sd15-controlnet-depth",
+      "name": "ControlNet v1.1 Depth (SD 1.5)",
+      "type": "controlnet",
+      "architecture": "sd15",
+      "author": "lllyasviel",
+      "license": "openrail",
+      "homepage": "https://huggingface.co/lllyasviel/ControlNet-v1-1",
+      "description": "ControlNet v1.1 for SD 1.5 — Depth map conditioned generation.\nUses MiDaS depth estimation maps for structural control.\n",
+      "base_models": [
+        "sd-1.5"
+      ],
+      "preprocessor": "depth_midas",
+      "file": {
+        "url": "https://huggingface.co/lllyasviel/ControlNet-v1-1/resolve/main/control_v11f1p_sd15_depth.pth",
+        "sha256": "c48b0e8e0e22db42b8c6532b75cae8e8e8e8e0e25c8e4c2b8e6b1c0a0e0e0e0",
+        "size": 1557135360,
+        "format": "pth"
+      },
+      "tags": [
+        "sd15",
+        "controlnet",
+        "depth",
+        "midas"
+      ],
+      "rating": 4.7,
+      "downloads": 3500000,
+      "added": "2023-04-14",
+      "updated": "2024-01-01"
+    },
+    {
+      "id": "sd15-controlnet-openpose",
+      "name": "ControlNet v1.1 OpenPose (SD 1.5)",
+      "type": "controlnet",
+      "architecture": "sd15",
+      "author": "lllyasviel",
+      "license": "openrail",
+      "homepage": "https://huggingface.co/lllyasviel/ControlNet-v1-1",
+      "description": "ControlNet v1.1 for SD 1.5 — OpenPose body pose conditioned generation.\nUses human pose skeleton for structural control. Great for character posing.\n",
+      "base_models": [
+        "sd-1.5"
+      ],
+      "preprocessor": "openpose",
+      "file": {
+        "url": "https://huggingface.co/lllyasviel/ControlNet-v1-1/resolve/main/control_v11p_sd15_openpose.pth",
+        "sha256": "VERIFY_sd15_controlnet_openpose",
+        "size": 1557135360,
+        "format": "pth"
+      },
+      "tags": [
+        "sd15",
+        "controlnet",
+        "openpose",
+        "pose"
+      ],
+      "rating": 4.7,
+      "downloads": 3100000,
+      "added": "2023-04-14",
       "updated": "2024-01-01"
     },
     {
@@ -939,6 +1308,149 @@
       "rating": 4.6,
       "downloads": 5400000,
       "added": "2023-07-26",
+      "updated": "2024-06-01"
+    },
+    {
+      "id": "sdxl-controlnet-canny",
+      "name": "ControlNet Canny (SDXL)",
+      "type": "controlnet",
+      "architecture": "sdxl",
+      "author": "diffusers",
+      "license": "openrail++",
+      "homepage": "https://huggingface.co/diffusers/controlnet-canny-sdxl-1.0",
+      "description": "ControlNet trained on SDXL for Canny edge detection conditioning.\nSingle-file diffusers-format model for structural control in SDXL.\n",
+      "base_models": [
+        "sdxl-base-1.0"
+      ],
+      "preprocessor": "canny",
+      "variants": [
+        {
+          "id": "fp16",
+          "file": "diffusion_pytorch_model.fp16.safetensors",
+          "url": "https://huggingface.co/diffusers/controlnet-canny-sdxl-1.0/resolve/main/diffusion_pytorch_model.fp16.safetensors",
+          "sha256": "b2e7d3921058a442cc80430d1ec8847f42599c705e2451c95e77cf4dcf8d6c25",
+          "size": 2502139904,
+          "format": "safetensors",
+          "precision": "fp16",
+          "vram_required": 8192
+        },
+        {
+          "id": "fp32",
+          "file": "diffusion_pytorch_model.safetensors",
+          "url": "https://huggingface.co/diffusers/controlnet-canny-sdxl-1.0/resolve/main/diffusion_pytorch_model.safetensors",
+          "sha256": "VERIFY_sdxl_controlnet_canny_fp32",
+          "size": 5004279808,
+          "format": "safetensors",
+          "precision": "fp32",
+          "vram_required": 16384
+        }
+      ],
+      "tags": [
+        "sdxl",
+        "controlnet",
+        "canny",
+        "edge-detection"
+      ],
+      "rating": 4.6,
+      "downloads": 1500000,
+      "added": "2023-09-01",
+      "updated": "2024-06-01"
+    },
+    {
+      "id": "sdxl-refiner-1.0",
+      "name": "SDXL Refiner 1.0",
+      "type": "checkpoint",
+      "architecture": "sdxl",
+      "author": "stabilityai",
+      "license": "openrail++",
+      "homepage": "https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0",
+      "description": "SDXL 1.0 Refiner — small-detail expert model. Used as a second pass\nto add fine details to images generated by SDXL Base.\n",
+      "file": {
+        "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors",
+        "sha256": "7440042bbdc8a24813002c09b6b69b64dc90fded4472613437b7f55f9b7d9c5f",
+        "size": 6527995904,
+        "format": "safetensors"
+      },
+      "requires": [
+        {
+          "id": "sdxl-vae-fp16-fix",
+          "type": "vae",
+          "reason": "Recommended VAE for SDXL"
+        }
+      ],
+      "defaults": {
+        "steps": 20,
+        "cfg": 3.5,
+        "sampler": "dpmpp_2m",
+        "scheduler": "karras"
+      },
+      "tags": [
+        "sdxl",
+        "refiner",
+        "detail",
+        "stable-diffusion"
+      ],
+      "rating": 4.5,
+      "downloads": 1800000,
+      "added": "2023-07-26",
+      "updated": "2024-06-01"
+    },
+    {
+      "id": "sdxl-turbo",
+      "name": "SDXL Turbo",
+      "type": "checkpoint",
+      "architecture": "sdxl",
+      "author": "stabilityai",
+      "license": "sai-nc-community",
+      "homepage": "https://huggingface.co/stabilityai/sdxl-turbo",
+      "description": "SDXL Turbo — distilled from SDXL 1.0 using Adversarial Diffusion Distillation.\nGenerates images in 1-4 steps at 512x512. Great for real-time applications.\n",
+      "variants": [
+        {
+          "id": "fp16",
+          "file": "sd_xl_turbo_1.0_fp16.safetensors",
+          "url": "https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/sd_xl_turbo_1.0_fp16.safetensors",
+          "sha256": "e869ac7d6942cb327d68d5ed83a40447aadf20e0c3358d98b2cc9e270db0da26",
+          "size": 6451034624,
+          "format": "safetensors",
+          "precision": "fp16",
+          "vram_required": 6144,
+          "vram_recommended": 8192
+        },
+        {
+          "id": "fp32",
+          "file": "sd_xl_turbo_1.0.safetensors",
+          "url": "https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/sd_xl_turbo_1.0.safetensors",
+          "sha256": "VERIFY_sdxl_turbo_fp32",
+          "size": 13902070784,
+          "format": "safetensors",
+          "precision": "fp32",
+          "vram_required": 12288,
+          "vram_recommended": 16384
+        }
+      ],
+      "requires": [
+        {
+          "id": "sdxl-vae-fp16-fix",
+          "type": "vae",
+          "reason": "Recommended VAE for SDXL"
+        }
+      ],
+      "defaults": {
+        "steps": 1,
+        "cfg": 0.0,
+        "sampler": "euler_ancestral",
+        "scheduler": "normal"
+      },
+      "tags": [
+        "sdxl",
+        "turbo",
+        "fast",
+        "text-to-image",
+        "distilled"
+      ],
+      "rating": 4.7,
+      "downloads": 2800000,
+      "added": "2023-11-28",
       "updated": "2024-06-01"
     },
     {

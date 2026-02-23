@@ -1,0 +1,38 @@
+id: sdxl-controlnet-canny
+name: "ControlNet Canny (SDXL)"
+type: controlnet
+architecture: sdxl
+author: diffusers
+license: openrail++
+homepage: https://huggingface.co/diffusers/controlnet-canny-sdxl-1.0
+description: |
+  ControlNet trained on SDXL for Canny edge detection conditioning.
+  Single-file diffusers-format model for structural control in SDXL.
+
+base_models: [sdxl-base-1.0]
+preprocessor: canny
+
+variants:
+  - id: fp16
+    file: diffusion_pytorch_model.fp16.safetensors
+    url: https://huggingface.co/diffusers/controlnet-canny-sdxl-1.0/resolve/main/diffusion_pytorch_model.fp16.safetensors
+    sha256: "b2e7d3921058a442cc80430d1ec8847f42599c705e2451c95e77cf4dcf8d6c25"
+    size: 2502139904
+    format: safetensors
+    precision: fp16
+    vram_required: 8192
+
+  - id: fp32
+    file: diffusion_pytorch_model.safetensors
+    url: https://huggingface.co/diffusers/controlnet-canny-sdxl-1.0/resolve/main/diffusion_pytorch_model.safetensors
+    sha256: "VERIFY_sdxl_controlnet_canny_fp32"
+    size: 5004279808
+    format: safetensors
+    precision: fp32
+    vram_required: 16384
+
+tags: [sdxl, controlnet, canny, edge-detection]
+rating: 4.6
+downloads: 1500000
+added: "2023-09-01"
+updated: "2024-06-01"

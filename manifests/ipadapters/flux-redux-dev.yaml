@@ -1,0 +1,27 @@
+id: flux-redux-dev
+name: "FLUX.1 Redux Dev"
+type: ipadapter
+architecture: flux
+author: black-forest-labs
+license: flux-1-dev-non-commercial-license
+homepage: https://huggingface.co/black-forest-labs/FLUX.1-Redux-dev
+description: |
+  FLUX.1 Redux Dev — image variation adapter for FLUX. Takes image input and
+  generates variations, similar to IP-Adapter functionality. Gated model.
+
+auth:
+  provider: huggingface
+  gated: true
+  terms_url: https://huggingface.co/black-forest-labs/FLUX.1-Redux-dev
+
+file:
+  url: https://huggingface.co/black-forest-labs/FLUX.1-Redux-dev/resolve/main/flux1-redux-dev.safetensors
+  sha256: "VERIFY_flux_redux_dev"
+  size: 135266304
+  format: safetensors
+
+tags: [flux, ipadapter, image-variation, redux]
+rating: 4.6
+downloads: 320000
+added: "2024-10-01"
+updated: "2025-01-01"

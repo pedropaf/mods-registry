@@ -1,0 +1,48 @@
+id: sdxl-turbo
+name: "SDXL Turbo"
+type: checkpoint
+architecture: sdxl
+author: stabilityai
+license: sai-nc-community
+homepage: https://huggingface.co/stabilityai/sdxl-turbo
+description: |
+  SDXL Turbo — distilled from SDXL 1.0 using Adversarial Diffusion Distillation.
+  Generates images in 1-4 steps at 512x512. Great for real-time applications.
+
+variants:
+  - id: fp16
+    file: sd_xl_turbo_1.0_fp16.safetensors
+    url: https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/sd_xl_turbo_1.0_fp16.safetensors
+    sha256: "e869ac7d6942cb327d68d5ed83a40447aadf20e0c3358d98b2cc9e270db0da26"
+    size: 6451034624
+    format: safetensors
+    precision: fp16
+    vram_required: 6144
+    vram_recommended: 8192
+
+  - id: fp32
+    file: sd_xl_turbo_1.0.safetensors
+    url: https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/sd_xl_turbo_1.0.safetensors
+    sha256: "VERIFY_sdxl_turbo_fp32"
+    size: 13902070784
+    format: safetensors
+    precision: fp32
+    vram_required: 12288
+    vram_recommended: 16384
+
+requires:
+  - id: sdxl-vae-fp16-fix
+    type: vae
+    reason: "Recommended VAE for SDXL"
+
+defaults:
+  steps: 1
+  cfg: 0.0
+  sampler: euler_ancestral
+  scheduler: normal
+
+tags: [sdxl, turbo, fast, text-to-image, distilled]
+rating: 4.7
+downloads: 2800000
+added: "2023-11-28"
+updated: "2024-06-01"

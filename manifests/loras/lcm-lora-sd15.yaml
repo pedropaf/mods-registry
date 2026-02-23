@@ -1,0 +1,24 @@
+id: lcm-lora-sd15
+name: "LCM LoRA (SD 1.5)"
+type: lora
+architecture: sd15
+author: latent-consistency
+license: openrail++
+homepage: https://huggingface.co/latent-consistency/lcm-lora-sdv1-5
+description: |
+  Latent Consistency Model LoRA for SD 1.5. Enables fast 2-8 step inference
+  via distillation. Drop-in acceleration for any SD 1.5 model.
+
+base_models: [sd-1.5]
+
+file:
+  url: https://huggingface.co/latent-consistency/lcm-lora-sdv1-5/resolve/main/pytorch_lora_weights.safetensors
+  sha256: "8f90d840e075ff588a58e22c6586e2ae9a6f7922996ee6649a7f01072333afe4"
+  size: 134217728
+  format: safetensors
+
+tags: [sd15, lora, lcm, fast-inference, distillation]
+rating: 4.5
+downloads: 1800000
+added: "2023-10-06"
+updated: "2024-06-01"

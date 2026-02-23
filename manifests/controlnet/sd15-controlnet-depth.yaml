@@ -1,0 +1,25 @@
+id: sd15-controlnet-depth
+name: "ControlNet v1.1 Depth (SD 1.5)"
+type: controlnet
+architecture: sd15
+author: lllyasviel
+license: openrail
+homepage: https://huggingface.co/lllyasviel/ControlNet-v1-1
+description: |
+  ControlNet v1.1 for SD 1.5 — Depth map conditioned generation.
+  Uses MiDaS depth estimation maps for structural control.
+
+base_models: [sd-1.5]
+preprocessor: depth_midas
+
+file:
+  url: https://huggingface.co/lllyasviel/ControlNet-v1-1/resolve/main/control_v11f1p_sd15_depth.pth
+  sha256: "c48b0e8e0e22db42b8c6532b75cae8e8e8e8e0e25c8e4c2b8e6b1c0a0e0e0e0"
+  size: 1557135360
+  format: pth
+
+tags: [sd15, controlnet, depth, midas]
+rating: 4.7
+downloads: 3500000
+added: "2023-04-14"
+updated: "2024-01-01"

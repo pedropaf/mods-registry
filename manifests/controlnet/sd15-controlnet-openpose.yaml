@@ -1,0 +1,25 @@
+id: sd15-controlnet-openpose
+name: "ControlNet v1.1 OpenPose (SD 1.5)"
+type: controlnet
+architecture: sd15
+author: lllyasviel
+license: openrail
+homepage: https://huggingface.co/lllyasviel/ControlNet-v1-1
+description: |
+  ControlNet v1.1 for SD 1.5 — OpenPose body pose conditioned generation.
+  Uses human pose skeleton for structural control. Great for character posing.
+
+base_models: [sd-1.5]
+preprocessor: openpose
+
+file:
+  url: https://huggingface.co/lllyasviel/ControlNet-v1-1/resolve/main/control_v11p_sd15_openpose.pth
+  sha256: "VERIFY_sd15_controlnet_openpose"
+  size: 1557135360
+  format: pth
+
+tags: [sd15, controlnet, openpose, pose]
+rating: 4.7
+downloads: 3100000
+added: "2023-04-14"
+updated: "2024-01-01"

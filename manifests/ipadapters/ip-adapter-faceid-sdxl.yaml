@@ -1,0 +1,24 @@
+id: ip-adapter-faceid-sdxl
+name: "IP-Adapter FaceID (SDXL)"
+type: ipadapter
+architecture: sdxl
+author: h94
+license: apache-2.0
+homepage: https://huggingface.co/h94/IP-Adapter-FaceID
+description: |
+  IP-Adapter with InsightFace face ID embedding for SDXL.
+  Face-consistent generation from reference photos. Requires companion LoRA.
+
+base_models: [sdxl-base-1.0]
+
+file:
+  url: https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid_sdxl.bin
+  sha256: "VERIFY_ip_adapter_faceid_sdxl"
+  size: 1148846080
+  format: bin
+
+tags: [sdxl, ipadapter, faceid, face-consistent, insightface]
+rating: 4.5
+downloads: 800000
+added: "2024-01-15"
+updated: "2024-06-01"
