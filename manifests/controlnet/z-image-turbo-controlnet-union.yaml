@@ -1,0 +1,35 @@
+id: z-image-turbo-controlnet-union
+name: "Z-Image-Turbo Fun ControlNet Union"
+type: controlnet
+architecture: z-image
+author: alibaba-pai
+license: apache-2.0
+homepage: https://huggingface.co/alibaba-pai/Z-Image-Turbo-Fun-Controlnet-Union
+description: |
+  ControlNet union model for Z-Image-Turbo.
+  Supports Canny, HED, Depth, Pose, and MLSD control conditions.
+  Adjust control_context_scale (0.65–0.80) for best results.
+  Use with detailed prompts for better stability.
+  V2.0 with inpaint mode also available separately.
+
+file:
+  name: Z-Image-Turbo-Fun-Controlnet-Union.safetensors
+  url: https://huggingface.co/alibaba-pai/Z-Image-Turbo-Fun-Controlnet-Union/resolve/main/Z-Image-Turbo-Fun-Controlnet-Union.safetensors
+  sha256: "86c085c0d7853f12ce5183499934b54d08371c60f549c5a6b20615cd23989388"
+  size: 3328599040
+  format: safetensors
+
+requires:
+  - id: z-image-turbo
+    type: diffusion_model
+    reason: "Requires Z-Image-Turbo as the base diffusion model"
+
+tags:
+  - z-image
+  - controlnet
+  - canny
+  - depth
+  - pose
+  - comfyui
+
+rating: 4.6

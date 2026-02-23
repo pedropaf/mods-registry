@@ -17,7 +17,7 @@ variants:
   - id: edit-8step-v1
     file: Qwen-Image-Edit-Lightning-8steps-V1.0.safetensors
     url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-8steps-V1.0.safetensors
-    sha256: "VERIFY_qwen_lightning_edit_8s_v1"
+    sha256: "5910104f8922bd3fa359c675ba2a72681327f538cfa768eb33044055bd27a826"
     size: 1825361920
     format: safetensors
     precision: fp32
@@ -45,7 +45,7 @@ variants:
   - id: edit-4step-v1-bf16
     file: Qwen-Image-Edit-Lightning-4steps-V1.0-bf16.safetensors
     url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-4steps-V1.0-bf16.safetensors
-    sha256: "VERIFY_qwen_lightning_edit_4s_v1_bf16"
+    sha256: "d8132c32e7df906603dd6b072ff2fb0af88ab15ef0f3ac697a2011c8b47bbeb1"
     size: 912680960
     format: safetensors
     precision: bf16

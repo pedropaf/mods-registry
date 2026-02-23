@@ -12,7 +12,7 @@ description: |
 
 file:
   url: https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/main/diffusion_pytorch_model.safetensors
-  sha256: "VERIFY_sdxl_vae_fp16_fix"
+  sha256: "63aeecb90ff7bc1c115395962d3e803571385b61938377bc7089b36e81e92e2e"
   size: 334643268
   format: safetensors
 

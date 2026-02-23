@@ -12,7 +12,7 @@
       "scale_factor": 4,
       "file": {
         "url": "https://huggingface.co/Kim2091/UltraSharp/resolve/main/4x-UltraSharp.pth",
-        "sha256": "VERIFY_4x_ultrasharp",
+        "sha256": "a5812231fc936b42af08a5edba784195495d303d5b3248c24489ef0c4021fe01",
         "size": 66921375,
         "format": "pth"
       },
@@ -38,7 +38,7 @@
       "description": "High-quality background removal / image segmentation model.\nBiRefNet (Bilateral Reference Network) trained on DIS5K dataset for\ndichotomous image segmentation — excels at precise foreground/background separation.\nUsed in ComfyUI via ComfyUI_BiRefNet_ll custom node.\n",
       "file": {
         "url": "https://huggingface.co/ViperYX/BiRefNet/resolve/main/BiRefNet-DIS_ep580.pth",
-        "sha256": "VERIFY_birefnet_dis_ep580",
+        "sha256": "9b4510f31d72e41507a4b75c4e62206b1d7e2223e0125b29644acd4b142793b0",
         "size": 889192448,
         "format": "pth"
       },
@@ -93,7 +93,7 @@
       "description": "CLIP-L (Large) text encoder. Used as secondary text encoder by FLUX models\nalongside T5-XXL. Small and lightweight — 246 MB.\n",
       "file": {
         "url": "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors",
-        "sha256": "VERIFY_clip_l",
+        "sha256": "660c6f5b1abae9dc498ac2d21e1347d2abdb0cf6c0c0c8576cd796491d9a6cdd",
         "size": 246144152,
         "format": "safetensors"
       },
@@ -298,7 +298,7 @@
       "description": "The VAE used by all FLUX models. Required for FLUX.1 Dev and Schnell.\nSame file (ae.safetensors) is bundled in both the Dev and Schnell repos.\n",
       "file": {
         "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors",
-        "sha256": "VERIFY_flux_vae",
+        "sha256": "f5b59a26851551b67ae1fe58d32e76486e1e812def4696a4bea97f16604d40a3",
         "size": 335304388,
         "format": "safetensors"
       },
@@ -326,7 +326,7 @@
           "id": "fp8",
           "file": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
           "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors",
-          "sha256": "VERIFY_qwen_clip_fp8",
+          "sha256": "cb5636d852a0ea6a9075ab1bef496c0db7aef13c02350571e388aea959c5c0b4",
           "size": 10071982080,
           "format": "safetensors",
           "precision": "fp8-e4m3fn",
@@ -657,7 +657,7 @@
           "id": "edit-8step-v1",
           "file": "Qwen-Image-Edit-Lightning-8steps-V1.0.safetensors",
           "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-8steps-V1.0.safetensors",
-          "sha256": "VERIFY_qwen_lightning_edit_8s_v1",
+          "sha256": "5910104f8922bd3fa359c675ba2a72681327f538cfa768eb33044055bd27a826",
           "size": 1825361920,
           "format": "safetensors",
           "precision": "fp32",
@@ -687,7 +687,7 @@
           "id": "edit-4step-v1-bf16",
           "file": "Qwen-Image-Edit-Lightning-4steps-V1.0-bf16.safetensors",
           "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-4steps-V1.0-bf16.safetensors",
-          "sha256": "VERIFY_qwen_lightning_edit_4s_v1_bf16",
+          "sha256": "d8132c32e7df906603dd6b072ff2fb0af88ab15ef0f3ac697a2011c8b47bbeb1",
           "size": 912680960,
           "format": "safetensors",
           "precision": "bf16",
@@ -783,7 +783,7 @@
       "description": "VAE for the Qwen Image Edit pipeline. Single file, no variants.\nRequired by all Qwen Image Edit checkpoints.\n",
       "file": {
         "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/vae/qwen_image_vae.safetensors",
-        "sha256": "VERIFY_qwen_image_vae",
+        "sha256": "a70580f0213e67967ee9c95f05bb400e8fb08307e017a924bf3441223e023d1f",
         "size": 266338304,
         "format": "safetensors"
       },
@@ -808,7 +808,7 @@
       "scale_factor": 4,
       "file": {
         "url": "https://huggingface.co/ai-forever/Real-ESRGAN/resolve/main/RealESRGAN_x4.pth",
-        "sha256": "VERIFY_realesrgan_x4",
+        "sha256": "aa00f09ad753d88576b21ed977e97d634976377031b178acc3b5b238df463400",
         "size": 67040989,
         "format": "pth"
       },
@@ -909,7 +909,7 @@
           "id": "fp16",
           "file": "sd_xl_base_1.0.safetensors",
           "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors",
-          "sha256": "VERIFY_sdxl_base_fp16",
+          "sha256": "31e35c80fc4829d14f90153f4c74cd59c90b779f6afe05a74cd6120b893f7e5b",
           "size": 6938078334,
           "format": "safetensors",
           "precision": "fp16",
@@ -952,7 +952,7 @@
       "description": "Fixed SDXL VAE that works correctly in fp16 precision.\nThe original SDXL VAE produces NaN values in fp16 mode — this version\nfixes that issue. Recommended for all SDXL workflows.\n",
       "file": {
         "url": "https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/main/diffusion_pytorch_model.safetensors",
-        "sha256": "VERIFY_sdxl_vae_fp16_fix",
+        "sha256": "63aeecb90ff7bc1c115395962d3e803571385b61938377bc7089b36e81e92e2e",
         "size": 334643268,
         "format": "safetensors"
       },
@@ -1013,7 +1013,7 @@
           "id": "fp8",
           "file": "t5xxl_fp8_e4m3fn.safetensors",
           "url": "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors",
-          "sha256": "VERIFY_t5xxl_fp8",
+          "sha256": "7d330da4816157540d6bb7838bf63a0f02f573fc48ca4d8de34bb0cbfd514f09",
           "size": 4893843456,
           "format": "safetensors",
           "precision": "fp8-e4m3fn",
@@ -1032,6 +1032,301 @@
       "downloads": 1800000,
       "added": "2024-08-01",
       "updated": "2024-08-01"
+    },
+    {
+      "id": "z-image-text-encoder",
+      "name": "Z-Image Qwen 3 4B Text Encoder",
+      "type": "text_encoder",
+      "architecture": "qwen3",
+      "author": "Comfy-Org",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Comfy-Org/z_image_turbo",
+      "description": "Qwen 3 4B text encoder used by Z-Image-Turbo.\nAvailable in bf16 (full precision), fp8_mixed (reduced VRAM), and fp4_mixed (minimum VRAM).\nPlace in models/text_encoders/ and load with CLIPLoader node.\n",
+      "variants": [
+        {
+          "id": "bf16",
+          "file": "qwen_3_4b.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/text_encoders/qwen_3_4b.safetensors",
+          "sha256": "6c671498573ac2f7a5501502ccce8d2b08ea6ca2f661c458e708f36b36edfc5a",
+          "size": 8633139200,
+          "format": "safetensors",
+          "precision": "bf16",
+          "vram_required": 10240,
+          "vram_recommended": 12288,
+          "note": "Full precision bf16. Best quality text encoding."
+        },
+        {
+          "id": "fp8-mixed",
+          "file": "qwen_3_4b_fp8_mixed.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/text_encoders/qwen_3_4b_fp8_mixed.safetensors",
+          "sha256": "VERIFY_z_image_qwen3_4b_fp8_mixed",
+          "size": 6044237824,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 8192,
+          "vram_recommended": 10240,
+          "note": "Mixed fp8 quantization. Good quality with reduced VRAM."
+        },
+        {
+          "id": "fp4-mixed",
+          "file": "qwen_3_4b_fp4_mixed.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/text_encoders/qwen_3_4b_fp4_mixed.safetensors",
+          "sha256": "VERIFY_z_image_qwen3_4b_fp4_mixed",
+          "size": 3736076288,
+          "format": "safetensors",
+          "precision": "fp4",
+          "vram_required": 4096,
+          "vram_recommended": 6144,
+          "note": "Mixed fp4 quantization. Minimum VRAM, some quality reduction."
+        }
+      ],
+      "tags": [
+        "z-image",
+        "text-encoder",
+        "qwen3",
+        "comfyui"
+      ],
+      "rating": 4.8
+    },
+    {
+      "id": "z-image-turbo",
+      "name": "Z-Image-Turbo",
+      "type": "diffusion_model",
+      "architecture": "z-image",
+      "author": "Tongyi-MAI / Comfy-Org / jayn7",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Comfy-Org/z_image_turbo",
+      "description": "Distilled 6B parameter text-to-image model from Alibaba Tongyi Lab.\nUses Scalable Single-Stream DiT (S3-DiT) architecture for maximum parameter efficiency.\nSub-second inference latency on H800 GPUs, fits within 16GB VRAM consumer devices.\nOnly 8 NFEs (steps) needed. Use euler sampler, guidance_scale 0.0.\nExcels at photorealistic generation and accurate bilingual text rendering (English & Chinese).\nAvailable as native safetensors (bf16/nvfp4) or GGUF quantizations.\n",
+      "variants": [
+        {
+          "id": "bf16",
+          "file": "z_image_turbo_bf16.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/diffusion_models/z_image_turbo_bf16.safetensors",
+          "sha256": "2407613050b809ffdff18a4ac99af83ea6b95443ecebdf80e064a79c825574a6",
+          "size": 13207024640,
+          "format": "safetensors",
+          "precision": "bf16",
+          "vram_required": 16384,
+          "vram_recommended": 24576,
+          "note": "Full precision bf16. Best quality."
+        },
+        {
+          "id": "nvfp4",
+          "file": "z_image_turbo_nvfp4.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/diffusion_models/z_image_turbo_nvfp4.safetensors",
+          "sha256": "VERIFY_z_image_turbo_nvfp4",
+          "size": 4843151360,
+          "format": "safetensors",
+          "precision": "nvfp4",
+          "vram_required": 8192,
+          "vram_recommended": 12288,
+          "note": "NVIDIA fp4 quantization. Lower VRAM usage with minimal quality loss."
+        },
+        {
+          "id": "gguf-q8-0",
+          "file": "z_image_turbo-Q8_0.gguf",
+          "url": "https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q8_0.gguf",
+          "sha256": "f163d60b0eb427469510b8226243d196574a18139a2e40c017409cfbda95ecfe",
+          "size": 7755268096,
+          "format": "gguf",
+          "precision": "q8_0",
+          "vram_required": 10240,
+          "vram_recommended": 12288,
+          "note": "GGUF Q8_0 — best GGUF quality. Requires ComfyUI-GGUF custom node."
+        },
+        {
+          "id": "gguf-q6-k",
+          "file": "z_image_turbo-Q6_K.gguf",
+          "url": "https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q6_K.gguf",
+          "sha256": "fc137d87b49e06fdd5230d67d6c8cfa42a9e1fd38b65ccd355882450c3eb1c82",
+          "size": 6346129408,
+          "format": "gguf",
+          "precision": "q6_k",
+          "vram_required": 8192,
+          "vram_recommended": 10240,
+          "note": "GGUF Q6_K — good quality/size balance."
+        },
+        {
+          "id": "gguf-q5-k-m",
+          "file": "z_image_turbo-Q5_K_M.gguf",
+          "url": "https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q5_K_M.gguf",
+          "sha256": "VERIFY_z_image_gguf_q5_k_m",
+          "size": 5926789120,
+          "format": "gguf",
+          "precision": "q5_k_m",
+          "vram_required": 8192,
+          "vram_recommended": 10240,
+          "note": "GGUF Q5_K_M — recommended for 8GB+ GPUs."
+        },
+        {
+          "id": "gguf-q5-k-s",
+          "file": "z_image_turbo-Q5_K_S.gguf",
+          "url": "https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q5_K_S.gguf",
+          "sha256": "VERIFY_z_image_gguf_q5_k_s",
+          "size": 5572034560,
+          "format": "gguf",
+          "precision": "q5_k_s",
+          "vram_required": 8192,
+          "vram_recommended": 10240,
+          "note": "GGUF Q5_K_S — smaller Q5 variant."
+        },
+        {
+          "id": "gguf-q4-k-m",
+          "file": "z_image_turbo-Q4_K_M.gguf",
+          "url": "https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q4_K_M.gguf",
+          "sha256": "VERIFY_z_image_gguf_q4_k_m",
+          "size": 5346283520,
+          "format": "gguf",
+          "precision": "q4_k_m",
+          "vram_required": 6144,
+          "vram_recommended": 8192,
+          "note": "GGUF Q4_K_M — good for 8GB GPUs."
+        },
+        {
+          "id": "gguf-q4-k-s",
+          "file": "z_image_turbo-Q4_K_S.gguf",
+          "url": "https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q4_K_S.gguf",
+          "sha256": "VERIFY_z_image_gguf_q4_k_s",
+          "size": 5003804672,
+          "format": "gguf",
+          "precision": "q4_k_s",
+          "vram_required": 6144,
+          "vram_recommended": 8192,
+          "note": "GGUF Q4_K_S — smaller Q4 variant."
+        },
+        {
+          "id": "gguf-q3-k-m",
+          "file": "z_image_turbo-Q3_K_M.gguf",
+          "url": "https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q3_K_M.gguf",
+          "sha256": "VERIFY_z_image_gguf_q3_k_m",
+          "size": 4424990720,
+          "format": "gguf",
+          "precision": "q3_k_m",
+          "vram_required": 6144,
+          "vram_recommended": 8192,
+          "note": "GGUF Q3_K_M — for 6GB+ GPUs. Noticeable quality reduction."
+        },
+        {
+          "id": "gguf-q3-k-s",
+          "file": "z_image_turbo-Q3_K_S.gguf",
+          "url": "https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q3_K_S.gguf",
+          "sha256": "VERIFY_z_image_gguf_q3_k_s",
+          "size": 4069449728,
+          "format": "gguf",
+          "precision": "q3_k_s",
+          "vram_required": 6144,
+          "vram_recommended": 8192,
+          "note": "GGUF Q3_K_S — smaller Q3 variant."
+        }
+      ],
+      "requires": [
+        {
+          "id": "z-image-text-encoder",
+          "type": "text_encoder",
+          "reason": "Qwen 3 4B text encoder for prompt processing"
+        },
+        {
+          "id": "z-image-vae",
+          "type": "vae",
+          "reason": "Z-Image VAE for decoding latents to images"
+        }
+      ],
+      "recommended": {
+        "steps": 8,
+        "cfg": 0.0,
+        "sampler": "euler",
+        "scheduler": "simple"
+      },
+      "tags": [
+        "z-image",
+        "text-to-image",
+        "turbo",
+        "fast-inference",
+        "bilingual",
+        "comfyui",
+        "gguf"
+      ],
+      "rating": 4.9
+    },
+    {
+      "id": "z-image-turbo-controlnet-union",
+      "name": "Z-Image-Turbo Fun ControlNet Union",
+      "type": "controlnet",
+      "architecture": "z-image",
+      "author": "alibaba-pai",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/alibaba-pai/Z-Image-Turbo-Fun-Controlnet-Union",
+      "description": "ControlNet union model for Z-Image-Turbo.\nSupports Canny, HED, Depth, Pose, and MLSD control conditions.\nAdjust control_context_scale (0.65–0.80) for best results.\nUse with detailed prompts for better stability.\nV2.0 with inpaint mode also available separately.\n",
+      "file": {
+        "name": "Z-Image-Turbo-Fun-Controlnet-Union.safetensors",
+        "url": "https://huggingface.co/alibaba-pai/Z-Image-Turbo-Fun-Controlnet-Union/resolve/main/Z-Image-Turbo-Fun-Controlnet-Union.safetensors",
+        "sha256": "86c085c0d7853f12ce5183499934b54d08371c60f549c5a6b20615cd23989388",
+        "size": 3328599040,
+        "format": "safetensors"
+      },
+      "requires": [
+        {
+          "id": "z-image-turbo",
+          "type": "diffusion_model",
+          "reason": "Requires Z-Image-Turbo as the base diffusion model"
+        }
+      ],
+      "tags": [
+        "z-image",
+        "controlnet",
+        "canny",
+        "depth",
+        "pose",
+        "comfyui"
+      ],
+      "rating": 4.6
+    },
+    {
+      "id": "z-image-turbo-distill-lora",
+      "name": "Z-Image-Turbo Distill Patch LoRA",
+      "type": "lora",
+      "architecture": "z-image",
+      "author": "Comfy-Org",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Comfy-Org/z_image_turbo",
+      "description": "Distillation patch LoRA for Z-Image-Turbo.\nUsed to enable the base Z-Image model to run with fewer steps (turbo mode).\nApply via LoraLoader node with strength 1.0.\n",
+      "file": {
+        "name": "z_image_turbo_distill_patch_lora_bf16.safetensors",
+        "url": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/loras/z_image_turbo_distill_patch_lora_bf16.safetensors",
+        "sha256": "VERIFY_z_image_distill_lora",
+        "size": 166723584,
+        "format": "safetensors"
+      },
+      "tags": [
+        "z-image",
+        "lora",
+        "distillation",
+        "comfyui"
+      ],
+      "rating": 4.7
+    },
+    {
+      "id": "z-image-vae",
+      "name": "Z-Image VAE",
+      "type": "vae",
+      "architecture": "z-image",
+      "author": "Comfy-Org",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Comfy-Org/z_image_turbo",
+      "description": "VAE for Z-Image-Turbo. Decodes latents to images.\nPlace in models/vae/ and load with VAELoader node.\n",
+      "file": {
+        "name": "z-image-vae.safetensors",
+        "url": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/vae/ae.safetensors",
+        "sha256": "afc8e28272cd15db3919bacdb6918ce9c1ed22e96cb12c4d5ed0fba823529e38",
+        "size": 351272960,
+        "format": "safetensors"
+      },
+      "tags": [
+        "z-image",
+        "vae",
+        "comfyui"
+      ],
+      "rating": 5.0
     }
   ]
 }

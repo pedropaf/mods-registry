@@ -23,6 +23,7 @@ DEFAULT_OUTPUT = Path(__file__).parent.parent / "index.json"
 
 VALID_TYPES = {
     "checkpoint",
+    "diffusion_model",
     "lora",
     "vae",
     "text_encoder",
@@ -35,6 +36,7 @@ VALID_TYPES = {
 
 TYPE_DIR_MAP = {
     "checkpoints": "checkpoint",
+    "diffusion_models": "diffusion_model",
     "loras": "lora",
     "vae": "vae",
     "text_encoders": "text_encoder",

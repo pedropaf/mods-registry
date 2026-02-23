@@ -1,0 +1,26 @@
+id: z-image-turbo-distill-lora
+name: "Z-Image-Turbo Distill Patch LoRA"
+type: lora
+architecture: z-image
+author: Comfy-Org
+license: apache-2.0
+homepage: https://huggingface.co/Comfy-Org/z_image_turbo
+description: |
+  Distillation patch LoRA for Z-Image-Turbo.
+  Used to enable the base Z-Image model to run with fewer steps (turbo mode).
+  Apply via LoraLoader node with strength 1.0.
+
+file:
+  name: z_image_turbo_distill_patch_lora_bf16.safetensors
+  url: https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/loras/z_image_turbo_distill_patch_lora_bf16.safetensors
+  sha256: "VERIFY_z_image_distill_lora"
+  size: 166723584
+  format: safetensors
+
+tags:
+  - z-image
+  - lora
+  - distillation
+  - comfyui
+
+rating: 4.7

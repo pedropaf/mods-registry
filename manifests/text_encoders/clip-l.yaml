@@ -11,7 +11,7 @@ description: |
 
 file:
   url: https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors
-  sha256: "VERIFY_clip_l"
+  sha256: "660c6f5b1abae9dc498ac2d21e1347d2abdb0cf6c0c0c8576cd796491d9a6cdd"
   size: 246144152
   format: safetensors
 

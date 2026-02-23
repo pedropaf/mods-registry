@@ -13,7 +13,7 @@ variants:
   - id: fp16
     file: sd_xl_base_1.0.safetensors
     url: https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors
-    sha256: "VERIFY_sdxl_base_fp16"
+    sha256: "31e35c80fc4829d14f90153f4c74cd59c90b779f6afe05a74cd6120b893f7e5b"
     size: 6938078334
     format: safetensors
     precision: fp16

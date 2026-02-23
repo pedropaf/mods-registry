@@ -12,7 +12,7 @@ scale_factor: 4
 
 file:
   url: https://huggingface.co/Kim2091/UltraSharp/resolve/main/4x-UltraSharp.pth
-  sha256: "VERIFY_4x_ultrasharp"
+  sha256: "a5812231fc936b42af08a5edba784195495d303d5b3248c24489ef0c4021fe01"
   size: 66921375
   format: pth
 

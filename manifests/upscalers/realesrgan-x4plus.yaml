@@ -13,7 +13,7 @@ scale_factor: 4
 
 file:
   url: https://huggingface.co/ai-forever/Real-ESRGAN/resolve/main/RealESRGAN_x4.pth
-  sha256: "VERIFY_realesrgan_x4"
+  sha256: "aa00f09ad753d88576b21ed977e97d634976377031b178acc3b5b238df463400"
   size: 67040989
   format: pth
 

@@ -13,7 +13,7 @@ description: |
 
 file:
   url: https://huggingface.co/ViperYX/BiRefNet/resolve/main/BiRefNet-DIS_ep580.pth
-  sha256: "VERIFY_birefnet_dis_ep580"
+  sha256: "9b4510f31d72e41507a4b75c4e62206b1d7e2223e0125b29644acd4b142793b0"
   size: 889192448
   format: pth
 

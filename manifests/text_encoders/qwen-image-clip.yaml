@@ -14,7 +14,7 @@ variants:
   - id: fp8
     file: qwen_2.5_vl_7b_fp8_scaled.safetensors
     url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors
-    sha256: "VERIFY_qwen_clip_fp8"
+    sha256: "cb5636d852a0ea6a9075ab1bef496c0db7aef13c02350571e388aea959c5c0b4"
     size: 10071982080
     format: safetensors
     precision: fp8-e4m3fn

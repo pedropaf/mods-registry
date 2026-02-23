@@ -14,7 +14,7 @@ variants:
   - id: fp8
     file: t5xxl_fp8_e4m3fn.safetensors
     url: https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors
-    sha256: "VERIFY_t5xxl_fp8"
+    sha256: "7d330da4816157540d6bb7838bf63a0f02f573fc48ca4d8de34bb0cbfd514f09"
     size: 4893843456
     format: safetensors
     precision: fp8-e4m3fn

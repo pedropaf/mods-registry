@@ -1,0 +1,24 @@
+id: z-image-vae
+name: "Z-Image VAE"
+type: vae
+architecture: z-image
+author: Comfy-Org
+license: apache-2.0
+homepage: https://huggingface.co/Comfy-Org/z_image_turbo
+description: |
+  VAE for Z-Image-Turbo. Decodes latents to images.
+  Place in models/vae/ and load with VAELoader node.
+
+file:
+  name: z-image-vae.safetensors
+  url: https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/vae/ae.safetensors
+  sha256: "afc8e28272cd15db3919bacdb6918ce9c1ed22e96cb12c4d5ed0fba823529e38"
+  size: 351272960
+  format: safetensors
+
+tags:
+  - z-image
+  - vae
+  - comfyui
+
+rating: 5.0

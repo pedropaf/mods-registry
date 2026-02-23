@@ -1,0 +1,152 @@
+id: z-image-turbo
+name: "Z-Image-Turbo"
+type: diffusion_model
+architecture: z-image
+author: Tongyi-MAI / Comfy-Org / jayn7
+license: apache-2.0
+homepage: https://huggingface.co/Comfy-Org/z_image_turbo
+description: |
+  Distilled 6B parameter text-to-image model from Alibaba Tongyi Lab.
+  Uses Scalable Single-Stream DiT (S3-DiT) architecture for maximum parameter efficiency.
+  Sub-second inference latency on H800 GPUs, fits within 16GB VRAM consumer devices.
+  Only 8 NFEs (steps) needed. Use euler sampler, guidance_scale 0.0.
+  Excels at photorealistic generation and accurate bilingual text rendering (English & Chinese).
+  Available as native safetensors (bf16/nvfp4) or GGUF quantizations.
+
+variants:
+  # --- Native safetensors (Comfy-Org, loaded via UnetLoader) ---
+  - id: bf16
+    file: z_image_turbo_bf16.safetensors
+    url: https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/diffusion_models/z_image_turbo_bf16.safetensors
+    sha256: "2407613050b809ffdff18a4ac99af83ea6b95443ecebdf80e064a79c825574a6"
+    size: 13207024640
+    format: safetensors
+    precision: bf16
+    vram_required: 16384
+    vram_recommended: 24576
+    note: "Full precision bf16. Best quality."
+
+  - id: nvfp4
+    file: z_image_turbo_nvfp4.safetensors
+    url: https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/diffusion_models/z_image_turbo_nvfp4.safetensors
+    sha256: "VERIFY_z_image_turbo_nvfp4"
+    size: 4843151360
+    format: safetensors
+    precision: nvfp4
+    vram_required: 8192
+    vram_recommended: 12288
+    note: "NVIDIA fp4 quantization. Lower VRAM usage with minimal quality loss."
+
+  # --- GGUF quantizations (jayn7, requires ComfyUI-GGUF custom node) ---
+  - id: gguf-q8-0
+    file: z_image_turbo-Q8_0.gguf
+    url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q8_0.gguf
+    sha256: "f163d60b0eb427469510b8226243d196574a18139a2e40c017409cfbda95ecfe"
+    size: 7755268096
+    format: gguf
+    precision: q8_0
+    vram_required: 10240
+    vram_recommended: 12288
+    note: "GGUF Q8_0 — best GGUF quality. Requires ComfyUI-GGUF custom node."
+
+  - id: gguf-q6-k
+    file: z_image_turbo-Q6_K.gguf
+    url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q6_K.gguf
+    sha256: "fc137d87b49e06fdd5230d67d6c8cfa42a9e1fd38b65ccd355882450c3eb1c82"
+    size: 6346129408
+    format: gguf
+    precision: q6_k
+    vram_required: 8192
+    vram_recommended: 10240
+    note: "GGUF Q6_K — good quality/size balance."
+
+  - id: gguf-q5-k-m
+    file: z_image_turbo-Q5_K_M.gguf
+    url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q5_K_M.gguf
+    sha256: "VERIFY_z_image_gguf_q5_k_m"
+    size: 5926789120
+    format: gguf
+    precision: q5_k_m
+    vram_required: 8192
+    vram_recommended: 10240
+    note: "GGUF Q5_K_M — recommended for 8GB+ GPUs."
+
+  - id: gguf-q5-k-s
+    file: z_image_turbo-Q5_K_S.gguf
+    url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q5_K_S.gguf
+    sha256: "VERIFY_z_image_gguf_q5_k_s"
+    size: 5572034560
+    format: gguf
+    precision: q5_k_s
+    vram_required: 8192
+    vram_recommended: 10240
+    note: "GGUF Q5_K_S — smaller Q5 variant."
+
+  - id: gguf-q4-k-m
+    file: z_image_turbo-Q4_K_M.gguf
+    url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q4_K_M.gguf
+    sha256: "VERIFY_z_image_gguf_q4_k_m"
+    size: 5346283520
+    format: gguf
+    precision: q4_k_m
+    vram_required: 6144
+    vram_recommended: 8192
+    note: "GGUF Q4_K_M — good for 8GB GPUs."
+
+  - id: gguf-q4-k-s
+    file: z_image_turbo-Q4_K_S.gguf
+    url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q4_K_S.gguf
+    sha256: "VERIFY_z_image_gguf_q4_k_s"
+    size: 5003804672
+    format: gguf
+    precision: q4_k_s
+    vram_required: 6144
+    vram_recommended: 8192
+    note: "GGUF Q4_K_S — smaller Q4 variant."
+
+  - id: gguf-q3-k-m
+    file: z_image_turbo-Q3_K_M.gguf
+    url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q3_K_M.gguf
+    sha256: "VERIFY_z_image_gguf_q3_k_m"
+    size: 4424990720
+    format: gguf
+    precision: q3_k_m
+    vram_required: 6144
+    vram_recommended: 8192
+    note: "GGUF Q3_K_M — for 6GB+ GPUs. Noticeable quality reduction."
+
+  - id: gguf-q3-k-s
+    file: z_image_turbo-Q3_K_S.gguf
+    url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q3_K_S.gguf
+    sha256: "VERIFY_z_image_gguf_q3_k_s"
+    size: 4069449728
+    format: gguf
+    precision: q3_k_s
+    vram_required: 6144
+    vram_recommended: 8192
+    note: "GGUF Q3_K_S — smaller Q3 variant."
+
+requires:
+  - id: z-image-text-encoder
+    type: text_encoder
+    reason: "Qwen 3 4B text encoder for prompt processing"
+  - id: z-image-vae
+    type: vae
+    reason: "Z-Image VAE for decoding latents to images"
+
+recommended:
+  steps: 8
+  cfg: 0.0
+  sampler: euler
+  scheduler: simple
+
+tags:
+  - z-image
+  - text-to-image
+  - turbo
+  - fast-inference
+  - bilingual
+  - comfyui
+  - gguf
+
+rating: 4.9
