@@ -2,7 +2,7 @@ id: flux2-klein-4b
 name: "FLUX.2 Klein 4B"
 type: diffusion_model
 architecture: flux2
-author: black-forest-labs / Comfy-Org
+author: black-forest-labs / Comfy-Org / unsloth
 license: flux-2-klein-non-commercial
 homepage: https://huggingface.co/Comfy-Org/flux2-klein-4B
 description: |
@@ -35,6 +35,83 @@ variants:
     vram_recommended: 12288
     note: "Undistilled base. Better for fine-tuning and maximum flexibility."
 
+  - id: bf16
+    file: flux-2-klein-4b-BF16.gguf
+    url: https://huggingface.co/unsloth/FLUX.2-klein-4B-GGUF/resolve/main/flux-2-klein-4b-BF16.gguf
+    sha256: "45e92cdad39270a6b4c6055daad75f5817c5ec81a93a7622082342b45e26a53c"
+    size: 7751115328
+    format: gguf
+    precision: bf16
+    vram_required: 10240
+    vram_recommended: 12288
+    note: "Full precision bf16 GGUF. Best quality."
+
+  - id: gguf-q8-0
+    file: flux-2-klein-4b-Q8_0.gguf
+    url: https://huggingface.co/unsloth/FLUX.2-klein-4B-GGUF/resolve/main/flux-2-klein-4b-Q8_0.gguf
+    sha256: "24a812e8f9b640e21c784164ea48571d8017ca22873696f4badeeabb006d509c"
+    size: 4300644928
+    format: gguf
+    precision: q8_0
+    vram_required: 6144
+    vram_recommended: 8192
+    note: "GGUF Q8_0 — highest quality quantization."
+
+  - id: gguf-q6-k
+    file: flux-2-klein-4b-Q6_K.gguf
+    url: https://huggingface.co/unsloth/FLUX.2-klein-4B-GGUF/resolve/main/flux-2-klein-4b-Q6_K.gguf
+    sha256: "fb3b5430d9229f982616c7db084deff1db5035d0cb6558f2d4f704cfe5e609e2"
+    size: 3409273408
+    format: gguf
+    precision: q6_k
+    vram_required: 6144
+    vram_recommended: 8192
+    note: "GGUF Q6_K — very good quality/size balance."
+
+  - id: gguf-q5-k-m
+    file: flux-2-klein-4b-Q5_K_M.gguf
+    url: https://huggingface.co/unsloth/FLUX.2-klein-4B-GGUF/resolve/main/flux-2-klein-4b-Q5_K_M.gguf
+    sha256: "58c01c75fee2272eadb127f53e26dd05a5a8e7f812e37c36fa44603301f91e54"
+    size: 3073368640
+    format: gguf
+    precision: q5_k_m
+    vram_required: 6144
+    vram_recommended: 8192
+    note: "GGUF Q5_K_M — recommended for 8GB GPUs."
+
+  - id: gguf-q4-k-m
+    file: flux-2-klein-4b-Q4_K_M.gguf
+    url: https://huggingface.co/unsloth/FLUX.2-klein-4B-GGUF/resolve/main/flux-2-klein-4b-Q4_K_M.gguf
+    sha256: "0b25d143c8469b342bc5af3bce92b783bf6b0636d285f7b2f75e38af63af9a15"
+    size: 2604311104
+    format: gguf
+    precision: q4_k_m
+    vram_required: 4096
+    vram_recommended: 6144
+    note: "GGUF Q4_K_M — good for 6GB GPUs."
+
+  - id: gguf-q3-k-m
+    file: flux-2-klein-4b-Q3_K_M.gguf
+    url: https://huggingface.co/unsloth/FLUX.2-klein-4B-GGUF/resolve/main/flux-2-klein-4b-Q3_K_M.gguf
+    sha256: "0f27104f7b5842b7bfd5909645c60208cbb6b8d43f5d65f58b085f45ed18c9e1"
+    size: 2124489280
+    format: gguf
+    precision: q3_k_m
+    vram_required: 4096
+    vram_recommended: 6144
+    note: "GGUF Q3_K_M — for 6GB GPUs. Some quality loss."
+
+  - id: gguf-q2-k
+    file: flux-2-klein-4b-Q2_K.gguf
+    url: https://huggingface.co/unsloth/FLUX.2-klein-4B-GGUF/resolve/main/flux-2-klein-4b-Q2_K.gguf
+    sha256: "681423838cec5788fb2d6227a2d79a254f72cebba75806811fb408181970eaef"
+    size: 1827807808
+    format: gguf
+    precision: q2_k
+    vram_required: 4096
+    vram_recommended: 6144
+    note: "GGUF Q2_K — smallest, noticeable quality loss."
+
 requires:
   - id: flux2-vae
     type: vae
@@ -60,10 +137,11 @@ tags:
   - text-to-image
   - image-editing
   - fast-inference
+  - gguf
   - 4b
   - comfyui
 
 rating: 4.8
 downloads: 0
 added: "2025-07-01"
-updated: "2025-07-01"
+updated: "2026-02-23"

@@ -2,17 +2,40 @@ id: flux2-klein-9b
 name: "FLUX.2 Klein 9B"
 type: diffusion_model
 architecture: flux
-author: unsloth / shimmyshimmer
+author: black-forest-labs / unsloth
 license: flux-2-klein-non-commercial
 homepage: https://huggingface.co/unsloth/FLUX.2-klein-9B-GGUF
 description: |
-  FLUX.2 Klein 9B from Unsloth, available as GGUF quantizations.
+  FLUX.2 Klein 9B — mid-size model in the FLUX.2 Klein family.
   Successor to FLUX.1 with improved image quality and editing capabilities.
   Supports text-to-image and image editing workflows.
   Uses FLUX.2 VAE and Qwen 3 8B text encoder.
+  Available as BFL fp8 safetensors (distilled + base) and GGUF quantizations.
   Requires ComfyUI-GGUF custom node for GGUF variants.
 
 variants:
+  - id: distilled-fp8
+    file: flux-2-klein-9b-fp8.safetensors
+    url: https://huggingface.co/black-forest-labs/FLUX.2-klein-9b-fp8/resolve/main/flux-2-klein-9b-fp8.safetensors
+    sha256: "865ba09f5b4c3cbd3468a4bd3acb9fcb2f8740c54317482f0bcd4ed1d3655cee"
+    size: 9433061528
+    format: safetensors
+    precision: fp8
+    vram_required: 12288
+    vram_recommended: 16384
+    note: "4-step distilled fp8 from BFL. Fast inference."
+
+  - id: base-fp8
+    file: flux-2-klein-base-9b-fp8.safetensors
+    url: https://huggingface.co/black-forest-labs/FLUX.2-klein-base-9b-fp8/resolve/main/flux-2-klein-base-9b-fp8.safetensors
+    sha256: "a9f5028c24a7a96f4f45beb883aad287d9bccc246227a6803edc898ddda42cf4"
+    size: 9567278472
+    format: safetensors
+    precision: fp8
+    vram_required: 14336
+    vram_recommended: 16384
+    note: "Undistilled base fp8 from BFL. Better for fine-tuning."
+
   - id: bf16
     file: flux-2-klein-9b-BF16.gguf
     url: https://huggingface.co/unsloth/FLUX.2-klein-9B-GGUF/resolve/main/flux-2-klein-9b-BF16.gguf
@@ -175,7 +198,7 @@ tags:
 rating: 4.7
 downloads: 0
 added: "2025-07-01"
-updated: "2025-07-01"
+updated: "2026-02-23"
 
 preview_images:
   - https://huggingface.co/unsloth/FLUX.2-klein-9B-GGUF/resolve/main/assets/flux2klein9b.png

@@ -2,7 +2,7 @@ id: flux2-dev
 name: "FLUX.2 Dev"
 type: diffusion_model
 architecture: flux2
-author: black-forest-labs / Comfy-Org
+author: black-forest-labs / Comfy-Org / unsloth
 license: flux-2-dev-non-commercial
 homepage: https://huggingface.co/Comfy-Org/flux2-dev
 description: |
@@ -24,6 +24,83 @@ variants:
     vram_required: 12288
     vram_recommended: 16384
     note: "fp8 mixed precision quantization from Comfy-Org."
+
+  - id: bf16
+    file: flux2-dev-BF16.gguf
+    url: https://huggingface.co/unsloth/FLUX.2-dev-GGUF/resolve/main/flux2-dev-BF16.gguf
+    sha256: "98cdfcb10d6ed5a860f7169fb234138560cda4af158a70848d155d203f0acac4"
+    size: 64446616544
+    format: gguf
+    precision: bf16
+    vram_required: 65536
+    vram_recommended: 65536
+    note: "Full precision bf16 GGUF. Best quality, requires high-end GPU."
+
+  - id: gguf-q8-0
+    file: flux2-dev-Q8_0.gguf
+    url: https://huggingface.co/unsloth/FLUX.2-dev-GGUF/resolve/main/flux2-dev-Q8_0.gguf
+    sha256: "09d005300dd8dcbbd489bb75ada6254145c84c2c9c3d7cc1829e3c5dedcb42ce"
+    size: 35002602464
+    format: gguf
+    precision: q8_0
+    vram_required: 36864
+    vram_recommended: 40960
+    note: "GGUF Q8_0 — highest quality quantization."
+
+  - id: gguf-q6-k
+    file: flux2-dev-Q6_K.gguf
+    url: https://huggingface.co/unsloth/FLUX.2-dev-GGUF/resolve/main/flux2-dev-Q6_K.gguf
+    sha256: "0a662e0303d65b7da4741c7bc54bbccd4d7fc17b23e71ced36d177467f4a0ef1"
+    size: 27396232160
+    format: gguf
+    precision: q6_k
+    vram_required: 28672
+    vram_recommended: 32768
+    note: "GGUF Q6_K — very good quality/size balance."
+
+  - id: gguf-q5-k-m
+    file: flux2-dev-Q5_K_M.gguf
+    url: https://huggingface.co/unsloth/FLUX.2-dev-GGUF/resolve/main/flux2-dev-Q5_K_M.gguf
+    sha256: "da8438ae213aa141cec9803551af576abb678715a2d92c9a14712c8692f9908d"
+    size: 23926887392
+    format: gguf
+    precision: q5_k_m
+    vram_required: 24576
+    vram_recommended: 28672
+    note: "GGUF Q5_K_M — recommended for 24GB+ GPUs."
+
+  - id: gguf-q4-k-m
+    file: flux2-dev-Q4_K_M.gguf
+    url: https://huggingface.co/unsloth/FLUX.2-dev-GGUF/resolve/main/flux2-dev-Q4_K_M.gguf
+    sha256: "5f7ac6649e2f5e21a49a6f83931a67530bd887e2d34379c3da1d0f0406501de1"
+    size: 19959731168
+    format: gguf
+    precision: q4_k_m
+    vram_required: 20480
+    vram_recommended: 24576
+    note: "GGUF Q4_K_M — good for 24GB GPUs."
+
+  - id: gguf-q3-k-m
+    file: flux2-dev-Q3_K_M.gguf
+    url: https://huggingface.co/unsloth/FLUX.2-dev-GGUF/resolve/main/flux2-dev-Q3_K_M.gguf
+    sha256: "f7bff7c167402f917cdb77c0c619a833415233f2739c67501abc01003e44f57a"
+    size: 15829783520
+    format: gguf
+    precision: q3_k_m
+    vram_required: 16384
+    vram_recommended: 20480
+    note: "GGUF Q3_K_M — for 16GB GPUs. Some quality loss."
+
+  - id: gguf-q2-k
+    file: flux2-dev-Q2_K.gguf
+    url: https://huggingface.co/unsloth/FLUX.2-dev-GGUF/resolve/main/flux2-dev-Q2_K.gguf
+    sha256: "fcbae186d445c80b216387bb596179813f5c9d480e22c820750b6a04be1fb20d"
+    size: 12858250208
+    format: gguf
+    precision: q2_k
+    vram_required: 14336
+    vram_recommended: 16384
+    note: "GGUF Q2_K — smallest, noticeable quality loss."
 
 requires:
   - id: flux2-vae
@@ -50,10 +127,11 @@ tags:
   - high-quality
   - photorealistic
   - multi-reference
+  - gguf
   - bfl
   - comfyui
 
 rating: 4.9
 downloads: 0
 added: "2025-07-01"
-updated: "2025-07-01"
+updated: "2026-02-23"
