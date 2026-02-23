@@ -23,7 +23,7 @@ variants:
   - id: fp32
     file: sd_xl_turbo_1.0.safetensors
     url: https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/sd_xl_turbo_1.0.safetensors
-    sha256: "VERIFY_sdxl_turbo_fp32"
+    sha256: "d1bc2e4175e6ed0d0e8de98c42671384b8467b9bbdbcf558b4df66a427823d74"
     size: 13902070784
     format: safetensors
     precision: fp32

@@ -14,7 +14,7 @@ variants:
   - id: fp16
     file: t5xxl_fp16.safetensors
     url: https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors
-    sha256: "VERIFY_t5xxl_fp16"
+    sha256: "eb88d1baeef3a46f6b723f62a69e91a116a34c60b0c0a32c9571d43551615213"
     size: 9787849216
     format: safetensors
     precision: fp16

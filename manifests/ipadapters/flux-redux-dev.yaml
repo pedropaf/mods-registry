@@ -16,8 +16,8 @@ auth:
 
 file:
   url: https://huggingface.co/black-forest-labs/FLUX.1-Redux-dev/resolve/main/flux1-redux-dev.safetensors
-  sha256: "VERIFY_flux_redux_dev"
-  size: 135266304
+  sha256: "a1b3bdcb4bdc58ce04874b9ca776d61fc3e914bb6beab41efb63e4e2694dca45"
+  size: 129063232
   format: safetensors
 
 tags: [flux, ipadapter, image-variation, redux]

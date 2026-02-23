@@ -16,8 +16,8 @@ auth:
 
 file:
   url: https://huggingface.co/black-forest-labs/FLUX.1-Fill-dev/resolve/main/flux1-fill-dev.safetensors
-  sha256: "VERIFY_flux_fill_dev"
-  size: 23800000000
+  sha256: "03e289f530df51d014f48e675a9ffa2141bc003259bf5f25d75b957e920a41ca"
+  size: 23804922408
   format: safetensors
 
 requires:

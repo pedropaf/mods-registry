@@ -11,7 +11,7 @@ description: |
 
 file:
   url: https://huggingface.co/Comfy-Org/flux2-dev/resolve/main/split_files/text_encoders/mistral_3_small_flux2_bf16.safetensors
-  sha256: "VERIFY_flux2_mistral"
+  sha256: "a8711134ac2d06dd36b03914220ee54a43e7dd9a23eecbeca25107d78eed3382"
   size: 24000000000
   format: safetensors
 

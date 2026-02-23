@@ -11,7 +11,7 @@ description: |
 
 file:
   url: https://huggingface.co/Comfy-Org/flux2-klein-9B/resolve/main/split_files/text_encoders/qwen_3_8b_fp8mixed.safetensors
-  sha256: "VERIFY_flux2_qwen3_8b"
+  sha256: "334d028c0191eb19d32a26f45a2e426d0a33284b33d5da5595f402c206419105"
   size: 8500000000
   format: safetensors
 

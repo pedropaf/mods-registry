@@ -16,7 +16,7 @@ variants:
   - id: distilled-fp8
     file: flux-2-klein-4b-fp8.safetensors
     url: https://huggingface.co/black-forest-labs/FLUX.2-klein-4b-fp8/resolve/main/flux-2-klein-4b-fp8.safetensors
-    sha256: "VERIFY_flux2_klein_4b_distilled_fp8"
+    sha256: "15005cf50d1361f75c61f7d213d7969063e2aaea7523beefe5d1e085d173568d"
     size: 4500000000
     format: safetensors
     precision: fp8
@@ -27,7 +27,7 @@ variants:
   - id: base-fp8
     file: flux-2-klein-base-4b-fp8.safetensors
     url: https://huggingface.co/black-forest-labs/FLUX.2-klein-base-4b-fp8/resolve/main/flux-2-klein-base-4b-fp8.safetensors
-    sha256: "VERIFY_flux2_klein_4b_base_fp8"
+    sha256: "14cf50adf6e3837c4454b79520a5c73a8977bce4a7bb210eeb910ce59acbb83d"
     size: 4500000000
     format: safetensors
     precision: fp8

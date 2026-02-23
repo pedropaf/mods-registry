@@ -26,7 +26,7 @@ variants:
   - id: edit-8step-v1-bf16
     file: Qwen-Image-Edit-Lightning-8steps-V1.0-bf16.safetensors
     url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-8steps-V1.0-bf16.safetensors
-    sha256: "VERIFY_qwen_lightning_edit_8s_v1_bf16"
+    sha256: "10b750b221b36c9d9f3a3d693f0489714a63b7ba84c45606de5c96ed367156d7"
     size: 912680960
     format: safetensors
     precision: bf16
@@ -36,7 +36,7 @@ variants:
   - id: edit-4step-v1
     file: Qwen-Image-Edit-Lightning-4steps-V1.0.safetensors
     url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-4steps-V1.0.safetensors
-    sha256: "VERIFY_qwen_lightning_edit_4s_v1"
+    sha256: "376a95559695f41bfa97349f6232e78193e05d404cc507c2cdfdaae58632bb4b"
     size: 1825361920
     format: safetensors
     precision: fp32
@@ -55,7 +55,7 @@ variants:
   - id: gen-8step-v2
     file: Qwen-Image-Lightning-8steps-V2.0.safetensors
     url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V2.0.safetensors
-    sha256: "VERIFY_qwen_lightning_gen_8s_v2"
+    sha256: "47e96584c92ce971dc3e3db8626e065d2765924f29c637ccbdac79adc1d2c562"
     size: 1825361920
     format: safetensors
     precision: fp32
@@ -64,7 +64,7 @@ variants:
   - id: gen-8step-v2-bf16
     file: Qwen-Image-Lightning-8steps-V2.0-bf16.safetensors
     url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V2.0-bf16.safetensors
-    sha256: "VERIFY_qwen_lightning_gen_8s_v2_bf16"
+    sha256: "4d8ffbd8c5ddc8637cf7b1e1e987ffb58b9146b972d09ce2002f3f29cf6fc17d"
     size: 912680960
     format: safetensors
     precision: bf16
@@ -74,7 +74,7 @@ variants:
   - id: gen-4step-v2
     file: Qwen-Image-Lightning-4steps-V2.0.safetensors
     url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V2.0.safetensors
-    sha256: "VERIFY_qwen_lightning_gen_4s_v2"
+    sha256: "d06a178e7f47d4f6127284815bf93fc152f6c420a9c8ae370ec7d213f244a535"
     size: 1825361920
     format: safetensors
     precision: fp32
@@ -83,7 +83,7 @@ variants:
   - id: gen-4step-v2-bf16
     file: Qwen-Image-Lightning-4steps-V2.0-bf16.safetensors
     url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V2.0-bf16.safetensors
-    sha256: "VERIFY_qwen_lightning_gen_4s_v2_bf16"
+    sha256: "e8ca961a24c5dd7744eb0c8c2af152ce9b366f8cfabdaaca96d72acbca868f5d"
     size: 912680960
     format: safetensors
     precision: bf16
@@ -93,7 +93,7 @@ variants:
   - id: fp8-gen-4step-v1-bf16
     file: Qwen-Image-fp8-e4m3fn-Lightning-4steps-V1.0-bf16.safetensors
     url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-fp8-e4m3fn-Lightning-4steps-V1.0-bf16.safetensors
-    sha256: "VERIFY_qwen_lightning_fp8_4s_v1_bf16"
+    sha256: "a900d5b842a25451fbdd14361cf730a0870f2df5221cbadee855ff3ac91a7bdc"
     size: 912680960
     format: safetensors
     precision: bf16
@@ -102,7 +102,7 @@ variants:
   - id: fp8-gen-4step-v1-fp32
     file: Qwen-Image-fp8-e4m3fn-Lightning-4steps-V1.0-fp32.safetensors
     url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-fp8-e4m3fn-Lightning-4steps-V1.0-fp32.safetensors
-    sha256: "VERIFY_qwen_lightning_fp8_4s_v1_fp32"
+    sha256: "acafb9d389bb2ec78d94276da4ff2897ecc7436bef283d81d041199a03a17e03"
     size: 1825361920
     format: safetensors
     precision: fp32

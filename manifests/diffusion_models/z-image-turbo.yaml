@@ -29,7 +29,7 @@ variants:
   - id: nvfp4
     file: z_image_turbo_nvfp4.safetensors
     url: https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/diffusion_models/z_image_turbo_nvfp4.safetensors
-    sha256: "VERIFY_z_image_turbo_nvfp4"
+    sha256: "6eabbfe5ae5a0c9b22cefffc83d5968f9f1ee77d68f32defe179ee7603e1470e"
     size: 4843151360
     format: safetensors
     precision: nvfp4
@@ -63,7 +63,7 @@ variants:
   - id: gguf-q5-k-m
     file: z_image_turbo-Q5_K_M.gguf
     url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q5_K_M.gguf
-    sha256: "VERIFY_z_image_gguf_q5_k_m"
+    sha256: "ea1b2f30b28fd52c73e631f0823494bf013f642d937e0ee1bdec4c1f1abc0103"
     size: 5926789120
     format: gguf
     precision: q5_k_m
@@ -74,7 +74,7 @@ variants:
   - id: gguf-q5-k-s
     file: z_image_turbo-Q5_K_S.gguf
     url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q5_K_S.gguf
-    sha256: "VERIFY_z_image_gguf_q5_k_s"
+    sha256: "f00f7063d0d300cb9efbe82764edae2e956b34cd65220faa5f56cafff03065b5"
     size: 5572034560
     format: gguf
     precision: q5_k_s
@@ -85,7 +85,7 @@ variants:
   - id: gguf-q4-k-m
     file: z_image_turbo-Q4_K_M.gguf
     url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q4_K_M.gguf
-    sha256: "VERIFY_z_image_gguf_q4_k_m"
+    sha256: "8e2673db987bdc9248c336053ee773fb454eea3d3ef551b639f19812b6273503"
     size: 5346283520
     format: gguf
     precision: q4_k_m
@@ -96,7 +96,7 @@ variants:
   - id: gguf-q4-k-s
     file: z_image_turbo-Q4_K_S.gguf
     url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q4_K_S.gguf
-    sha256: "VERIFY_z_image_gguf_q4_k_s"
+    sha256: "49cdba8a5db6ab01b8bed5fbb6796eacb83ed68cc2cc6f446d6bb0ec5fba982a"
     size: 5003804672
     format: gguf
     precision: q4_k_s
@@ -107,7 +107,7 @@ variants:
   - id: gguf-q3-k-m
     file: z_image_turbo-Q3_K_M.gguf
     url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q3_K_M.gguf
-    sha256: "VERIFY_z_image_gguf_q3_k_m"
+    sha256: "e660e8d66c1f41c8f2861d674a09492f64b97cd1c2c4e6ea0f39e9ceee02b969"
     size: 4424990720
     format: gguf
     precision: q3_k_m
@@ -118,7 +118,7 @@ variants:
   - id: gguf-q3-k-s
     file: z_image_turbo-Q3_K_S.gguf
     url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q3_K_S.gguf
-    sha256: "VERIFY_z_image_gguf_q3_k_s"
+    sha256: "3d281cc0878d8a1f7184a63eef2ef13a0495bb9aaa25140886bf1068a13fc252"
     size: 4069449728
     format: gguf
     precision: q3_k_s

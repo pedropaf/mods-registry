@@ -25,7 +25,7 @@ variants:
   - id: fp8-mixed
     file: qwen_3_4b_fp8_mixed.safetensors
     url: https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/text_encoders/qwen_3_4b_fp8_mixed.safetensors
-    sha256: "VERIFY_z_image_qwen3_4b_fp8_mixed"
+    sha256: "6cbe9dd2d57e7b59146d40aafeb6ed18d84c9f0e2169636109e56b55be6aadf6"
     size: 6044237824
     format: safetensors
     precision: fp8-e4m3fn
@@ -36,7 +36,7 @@ variants:
   - id: fp4-mixed
     file: qwen_3_4b_fp4_mixed.safetensors
     url: https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/text_encoders/qwen_3_4b_fp4_mixed.safetensors
-    sha256: "VERIFY_z_image_qwen3_4b_fp4_mixed"
+    sha256: "fff344328a4fd638d3ab7a73f6cb4570ee9d269dab51e74a532d6267d5ed9ae3"
     size: 3736076288
     format: safetensors
     precision: fp4

@@ -13,7 +13,7 @@ base_models: [sdxl-base-1.0]
 
 file:
   url: https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid_sdxl.bin
-  sha256: "VERIFY_ip_adapter_faceid_sdxl"
+  sha256: "b924b678ef4ca408577e51faa08a4d281e3411fca24cb84a080a3751d65ed697"
   size: 1148846080
   format: bin
 

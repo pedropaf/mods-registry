@@ -16,7 +16,7 @@ variants:
   - id: bf16
     file: flux-2-klein-9b-BF16.gguf
     url: https://huggingface.co/unsloth/FLUX.2-klein-9B-GGUF/resolve/main/flux-2-klein-9b-BF16.gguf
-    sha256: "VERIFY_flux2_klein_bf16"
+    sha256: "d4a80a1885c8b952d8f8d171ab3d1cac166ae7223d5ff4b5ee2d40932ce9fd58"
     size: 18200000000
     format: gguf
     precision: bf16
@@ -27,7 +27,7 @@ variants:
   - id: f16
     file: flux-2-klein-9b-F16.gguf
     url: https://huggingface.co/unsloth/FLUX.2-klein-9B-GGUF/resolve/main/flux-2-klein-9b-F16.gguf
-    sha256: "VERIFY_flux2_klein_f16"
+    sha256: "f82a83fd13542f3d6ac76e67e1fe60c08cdceddab856337f1b9ec534d9b5ca6f"
     size: 18200000000
     format: gguf
     precision: f16
@@ -38,7 +38,7 @@ variants:
   - id: gguf-q8-0
     file: flux-2-klein-9b-Q8_0.gguf
     url: https://huggingface.co/unsloth/FLUX.2-klein-9B-GGUF/resolve/main/flux-2-klein-9b-Q8_0.gguf
-    sha256: "VERIFY_flux2_klein_q8_0"
+    sha256: "824b14b3d89f62779db9bcfe6af9084a52e1a3880e7ff93d50943969f9e25b27"
     size: 9980000000
     format: gguf
     precision: q8_0
@@ -49,7 +49,7 @@ variants:
   - id: gguf-q6-k
     file: flux-2-klein-9b-Q6_K.gguf
     url: https://huggingface.co/unsloth/FLUX.2-klein-9B-GGUF/resolve/main/flux-2-klein-9b-Q6_K.gguf
-    sha256: "VERIFY_flux2_klein_q6_k"
+    sha256: "e19f643ba4b66ed5b779bc6283f0629363cabb0490cb06823cadb30a549eda5d"
     size: 7870000000
     format: gguf
     precision: q6_k
@@ -60,7 +60,7 @@ variants:
   - id: gguf-q5-k-m
     file: flux-2-klein-9b-Q5_K_M.gguf
     url: https://huggingface.co/unsloth/FLUX.2-klein-9B-GGUF/resolve/main/flux-2-klein-9b-Q5_K_M.gguf
-    sha256: "VERIFY_flux2_klein_q5_k_m"
+    sha256: "bac097be5094c7c3fba993a1e57c6bb9cfc1dd0b33d608cc419311334aa4d015"
     size: 7020000000
     format: gguf
     precision: q5_k_m
@@ -71,7 +71,7 @@ variants:
   - id: gguf-q5-k-s
     file: flux-2-klein-9b-Q5_K_S.gguf
     url: https://huggingface.co/unsloth/FLUX.2-klein-9B-GGUF/resolve/main/flux-2-klein-9b-Q5_K_S.gguf
-    sha256: "VERIFY_flux2_klein_q5_k_s"
+    sha256: "5cd600987443bafb0c04ccde87f5e7b083a8fcab26cdd8c8f2b331dde25cd010"
     size: 6940000000
     format: gguf
     precision: q5_k_s
@@ -82,7 +82,7 @@ variants:
   - id: gguf-q4-k-m
     file: flux-2-klein-9b-Q4_K_M.gguf
     url: https://huggingface.co/unsloth/FLUX.2-klein-9B-GGUF/resolve/main/flux-2-klein-9b-Q4_K_M.gguf
-    sha256: "VERIFY_flux2_klein_q4_k_m"
+    sha256: "262df1a3a98bc328911e03d4d0f5d7e3b1397477a2c485b24509b6d115259aef"
     size: 5910000000
     format: gguf
     precision: q4_k_m
@@ -93,7 +93,7 @@ variants:
   - id: gguf-q4-k-s
     file: flux-2-klein-9b-Q4_K_S.gguf
     url: https://huggingface.co/unsloth/FLUX.2-klein-9B-GGUF/resolve/main/flux-2-klein-9b-Q4_K_S.gguf
-    sha256: "VERIFY_flux2_klein_q4_k_s"
+    sha256: "ee1c0373abb438f1fda472ac15775a0b538bf6f464ec978eaaf8a2a96a42cac3"
     size: 5830000000
     format: gguf
     precision: q4_k_s
@@ -104,7 +104,7 @@ variants:
   - id: gguf-q4-1
     file: flux-2-klein-9b-Q4_1.gguf
     url: https://huggingface.co/unsloth/FLUX.2-klein-9B-GGUF/resolve/main/flux-2-klein-9b-Q4_1.gguf
-    sha256: "VERIFY_flux2_klein_q4_1"
+    sha256: "96c219d318d3ef9000159a11a6098e46da30a03848fdd375b7dfa3fc84199895"
     size: 6160000000
     format: gguf
     precision: q4_1
@@ -115,7 +115,7 @@ variants:
   - id: gguf-q4-0
     file: flux-2-klein-9b-Q4_0.gguf
     url: https://huggingface.co/unsloth/FLUX.2-klein-9B-GGUF/resolve/main/flux-2-klein-9b-Q4_0.gguf
-    sha256: "VERIFY_flux2_klein_q4_0"
+    sha256: "3d5e58acdf68308bddf325a6f7045c0c36a9bce6832bb8a59f5ce193ddf979f5"
     size: 5620000000
     format: gguf
     precision: q4_0
@@ -126,7 +126,7 @@ variants:
   - id: gguf-q3-k-m
     file: flux-2-klein-9b-Q3_K_M.gguf
     url: https://huggingface.co/unsloth/FLUX.2-klein-9B-GGUF/resolve/main/flux-2-klein-9b-Q3_K_M.gguf
-    sha256: "VERIFY_flux2_klein_q3_k_m"
+    sha256: "93ed5cf37c8dd0b379cfe4cd3feaa03683d8a56492a62baa5ecbbab232277573"
     size: 4770000000
     format: gguf
     precision: q3_k_m
@@ -137,7 +137,7 @@ variants:
   - id: gguf-q3-k-s
     file: flux-2-klein-9b-Q3_K_S.gguf
     url: https://huggingface.co/unsloth/FLUX.2-klein-9B-GGUF/resolve/main/flux-2-klein-9b-Q3_K_S.gguf
-    sha256: "VERIFY_flux2_klein_q3_k_s"
+    sha256: "41f9255c4eda7abf6b06a50826a88e70090a523d0c65785487ae300e9f8d4362"
     size: 4690000000
     format: gguf
     precision: q3_k_s
@@ -148,7 +148,7 @@ variants:
   - id: gguf-q2-k
     file: flux-2-klein-9b-Q2_K.gguf
     url: https://huggingface.co/unsloth/FLUX.2-klein-9B-GGUF/resolve/main/flux-2-klein-9b-Q2_K.gguf
-    sha256: "VERIFY_flux2_klein_q2_k"
+    sha256: "0bcc795ca67361e53db3ceeceda02fd58bf117d20ee8cc30b257cc06f6a3027f"
     size: 3980000000
     format: gguf
     precision: q2_k

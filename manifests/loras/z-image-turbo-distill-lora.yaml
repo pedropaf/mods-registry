@@ -13,7 +13,7 @@ description: |
 file:
   name: z_image_turbo_distill_patch_lora_bf16.safetensors
   url: https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/loras/z_image_turbo_distill_patch_lora_bf16.safetensors
-  sha256: "VERIFY_z_image_distill_lora"
+  sha256: "7247e6ad300373aacf1233d206223381727d9a9d19af1f2ff9db54ff1668a814"
   size: 166723584
   format: safetensors
 

@@ -14,7 +14,7 @@ scale_factor: 2
 
 file:
   url: https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/BSRGANx2.pth
-  sha256: "VERIFY_bsrganx2"
+  sha256: "eef929a6e8c39f68d8c921bd9d5fd2ae7202f32d982acf514e235a18f7f3d4f6"
   size: 71849987
   format: pth
 

@@ -14,7 +14,7 @@ preprocessor: openpose
 
 file:
   url: https://huggingface.co/lllyasviel/ControlNet-v1-1/resolve/main/control_v11p_sd15_openpose.pth
-  sha256: "VERIFY_sd15_controlnet_openpose"
+  sha256: "8383832959b1e8b37660c5f236ab449c0d760a9df1db4c481cb881debf110d21"
   size: 1557135360
   format: pth
 

@@ -13,7 +13,7 @@ variants:
   - id: fp16
     file: v1-5-pruned-emaonly.safetensors
     url: https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.safetensors
-    sha256: "VERIFY_sd15_fp16"
+    sha256: "2ac63bfb6186057d88b65c3aa47ec90fd8d9aa3269164fc37fed1cb6f1a1efd0"
     size: 4265146304
     format: safetensors
     precision: fp16

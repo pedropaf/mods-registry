@@ -14,8 +14,8 @@ variants:
   - id: fp16
     file: flux1-schnell.safetensors
     url: https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/flux1-schnell.safetensors
-    sha256: "VERIFY_flux1_schnell_fp16"
-    size: 23802932552
+    sha256: "9403429e0052277ac2a87ad800adece5481eecefd9ed334e1f348723621d2a0a"
+    size: 23782506688
     format: safetensors
     precision: fp16
     vram_required: 24576
@@ -23,7 +23,7 @@ variants:
   - id: fp8
     file: flux1-schnell-fp8-e4m3fn.safetensors
     url: https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-schnell-fp8-e4m3fn.safetensors
-    sha256: "VERIFY_flux1_schnell_fp8"
+    sha256: "722c8f4c3a7a57f7c08998ef273e142e2f4362e0de704bc5848fa8adfbbfb96c"
     size: 11903959040
     format: safetensors
     precision: fp8-e4m3fn

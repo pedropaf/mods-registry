@@ -25,7 +25,7 @@ variants:
   - id: bf16
     file: qwen_2.5_vl_7b.safetensors
     url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b.safetensors
-    sha256: "VERIFY_qwen_clip_bf16"
+    sha256: "7dc87a9c61db8168b119859940bce41cf3f737784e8c43d8e71a9f9720fa4051"
     size: 17825792000
     format: safetensors
     precision: bf16

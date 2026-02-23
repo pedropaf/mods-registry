@@ -16,7 +16,7 @@ variants:
   - id: bf16
     file: qwen_image_bf16.safetensors
     url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_bf16.safetensors
-    sha256: "VERIFY_qwen_image_bf16"
+    sha256: "106966bb02e7f08a19b56d74db2491793aeadc740c993bcdb7d0e9dcbc9d94ab"
     size: 43927101440
     format: safetensors
     precision: bf16
@@ -27,7 +27,7 @@ variants:
   - id: fp8-hq
     file: qwen_image_fp8_hq.safetensors
     url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_fp8_hq.safetensors
-    sha256: "VERIFY_qwen_image_fp8_hq"
+    sha256: "83717dba9759964b678b82258fb775d713661743b37661c13dee4f256109dcac"
     size: 24373903360
     format: safetensors
     precision: fp8-e4m3fn
@@ -38,7 +38,7 @@ variants:
   - id: fp8-mixed
     file: qwen_image_fp8mixed.safetensors
     url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_fp8mixed.safetensors
-    sha256: "VERIFY_qwen_image_fp8mixed"
+    sha256: "c2e20d799a317959b2cc7f270bf174df801cbb0b2a00b5e4549ecf78220cf6fb"
     size: 22011707392
     format: safetensors
     precision: fp8-e4m3fn
@@ -49,7 +49,7 @@ variants:
   - id: fp8
     file: qwen_image_fp8_e4m3fn.safetensors
     url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_fp8_e4m3fn.safetensors
-    sha256: "VERIFY_qwen_image_fp8"
+    sha256: "3c291b78a18ea30fc99c3301385ec9c7481a5102b8da5cf5449f725c5ff5ac5f"
     size: 21902483456
     format: safetensors
     precision: fp8-e4m3fn
@@ -60,7 +60,7 @@ variants:
   - id: nvfp4
     file: qwen_image_nvfp4.safetensors
     url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_nvfp4.safetensors
-    sha256: "VERIFY_qwen_image_nvfp4"
+    sha256: "e194b9c5c2aa18606532e5ffa92d91c5e3ad16dde382cd6801149398b9e3bc25"
     size: 21260902400
     format: safetensors
     precision: nvfp4
@@ -72,7 +72,7 @@ variants:
   - id: 2512-bf16
     file: qwen_image_2512_bf16.safetensors
     url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_2512_bf16.safetensors
-    sha256: "VERIFY_qwen_image_2512_bf16"
+    sha256: "3c27bbc92757da35e0963bc75c8635feeab41ee6adaae93d159c397d1b39cc98"
     size: 43927101440
     format: safetensors
     precision: bf16
@@ -83,7 +83,7 @@ variants:
   - id: 2512-fp8
     file: qwen_image_2512_fp8_e4m3fn.safetensors
     url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_2512_fp8_e4m3fn.safetensors
-    sha256: "VERIFY_qwen_image_2512_fp8"
+    sha256: "f07f1483dc9b19752b6032576a82c94b6e6cce3e0cad77ae27e928b7072b1c05"
     size: 21902483456
     format: safetensors
     precision: fp8-e4m3fn
@@ -95,7 +95,7 @@ variants:
   - id: gguf-q8-0
     file: Qwen_Image_Edit-Q8_0.gguf
     url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q8_0.gguf
-    sha256: "VERIFY_qwen_gguf_q8_0"
+    sha256: "e875c08781c562182cdc64939aab70ccfae3c44d9484e3c3d9429bad8682cf71"
     size: 23405215744
     format: gguf
     precision: q8_0
@@ -106,7 +106,7 @@ variants:
   - id: gguf-q6-k
     file: Qwen_Image_Edit-Q6_K.gguf
     url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q6_K.gguf
-    sha256: "VERIFY_qwen_gguf_q6_k"
+    sha256: "2a6952b23262b881dfb681791482f00cbd4dc2f59016e55c14a09d5c2a9cc8b2"
     size: 18039808000
     format: gguf
     precision: q6_k
@@ -117,7 +117,7 @@ variants:
   - id: gguf-q5-k-m
     file: Qwen_Image_Edit-Q5_K_M.gguf
     url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q5_K_M.gguf
-    sha256: "VERIFY_qwen_gguf_q5_k_m"
+    sha256: "b398a64e4334c2d8cae676ce64534a38d3ebdd3d0878b57071620485e56211ce"
     size: 16000204800
     format: gguf
     precision: q5_k_m
@@ -128,7 +128,7 @@ variants:
   - id: gguf-q5-k-s
     file: Qwen_Image_Edit-Q5_K_S.gguf
     url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q5_K_S.gguf
-    sha256: "VERIFY_qwen_gguf_q5_k_s"
+    sha256: "286571d761951e43853a1cec129c741cc7f541fb70b203f4131c84cafd8585f0"
     size: 15140249600
     format: gguf
     precision: q5_k_s
@@ -139,7 +139,7 @@ variants:
   - id: gguf-q5-0
     file: Qwen_Image_Edit-Q5_0.gguf
     url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q5_0.gguf
-    sha256: "VERIFY_qwen_gguf_q5_0"
+    sha256: "a8ace3d71b9b8e87859b330923f2d40421116a4548ad5fff180fad730cb29352"
     size: 15461882880
     format: gguf
     precision: q5_0
@@ -150,7 +150,7 @@ variants:
   - id: gguf-q5-1
     file: Qwen_Image_Edit-Q5_1.gguf
     url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q5_1.gguf
-    sha256: "VERIFY_qwen_gguf_q5_1"
+    sha256: "4006179697444691f31e0fbb7a8beb6d373d1a0d6ff4f34a2e3efa5e8d9c0f85"
     size: 16536027136
     format: gguf
     precision: q5_1
@@ -161,7 +161,7 @@ variants:
   - id: gguf-q4-k-m
     file: Qwen_Image_Edit-Q4_K_M.gguf
     url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q4_K_M.gguf
-    sha256: "VERIFY_qwen_gguf_q4_k_m"
+    sha256: "bee346224c34ec00991aa1d75a0fd4c259c4ac375ad346edf4c3fff7ec30be1c"
     size: 14066032640
     format: gguf
     precision: q4_k_m
@@ -172,7 +172,7 @@ variants:
   - id: gguf-q4-k-s
     file: Qwen_Image_Edit-Q4_K_S.gguf
     url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q4_K_S.gguf
-    sha256: "VERIFY_qwen_gguf_q4_k_s"
+    sha256: "44301250d40bfbe53c9d2b62028bab576c52605b471b1a11ea0f9f1036b19743"
     size: 12994428928
     format: gguf
     precision: q4_k_s
@@ -183,7 +183,7 @@ variants:
   - id: gguf-q4-0
     file: Qwen_Image_Edit-Q4_0.gguf
     url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q4_0.gguf
-    sha256: "VERIFY_qwen_gguf_q4_0"
+    sha256: "40d9298d5a7881afdf62e9bfa9581cbbe435fb2038448dde8f0a127a48c49fbb"
     size: 12776923136
     format: gguf
     precision: q4_0
@@ -194,7 +194,7 @@ variants:
   - id: gguf-q4-1
     file: Qwen_Image_Edit-Q4_1.gguf
     url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q4_1.gguf
-    sha256: "VERIFY_qwen_gguf_q4_1"
+    sha256: "55ed396b0ed764a5f237b87307ec0679e4d59b71e984ef61ea89d46457017eb5"
     size: 13743095808
     format: gguf
     precision: q4_1
@@ -205,7 +205,7 @@ variants:
   - id: gguf-q3-k-m
     file: Qwen_Image_Edit-Q3_K_M.gguf
     url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q3_K_M.gguf
-    sha256: "VERIFY_qwen_gguf_q3_k_m"
+    sha256: "056411f536e5b6ef6efa08d3c773911d9ec0945dbfce9be0f43c5519c525b3ee"
     size: 10394116096
     format: gguf
     precision: q3_k_m
@@ -216,7 +216,7 @@ variants:
   - id: gguf-q3-k-s
     file: Qwen_Image_Edit-Q3_K_S.gguf
     url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q3_K_S.gguf
-    sha256: "VERIFY_qwen_gguf_q3_k_s"
+    sha256: "c2e82411c73d1cc98db87bfc640381eb211f9c28ba57e943e3fe71283cf97cf6"
     size: 9609625600
     format: gguf
     precision: q3_k_s
@@ -227,7 +227,7 @@ variants:
   - id: gguf-q2-k
     file: Qwen_Image_Edit-Q2_K.gguf
     url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q2_K.gguf
-    sha256: "VERIFY_qwen_gguf_q2_k"
+    sha256: "a449446a0fedad1949032f32f70ef5f8514e699ad0c3f27d8ab04b9f87b6d992"
     size: 7580321792
     format: gguf
     precision: q2_k

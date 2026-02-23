@@ -17,7 +17,7 @@ variants:
   - id: fp8mixed
     file: flux2_dev_fp8mixed.safetensors
     url: https://huggingface.co/Comfy-Org/flux2-dev/resolve/main/split_files/diffusion_models/flux2_dev_fp8mixed.safetensors
-    sha256: "VERIFY_flux2_dev_fp8mixed"
+    sha256: "2f159bd5e5a9511d9470e23f303b5e44da33c6c7ee037f29777679178a3430ac"
     size: 12000000000
     format: safetensors
     precision: fp8-mixed
