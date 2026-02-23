@@ -1,0 +1,28 @@
+id: ltx-video-2b
+name: "LTX-Video 2B"
+type: checkpoint
+architecture: ltxv
+author: Lightricks
+license: ltx-video
+homepage: https://huggingface.co/Lightricks/LTX-Video
+description: |
+  Efficient 2B parameter video generation model by Lightricks. Fast inference,
+  supports text-to-video and image-to-video. Works best with long, descriptive prompts.
+
+file:
+  url: https://huggingface.co/Lightricks/LTX-Video/resolve/main/ltx-video-2b-v0.9.5.safetensors
+  sha256: "720d15c9f19f7d0f6b2a92bbbc34410e2cfb2f6856a100b38f734fbf973d4adf"
+  size: 6340729500
+  format: safetensors
+
+requires:
+  - id: t5-xxl-fp16
+    type: text_encoder
+    reason: "T5-XXL for prompt processing"
+    optional_variant: t5-xxl-fp8
+
+tags: [ltx, ltx-video, video, text-to-video, image-to-video, efficient]
+rating: 4.6
+downloads: 1400000
+added: "2024-12-01"
+updated: "2025-04-01"

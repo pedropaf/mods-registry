@@ -1,0 +1,84 @@
+id: ltx-2-19b
+name: "LTX-2 19B"
+type: diffusion_model
+architecture: ltxv
+author: Lightricks
+license: ltx-video
+homepage: https://huggingface.co/Lightricks/LTX-Video-2-19B-DEV
+description: |
+  LTX-2 19B parameter video generation model. Supports text-to-video,
+  image-to-video, video-to-video, and audio generation. Available in
+  full precision and multiple GGUF quantizations.
+
+variants:
+  - id: bf16
+    file: ltx-2-19b-dev-BF16.gguf
+    url: https://huggingface.co/unsloth/LTX-2-GGUF/resolve/main/ltx-2-19b-dev-BF16.gguf
+    sha256: "832e923e7a727a696e080b2de14c62268e47c79242d1197bf43a86ef65db2267"
+    size: 37771979232
+    format: gguf
+    precision: bf16
+    vram_required: 40960
+  - id: gguf-q8-0
+    file: ltx-2-19b-dev-Q8_0.gguf
+    url: https://huggingface.co/unsloth/LTX-2-GGUF/resolve/main/ltx-2-19b-dev-Q8_0.gguf
+    sha256: "3e377af6930a0795e464e62e40daa0044427dda6c204d03e9c3a00351ef83dc1"
+    size: 20407560672
+    format: gguf
+    vram_required: 24576
+  - id: gguf-q6-k
+    file: ltx-2-19b-dev-Q6_K.gguf
+    url: https://huggingface.co/unsloth/LTX-2-GGUF/resolve/main/ltx-2-19b-dev-Q6_K.gguf
+    sha256: "2fe65f4a86f3a24537df06d5a0f180f5f848ba4764487c4488677cfec7c2bff8"
+    size: 15966448096
+    format: gguf
+    vram_required: 20480
+  - id: gguf-q5-k-m
+    file: ltx-2-19b-dev-Q5_K_M.gguf
+    url: https://huggingface.co/unsloth/LTX-2-GGUF/resolve/main/ltx-2-19b-dev-Q5_K_M.gguf
+    sha256: "ce643ae23089dbaaa37ddeacd6b51cc975970fe875d2aea7a99da4565aab8892"
+    size: 14335388128
+    format: gguf
+    vram_required: 16384
+  - id: gguf-q4-k-m
+    file: ltx-2-19b-dev-Q4_K_M.gguf
+    url: https://huggingface.co/unsloth/LTX-2-GGUF/resolve/main/ltx-2-19b-dev-Q4_K_M.gguf
+    sha256: "e3332ee9e6e1a84b7cb5a558a3ebd63891487a7ce285a284ee9d1c48d41463d7"
+    size: 12840118752
+    format: gguf
+    vram_required: 16384
+  - id: gguf-q4-k-s
+    file: ltx-2-19b-dev-Q4_K_S.gguf
+    url: https://huggingface.co/unsloth/LTX-2-GGUF/resolve/main/ltx-2-19b-dev-Q4_K_S.gguf
+    sha256: "8028cfc03abf5dff618c1511b025f3e15ea73be03e315d971f8d20e50bee1e0f"
+    size: 11855505888
+    format: gguf
+    vram_required: 12288
+  - id: gguf-q3-k-m
+    file: ltx-2-19b-dev-Q3_K_M.gguf
+    url: https://huggingface.co/unsloth/LTX-2-GGUF/resolve/main/ltx-2-19b-dev-Q3_K_M.gguf
+    sha256: "a7d0975088816493ca97500739f66e272b151f04e33d13b469f0b272aa2c6cd4"
+    size: 10117491168
+    format: gguf
+    vram_required: 12288
+  - id: gguf-q2-k
+    file: ltx-2-19b-dev-Q2_K.gguf
+    url: https://huggingface.co/unsloth/LTX-2-GGUF/resolve/main/ltx-2-19b-dev-Q2_K.gguf
+    sha256: "93958494c70d5f594abc7b775aeb46f6eef7c5e2d06558b8414491cb8ffb7d05"
+    size: 8097016288
+    format: gguf
+    vram_required: 10240
+
+requires:
+  - id: ltx-2-text-encoder
+    type: text_encoder
+    reason: "LTX-2 embeddings connector for prompt processing"
+  - id: ltx-2-vae
+    type: vae
+    reason: "LTX-2 video VAE for decoding"
+
+tags: [ltx, ltx-2, video, text-to-video, image-to-video, 19b]
+rating: 4.8
+downloads: 450000
+added: "2025-06-01"
+updated: "2025-06-01"

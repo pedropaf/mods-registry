@@ -1,0 +1,22 @@
+id: wan21-vae
+name: "Wan 2.1 VAE"
+type: vae
+architecture: wan
+author: Wan-AI
+license: apache-2.0
+homepage: https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged
+description: |
+  VAE for Wan 2.1/2.2 14B video generation models. Compact 254 MB VAE
+  used by the T2V and I2V 14B models.
+
+file:
+  url: https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors
+  sha256: "2fc39d31359a4b0a64f55876d8ff7fa8d780956ae2cb13463b0223e15148976b"
+  size: 253815318
+  format: safetensors
+
+tags: [wan, wan2.1, wan2.2, vae, video]
+rating: 4.8
+downloads: 1200000
+added: "2025-03-01"
+updated: "2025-06-01"

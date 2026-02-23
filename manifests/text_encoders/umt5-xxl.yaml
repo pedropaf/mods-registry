@@ -1,0 +1,34 @@
+id: umt5-xxl
+name: "UMT5-XXL Text Encoder"
+type: text_encoder
+architecture: umt5
+author: Comfy-Org
+license: apache-2.0
+homepage: https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged
+description: |
+  UMT5-XXL multilingual text encoder for Wan 2.1/2.2 video generation models.
+  Handles prompt encoding for all Wan model variants.
+
+variants:
+  - id: fp16
+    file: umt5_xxl_fp16.safetensors
+    url: https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp16.safetensors
+    sha256: "7b8850f1961e1cf8a77cca4c964a358d303f490833c6c087d0cff4b2f99db2af"
+    size: 11366399385
+    format: safetensors
+    precision: fp16
+    vram_required: 24576
+  - id: fp8
+    file: umt5_xxl_fp8_e4m3fn_scaled.safetensors
+    url: https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors
+    sha256: "c3355d30191f1f066b26d93fba017ae9809dce6c627dda5f6a66eaa651204f68"
+    size: 6735906897
+    format: safetensors
+    precision: fp8-e4m3fn
+    vram_required: 8192
+
+tags: [umt5, text-encoder, wan, multilingual, video]
+rating: 4.8
+downloads: 1500000
+added: "2025-03-01"
+updated: "2025-06-01"

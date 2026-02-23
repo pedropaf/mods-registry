@@ -1,0 +1,34 @@
+id: wan22-i2v-low-noise-14b
+name: "Wan 2.2 I2V Low Noise Expert 14B"
+type: diffusion_model
+architecture: wan
+author: Wan-AI
+license: apache-2.0
+homepage: https://huggingface.co/Wan-AI/Wan2.2-I2V-A14B
+description: |
+  Low-noise expert for Wan 2.2 14B image-to-video MoE architecture.
+  Used together with the high-noise expert for video generation.
+
+variants:
+  - id: fp16
+    file: wan2.2_i2v_low_noise_14B_fp16.safetensors
+    url: https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_i2v_low_noise_14B_fp16.safetensors
+    sha256: "edb89340c8a6fbf1a70e76a839ae01eaf7d289f05ea1ebd6b1a3fc6f533826e9"
+    size: 28577914792
+    format: safetensors
+    precision: fp16
+    vram_required: 32768
+  - id: fp8
+    file: wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors
+    url: https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors
+    sha256: "5471a457b6ac404202a5fbe6c11595a3d5641fc766b00f38763f72303fffc21e"
+    size: 14294742832
+    format: safetensors
+    precision: fp8-e4m3fn
+    vram_required: 16384
+
+tags: [wan, wan2.2, video, image-to-video, 14b, moe, low-noise]
+rating: 4.9
+downloads: 600000
+added: "2025-06-01"
+updated: "2025-06-01"

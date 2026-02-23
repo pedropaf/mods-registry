@@ -1,0 +1,21 @@
+id: ltx-2-vae
+name: "LTX-2 Video VAE"
+type: vae
+architecture: ltxv
+author: Lightricks
+license: ltx-video
+homepage: https://huggingface.co/unsloth/LTX-2-GGUF
+description: |
+  Video VAE for LTX-2 19B model. Handles video encoding/decoding.
+
+file:
+  url: https://huggingface.co/unsloth/LTX-2-GGUF/resolve/main/vae/ltx-2-19b-dev_video_vae.safetensors
+  sha256: "54cb4c1dd7e74c3ea940617bcdc738779b0372f0a30acd1b3054149e741c2b7a"
+  size: 2445007026
+  format: safetensors
+
+tags: [ltx, ltx-2, vae, video]
+rating: 4.7
+downloads: 300000
+added: "2025-06-01"
+updated: "2025-06-01"

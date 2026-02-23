@@ -1,0 +1,22 @@
+id: wan22-vae
+name: "Wan 2.2 VAE"
+type: vae
+architecture: wan
+author: Wan-AI
+license: apache-2.0
+homepage: https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged
+description: |
+  VAE for Wan 2.2 video generation models. New high-compression VAE
+  used by the 5B TI2V model. 1.4 GB.
+
+file:
+  url: https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/vae/wan2.2_vae.safetensors
+  sha256: "e40321bd36b9709991dae2530eb4ac303dd168276980d3e9bc4b6e2b75fed156"
+  size: 1409400960
+  format: safetensors
+
+tags: [wan, wan2.2, vae, video]
+rating: 4.8
+downloads: 850000
+added: "2025-06-01"
+updated: "2025-06-01"

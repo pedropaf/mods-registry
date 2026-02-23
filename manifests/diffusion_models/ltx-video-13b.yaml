@@ -1,0 +1,57 @@
+id: ltx-video-13b
+name: "LTX-Video 13B"
+type: diffusion_model
+architecture: ltxv
+author: Lightricks
+license: ltx-video
+homepage: https://huggingface.co/Lightricks/LTX-Video
+description: |
+  LTX-Video 13B parameter model (v0.9.8). Higher quality than the 2B version.
+  Includes distilled variant for faster inference. Supports text-to-video,
+  image-to-video, and multi-frame control.
+
+variants:
+  - id: fp16
+    file: ltxv-13b-0.9.8-distilled.safetensors
+    url: https://huggingface.co/Lightricks/LTX-Video/resolve/main/ltxv-13b-0.9.8-distilled.safetensors
+    sha256: "2c5f814744f04d8118e0b5bbfc0742655b51e41a6c090da66fde2936d651a9c9"
+    size: 28579183564
+    format: safetensors
+    precision: fp16
+    vram_required: 32768
+  - id: fp8
+    file: ltxv-13b-0.9.8-distilled-fp8.safetensors
+    url: https://huggingface.co/Lightricks/LTX-Video/resolve/main/ltxv-13b-0.9.8-distilled-fp8.safetensors
+    sha256: "111a3d07baa17f520e98b571e7916139ae0865c9a24b7534529d6b9e74264db3"
+    size: 15694280140
+    format: safetensors
+    precision: fp8
+    vram_required: 16384
+  - id: dev-fp16
+    file: ltxv-13b-0.9.8-dev.safetensors
+    url: https://huggingface.co/Lightricks/LTX-Video/resolve/main/ltxv-13b-0.9.8-dev.safetensors
+    sha256: "56b39a874ef9d0c7ad4099954f0ee4fa7e600ce83a24b3736f9e12223e7c71be"
+    size: 28579183340
+    format: safetensors
+    precision: fp16
+    vram_required: 32768
+  - id: dev-fp8
+    file: ltxv-13b-0.9.8-dev-fp8.safetensors
+    url: https://huggingface.co/Lightricks/LTX-Video/resolve/main/ltxv-13b-0.9.8-dev-fp8.safetensors
+    sha256: "b281bbb53b76d25a02285c148212b32daa6a57dfa46ce804c9bddba46f948c94"
+    size: 15694279916
+    format: safetensors
+    precision: fp8
+    vram_required: 16384
+
+requires:
+  - id: t5-xxl-fp16
+    type: text_encoder
+    reason: "T5-XXL for prompt processing"
+    optional_variant: t5-xxl-fp8
+
+tags: [ltx, ltx-video, video, text-to-video, image-to-video, 13b]
+rating: 4.7
+downloads: 520000
+added: "2025-04-01"
+updated: "2025-06-01"

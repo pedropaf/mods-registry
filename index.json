@@ -994,6 +994,275 @@
       "updated": "2024-06-01"
     },
     {
+      "id": "ltx-2-19b",
+      "name": "LTX-2 19B",
+      "type": "diffusion_model",
+      "architecture": "ltxv",
+      "author": "Lightricks",
+      "license": "ltx-video",
+      "homepage": "https://huggingface.co/Lightricks/LTX-Video-2-19B-DEV",
+      "description": "LTX-2 19B parameter video generation model. Supports text-to-video,\nimage-to-video, video-to-video, and audio generation. Available in\nfull precision and multiple GGUF quantizations.\n",
+      "variants": [
+        {
+          "id": "bf16",
+          "file": "ltx-2-19b-dev-BF16.gguf",
+          "url": "https://huggingface.co/unsloth/LTX-2-GGUF/resolve/main/ltx-2-19b-dev-BF16.gguf",
+          "sha256": "832e923e7a727a696e080b2de14c62268e47c79242d1197bf43a86ef65db2267",
+          "size": 37771979232,
+          "format": "gguf",
+          "precision": "bf16",
+          "vram_required": 40960
+        },
+        {
+          "id": "gguf-q8-0",
+          "file": "ltx-2-19b-dev-Q8_0.gguf",
+          "url": "https://huggingface.co/unsloth/LTX-2-GGUF/resolve/main/ltx-2-19b-dev-Q8_0.gguf",
+          "sha256": "3e377af6930a0795e464e62e40daa0044427dda6c204d03e9c3a00351ef83dc1",
+          "size": 20407560672,
+          "format": "gguf",
+          "vram_required": 24576
+        },
+        {
+          "id": "gguf-q6-k",
+          "file": "ltx-2-19b-dev-Q6_K.gguf",
+          "url": "https://huggingface.co/unsloth/LTX-2-GGUF/resolve/main/ltx-2-19b-dev-Q6_K.gguf",
+          "sha256": "2fe65f4a86f3a24537df06d5a0f180f5f848ba4764487c4488677cfec7c2bff8",
+          "size": 15966448096,
+          "format": "gguf",
+          "vram_required": 20480
+        },
+        {
+          "id": "gguf-q5-k-m",
+          "file": "ltx-2-19b-dev-Q5_K_M.gguf",
+          "url": "https://huggingface.co/unsloth/LTX-2-GGUF/resolve/main/ltx-2-19b-dev-Q5_K_M.gguf",
+          "sha256": "ce643ae23089dbaaa37ddeacd6b51cc975970fe875d2aea7a99da4565aab8892",
+          "size": 14335388128,
+          "format": "gguf",
+          "vram_required": 16384
+        },
+        {
+          "id": "gguf-q4-k-m",
+          "file": "ltx-2-19b-dev-Q4_K_M.gguf",
+          "url": "https://huggingface.co/unsloth/LTX-2-GGUF/resolve/main/ltx-2-19b-dev-Q4_K_M.gguf",
+          "sha256": "e3332ee9e6e1a84b7cb5a558a3ebd63891487a7ce285a284ee9d1c48d41463d7",
+          "size": 12840118752,
+          "format": "gguf",
+          "vram_required": 16384
+        },
+        {
+          "id": "gguf-q4-k-s",
+          "file": "ltx-2-19b-dev-Q4_K_S.gguf",
+          "url": "https://huggingface.co/unsloth/LTX-2-GGUF/resolve/main/ltx-2-19b-dev-Q4_K_S.gguf",
+          "sha256": "8028cfc03abf5dff618c1511b025f3e15ea73be03e315d971f8d20e50bee1e0f",
+          "size": 11855505888,
+          "format": "gguf",
+          "vram_required": 12288
+        },
+        {
+          "id": "gguf-q3-k-m",
+          "file": "ltx-2-19b-dev-Q3_K_M.gguf",
+          "url": "https://huggingface.co/unsloth/LTX-2-GGUF/resolve/main/ltx-2-19b-dev-Q3_K_M.gguf",
+          "sha256": "a7d0975088816493ca97500739f66e272b151f04e33d13b469f0b272aa2c6cd4",
+          "size": 10117491168,
+          "format": "gguf",
+          "vram_required": 12288
+        },
+        {
+          "id": "gguf-q2-k",
+          "file": "ltx-2-19b-dev-Q2_K.gguf",
+          "url": "https://huggingface.co/unsloth/LTX-2-GGUF/resolve/main/ltx-2-19b-dev-Q2_K.gguf",
+          "sha256": "93958494c70d5f594abc7b775aeb46f6eef7c5e2d06558b8414491cb8ffb7d05",
+          "size": 8097016288,
+          "format": "gguf",
+          "vram_required": 10240
+        }
+      ],
+      "requires": [
+        {
+          "id": "ltx-2-text-encoder",
+          "type": "text_encoder",
+          "reason": "LTX-2 embeddings connector for prompt processing"
+        },
+        {
+          "id": "ltx-2-vae",
+          "type": "vae",
+          "reason": "LTX-2 video VAE for decoding"
+        }
+      ],
+      "tags": [
+        "ltx",
+        "ltx-2",
+        "video",
+        "text-to-video",
+        "image-to-video",
+        "19b"
+      ],
+      "rating": 4.8,
+      "downloads": 450000,
+      "added": "2025-06-01",
+      "updated": "2025-06-01"
+    },
+    {
+      "id": "ltx-2-text-encoder",
+      "name": "LTX-2 Embeddings Connector",
+      "type": "text_encoder",
+      "architecture": "ltxv",
+      "author": "Lightricks",
+      "license": "ltx-video",
+      "homepage": "https://huggingface.co/unsloth/LTX-2-GGUF",
+      "description": "Embeddings connector / text encoder for LTX-2 19B video model.\n",
+      "file": {
+        "url": "https://huggingface.co/unsloth/LTX-2-GGUF/resolve/main/text_encoders/ltx-2-19b-dev_embeddings_connectors.safetensors",
+        "sha256": "50a1bd5e4cbbe35e1c87867b6dc693eb784ccd8e7c8fdb8d054a238a90bf8af1",
+        "size": 2862981904,
+        "format": "safetensors"
+      },
+      "tags": [
+        "ltx",
+        "ltx-2",
+        "text-encoder",
+        "video"
+      ],
+      "rating": 4.7,
+      "downloads": 300000,
+      "added": "2025-06-01",
+      "updated": "2025-06-01"
+    },
+    {
+      "id": "ltx-2-vae",
+      "name": "LTX-2 Video VAE",
+      "type": "vae",
+      "architecture": "ltxv",
+      "author": "Lightricks",
+      "license": "ltx-video",
+      "homepage": "https://huggingface.co/unsloth/LTX-2-GGUF",
+      "description": "Video VAE for LTX-2 19B model. Handles video encoding/decoding.\n",
+      "file": {
+        "url": "https://huggingface.co/unsloth/LTX-2-GGUF/resolve/main/vae/ltx-2-19b-dev_video_vae.safetensors",
+        "sha256": "54cb4c1dd7e74c3ea940617bcdc738779b0372f0a30acd1b3054149e741c2b7a",
+        "size": 2445007026,
+        "format": "safetensors"
+      },
+      "tags": [
+        "ltx",
+        "ltx-2",
+        "vae",
+        "video"
+      ],
+      "rating": 4.7,
+      "downloads": 300000,
+      "added": "2025-06-01",
+      "updated": "2025-06-01"
+    },
+    {
+      "id": "ltx-video-13b",
+      "name": "LTX-Video 13B",
+      "type": "diffusion_model",
+      "architecture": "ltxv",
+      "author": "Lightricks",
+      "license": "ltx-video",
+      "homepage": "https://huggingface.co/Lightricks/LTX-Video",
+      "description": "LTX-Video 13B parameter model (v0.9.8). Higher quality than the 2B version.\nIncludes distilled variant for faster inference. Supports text-to-video,\nimage-to-video, and multi-frame control.\n",
+      "variants": [
+        {
+          "id": "fp16",
+          "file": "ltxv-13b-0.9.8-distilled.safetensors",
+          "url": "https://huggingface.co/Lightricks/LTX-Video/resolve/main/ltxv-13b-0.9.8-distilled.safetensors",
+          "sha256": "2c5f814744f04d8118e0b5bbfc0742655b51e41a6c090da66fde2936d651a9c9",
+          "size": 28579183564,
+          "format": "safetensors",
+          "precision": "fp16",
+          "vram_required": 32768
+        },
+        {
+          "id": "fp8",
+          "file": "ltxv-13b-0.9.8-distilled-fp8.safetensors",
+          "url": "https://huggingface.co/Lightricks/LTX-Video/resolve/main/ltxv-13b-0.9.8-distilled-fp8.safetensors",
+          "sha256": "111a3d07baa17f520e98b571e7916139ae0865c9a24b7534529d6b9e74264db3",
+          "size": 15694280140,
+          "format": "safetensors",
+          "precision": "fp8",
+          "vram_required": 16384
+        },
+        {
+          "id": "dev-fp16",
+          "file": "ltxv-13b-0.9.8-dev.safetensors",
+          "url": "https://huggingface.co/Lightricks/LTX-Video/resolve/main/ltxv-13b-0.9.8-dev.safetensors",
+          "sha256": "56b39a874ef9d0c7ad4099954f0ee4fa7e600ce83a24b3736f9e12223e7c71be",
+          "size": 28579183340,
+          "format": "safetensors",
+          "precision": "fp16",
+          "vram_required": 32768
+        },
+        {
+          "id": "dev-fp8",
+          "file": "ltxv-13b-0.9.8-dev-fp8.safetensors",
+          "url": "https://huggingface.co/Lightricks/LTX-Video/resolve/main/ltxv-13b-0.9.8-dev-fp8.safetensors",
+          "sha256": "b281bbb53b76d25a02285c148212b32daa6a57dfa46ce804c9bddba46f948c94",
+          "size": 15694279916,
+          "format": "safetensors",
+          "precision": "fp8",
+          "vram_required": 16384
+        }
+      ],
+      "requires": [
+        {
+          "id": "t5-xxl-fp16",
+          "type": "text_encoder",
+          "reason": "T5-XXL for prompt processing",
+          "optional_variant": "t5-xxl-fp8"
+        }
+      ],
+      "tags": [
+        "ltx",
+        "ltx-video",
+        "video",
+        "text-to-video",
+        "image-to-video",
+        "13b"
+      ],
+      "rating": 4.7,
+      "downloads": 520000,
+      "added": "2025-04-01",
+      "updated": "2025-06-01"
+    },
+    {
+      "id": "ltx-video-2b",
+      "name": "LTX-Video 2B",
+      "type": "checkpoint",
+      "architecture": "ltxv",
+      "author": "Lightricks",
+      "license": "ltx-video",
+      "homepage": "https://huggingface.co/Lightricks/LTX-Video",
+      "description": "Efficient 2B parameter video generation model by Lightricks. Fast inference,\nsupports text-to-video and image-to-video. Works best with long, descriptive prompts.\n",
+      "file": {
+        "url": "https://huggingface.co/Lightricks/LTX-Video/resolve/main/ltx-video-2b-v0.9.5.safetensors",
+        "sha256": "720d15c9f19f7d0f6b2a92bbbc34410e2cfb2f6856a100b38f734fbf973d4adf",
+        "size": 6340729500,
+        "format": "safetensors"
+      },
+      "requires": [
+        {
+          "id": "t5-xxl-fp16",
+          "type": "text_encoder",
+          "reason": "T5-XXL for prompt processing",
+          "optional_variant": "t5-xxl-fp8"
+        }
+      ],
+      "tags": [
+        "ltx",
+        "ltx-video",
+        "video",
+        "text-to-video",
+        "image-to-video",
+        "efficient"
+      ],
+      "rating": 4.6,
+      "downloads": 1400000,
+      "added": "2024-12-01",
+      "updated": "2025-04-01"
+    },
+    {
       "id": "qwen-image-clip",
       "name": "Qwen 2.5 VL 7B Text Encoder",
       "type": "text_encoder",
@@ -1984,6 +2253,410 @@
       "downloads": 1800000,
       "added": "2024-08-01",
       "updated": "2024-08-01"
+    },
+    {
+      "id": "umt5-xxl",
+      "name": "UMT5-XXL Text Encoder",
+      "type": "text_encoder",
+      "architecture": "umt5",
+      "author": "Comfy-Org",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged",
+      "description": "UMT5-XXL multilingual text encoder for Wan 2.1/2.2 video generation models.\nHandles prompt encoding for all Wan model variants.\n",
+      "variants": [
+        {
+          "id": "fp16",
+          "file": "umt5_xxl_fp16.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp16.safetensors",
+          "sha256": "7b8850f1961e1cf8a77cca4c964a358d303f490833c6c087d0cff4b2f99db2af",
+          "size": 11366399385,
+          "format": "safetensors",
+          "precision": "fp16",
+          "vram_required": 24576
+        },
+        {
+          "id": "fp8",
+          "file": "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+          "sha256": "c3355d30191f1f066b26d93fba017ae9809dce6c627dda5f6a66eaa651204f68",
+          "size": 6735906897,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 8192
+        }
+      ],
+      "tags": [
+        "umt5",
+        "text-encoder",
+        "wan",
+        "multilingual",
+        "video"
+      ],
+      "rating": 4.8,
+      "downloads": 1500000,
+      "added": "2025-03-01",
+      "updated": "2025-06-01"
+    },
+    {
+      "id": "wan21-vae",
+      "name": "Wan 2.1 VAE",
+      "type": "vae",
+      "architecture": "wan",
+      "author": "Wan-AI",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+      "description": "VAE for Wan 2.1/2.2 14B video generation models. Compact 254 MB VAE\nused by the T2V and I2V 14B models.\n",
+      "file": {
+        "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors",
+        "sha256": "2fc39d31359a4b0a64f55876d8ff7fa8d780956ae2cb13463b0223e15148976b",
+        "size": 253815318,
+        "format": "safetensors"
+      },
+      "tags": [
+        "wan",
+        "wan2.1",
+        "wan2.2",
+        "vae",
+        "video"
+      ],
+      "rating": 4.8,
+      "downloads": 1200000,
+      "added": "2025-03-01",
+      "updated": "2025-06-01"
+    },
+    {
+      "id": "wan22-i2v-high-noise-14b",
+      "name": "Wan 2.2 I2V 14B",
+      "type": "diffusion_model",
+      "architecture": "wan",
+      "author": "Wan-AI",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Wan-AI/Wan2.2-I2V-A14B",
+      "description": "Wan 2.2 14B image-to-video model (high-noise expert). Converts static images\ninto dynamic videos with smooth motion. Uses MoE architecture with separate\nhigh-noise and low-noise experts.\n",
+      "variants": [
+        {
+          "id": "fp16",
+          "file": "wan2.2_i2v_high_noise_14B_fp16.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_i2v_high_noise_14B_fp16.safetensors",
+          "sha256": "c21c21efa368d529a982a7d89dd11d86608b5937cae9a125d0ffe5491918a100",
+          "size": 28577914792,
+          "format": "safetensors",
+          "precision": "fp16",
+          "vram_required": 32768
+        },
+        {
+          "id": "fp8",
+          "file": "wan2.2_i2v_high_noise_14B_fp8_scaled.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_i2v_high_noise_14B_fp8_scaled.safetensors",
+          "sha256": "6122e79d55e0f235698d11d657f3b196c5273c830da00b2b013c5a048d5e6a42",
+          "size": 14294742832,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 16384
+        }
+      ],
+      "requires": [
+        {
+          "id": "wan22-i2v-low-noise-14b",
+          "type": "diffusion_model",
+          "reason": "Low-noise expert — required for Wan 2.2 MoE architecture"
+        },
+        {
+          "id": "umt5-xxl",
+          "type": "text_encoder",
+          "reason": "UMT5-XXL text encoder for prompt processing"
+        },
+        {
+          "id": "wan21-vae",
+          "type": "vae",
+          "reason": "Wan 2.1 VAE for video decoding"
+        }
+      ],
+      "defaults": {
+        "steps": 30,
+        "cfg": 5.0
+      },
+      "tags": [
+        "wan",
+        "wan2.2",
+        "video",
+        "image-to-video",
+        "14b",
+        "moe",
+        "high-quality"
+      ],
+      "rating": 4.9,
+      "downloads": 720000,
+      "added": "2025-06-01",
+      "updated": "2025-06-01"
+    },
+    {
+      "id": "wan22-i2v-low-noise-14b",
+      "name": "Wan 2.2 I2V Low Noise Expert 14B",
+      "type": "diffusion_model",
+      "architecture": "wan",
+      "author": "Wan-AI",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Wan-AI/Wan2.2-I2V-A14B",
+      "description": "Low-noise expert for Wan 2.2 14B image-to-video MoE architecture.\nUsed together with the high-noise expert for video generation.\n",
+      "variants": [
+        {
+          "id": "fp16",
+          "file": "wan2.2_i2v_low_noise_14B_fp16.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_i2v_low_noise_14B_fp16.safetensors",
+          "sha256": "edb89340c8a6fbf1a70e76a839ae01eaf7d289f05ea1ebd6b1a3fc6f533826e9",
+          "size": 28577914792,
+          "format": "safetensors",
+          "precision": "fp16",
+          "vram_required": 32768
+        },
+        {
+          "id": "fp8",
+          "file": "wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors",
+          "sha256": "5471a457b6ac404202a5fbe6c11595a3d5641fc766b00f38763f72303fffc21e",
+          "size": 14294742832,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 16384
+        }
+      ],
+      "tags": [
+        "wan",
+        "wan2.2",
+        "video",
+        "image-to-video",
+        "14b",
+        "moe",
+        "low-noise"
+      ],
+      "rating": 4.9,
+      "downloads": 600000,
+      "added": "2025-06-01",
+      "updated": "2025-06-01"
+    },
+    {
+      "id": "wan22-t2v-high-noise-14b",
+      "name": "Wan 2.2 T2V 14B",
+      "type": "diffusion_model",
+      "architecture": "wan",
+      "author": "Wan-AI",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Wan-AI/Wan2.2-T2V-A14B",
+      "description": "Wan 2.2 14B text-to-video model (high-noise expert). Uses MoE architecture\nwith separate high-noise and low-noise experts for cinematic-quality video.\nInstall this to get the full T2V 14B pipeline with all dependencies.\n",
+      "variants": [
+        {
+          "id": "fp16",
+          "file": "wan2.2_t2v_high_noise_14B_fp16.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_t2v_high_noise_14B_fp16.safetensors",
+          "sha256": "c793e1515320fc8883ac8f97e2a45270c35edd8c4e334a6d42d3e95455bd8da2",
+          "size": 28577095592,
+          "format": "safetensors",
+          "precision": "fp16",
+          "vram_required": 32768
+        },
+        {
+          "id": "fp8",
+          "file": "wan2.2_t2v_high_noise_14B_fp8_scaled.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_t2v_high_noise_14B_fp8_scaled.safetensors",
+          "sha256": "cad711ae211c8b23455ec68cd6a190a33a3d874234a77eb57266d73f8f0e6c9f",
+          "size": 14293923632,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 16384
+        }
+      ],
+      "requires": [
+        {
+          "id": "wan22-t2v-low-noise-14b",
+          "type": "diffusion_model",
+          "reason": "Low-noise expert — required for Wan 2.2 MoE architecture"
+        },
+        {
+          "id": "umt5-xxl",
+          "type": "text_encoder",
+          "reason": "UMT5-XXL text encoder for prompt processing"
+        },
+        {
+          "id": "wan21-vae",
+          "type": "vae",
+          "reason": "Wan 2.1 VAE for video decoding"
+        }
+      ],
+      "defaults": {
+        "steps": 30,
+        "cfg": 5.0
+      },
+      "tags": [
+        "wan",
+        "wan2.2",
+        "video",
+        "text-to-video",
+        "14b",
+        "moe",
+        "high-quality"
+      ],
+      "rating": 4.9,
+      "downloads": 780000,
+      "added": "2025-06-01",
+      "updated": "2025-06-01"
+    },
+    {
+      "id": "wan22-t2v-low-noise-14b",
+      "name": "Wan 2.2 T2V Low Noise Expert 14B",
+      "type": "diffusion_model",
+      "architecture": "wan",
+      "author": "Wan-AI",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Wan-AI/Wan2.2-T2V-A14B",
+      "description": "Low-noise expert for Wan 2.2 14B text-to-video MoE architecture.\nUsed together with the high-noise expert for video generation.\n",
+      "variants": [
+        {
+          "id": "fp16",
+          "file": "wan2.2_t2v_low_noise_14B_fp16.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_t2v_low_noise_14B_fp16.safetensors",
+          "sha256": "431d1613ffa809ae1f735b661a01788c6d74991f51efd01f45d5aee955ccd224",
+          "size": 28577095592,
+          "format": "safetensors",
+          "precision": "fp16",
+          "vram_required": 32768
+        },
+        {
+          "id": "fp8",
+          "file": "wan2.2_t2v_low_noise_14B_fp8_scaled.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_t2v_low_noise_14B_fp8_scaled.safetensors",
+          "sha256": "e71b96d7c82e638694c5e7fb98fac4bfb0e4ddc5fbbb4b1df40da8f0f1278a97",
+          "size": 14293923632,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 16384
+        }
+      ],
+      "tags": [
+        "wan",
+        "wan2.2",
+        "video",
+        "text-to-video",
+        "14b",
+        "moe",
+        "low-noise"
+      ],
+      "rating": 4.9,
+      "downloads": 680000,
+      "added": "2025-06-01",
+      "updated": "2025-06-01"
+    },
+    {
+      "id": "wan22-ti2v-5b",
+      "name": "Wan 2.2 TI2V 5B",
+      "type": "diffusion_model",
+      "architecture": "wan",
+      "author": "Wan-AI",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Wan-AI/Wan2.2-TI2V-5B",
+      "description": "Wan 2.2 hybrid text-to-video and image-to-video 5B model. Fits on 8GB VRAM\nwith ComfyUI native offloading. Single model handles both T2V and I2V tasks.\nApache 2.0 license — free for commercial use.\n",
+      "variants": [
+        {
+          "id": "fp16",
+          "file": "wan2.2_ti2v_5B_fp16.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_ti2v_5B_fp16.safetensors",
+          "sha256": "456f901338bd9eadbded3828b819109a9b68e8a525ca5cf8d0049a69fcfeca1e",
+          "size": 9999658848,
+          "format": "safetensors",
+          "precision": "fp16",
+          "vram_required": 10240
+        },
+        {
+          "id": "gguf-q8-0",
+          "file": "Wan2.2-TI2V-5B-Q8_0.gguf",
+          "url": "https://huggingface.co/QuantStack/Wan2.2-TI2V-5B-GGUF/resolve/main/Wan2.2-TI2V-5B-Q8_0.gguf",
+          "sha256": "57bece983817ab2f957546683bb670f13be7d99022d45674840cd999a050ea8f",
+          "size": 5400179040,
+          "format": "gguf",
+          "vram_required": 8192
+        },
+        {
+          "id": "gguf-q5-k-m",
+          "file": "Wan2.2-TI2V-5B-Q5_K_M.gguf",
+          "url": "https://huggingface.co/QuantStack/Wan2.2-TI2V-5B-GGUF/resolve/main/Wan2.2-TI2V-5B-Q5_K_M.gguf",
+          "sha256": "4424633a876511b9be58a41119f7c9d762ea92b3cb74649cdb43cac850e42dba",
+          "size": 3810603360,
+          "format": "gguf",
+          "vram_required": 6144
+        },
+        {
+          "id": "gguf-q4-k-m",
+          "file": "Wan2.2-TI2V-5B-Q4_K_M.gguf",
+          "url": "https://huggingface.co/QuantStack/Wan2.2-TI2V-5B-GGUF/resolve/main/Wan2.2-TI2V-5B-Q4_K_M.gguf",
+          "sha256": "95b19697b7f98e65b0a543640e9ca7b4dfec32e2a6e3731e8e10708be52655e2",
+          "size": 3433116000,
+          "format": "gguf",
+          "vram_required": 5120
+        },
+        {
+          "id": "gguf-q3-k-m",
+          "file": "Wan2.2-TI2V-5B-Q3_K_M.gguf",
+          "url": "https://huggingface.co/QuantStack/Wan2.2-TI2V-5B-GGUF/resolve/main/Wan2.2-TI2V-5B-Q3_K_M.gguf",
+          "sha256": "93cab80a36db70e9f2152915870d6cb9bdc7fdbf61811153222b5251b92839e6",
+          "size": 2547790176,
+          "format": "gguf",
+          "vram_required": 4096
+        }
+      ],
+      "requires": [
+        {
+          "id": "umt5-xxl",
+          "type": "text_encoder",
+          "reason": "UMT5-XXL text encoder for prompt processing"
+        },
+        {
+          "id": "wan22-vae",
+          "type": "vae",
+          "reason": "Wan 2.2 VAE for video decoding"
+        }
+      ],
+      "defaults": {
+        "steps": 30,
+        "cfg": 5.0
+      },
+      "tags": [
+        "wan",
+        "wan2.2",
+        "video",
+        "text-to-video",
+        "image-to-video",
+        "5b"
+      ],
+      "rating": 4.8,
+      "downloads": 920000,
+      "added": "2025-06-01",
+      "updated": "2025-06-01"
+    },
+    {
+      "id": "wan22-vae",
+      "name": "Wan 2.2 VAE",
+      "type": "vae",
+      "architecture": "wan",
+      "author": "Wan-AI",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
+      "description": "VAE for Wan 2.2 video generation models. New high-compression VAE\nused by the 5B TI2V model. 1.4 GB.\n",
+      "file": {
+        "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/vae/wan2.2_vae.safetensors",
+        "sha256": "e40321bd36b9709991dae2530eb4ac303dd168276980d3e9bc4b6e2b75fed156",
+        "size": 1409400960,
+        "format": "safetensors"
+      },
+      "tags": [
+        "wan",
+        "wan2.2",
+        "vae",
+        "video"
+      ],
+      "rating": 4.8,
+      "downloads": 850000,
+      "added": "2025-06-01",
+      "updated": "2025-06-01"
     },
     {
       "id": "z-image-text-encoder",

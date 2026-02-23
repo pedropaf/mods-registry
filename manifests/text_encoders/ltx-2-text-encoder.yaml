@@ -1,0 +1,21 @@
+id: ltx-2-text-encoder
+name: "LTX-2 Embeddings Connector"
+type: text_encoder
+architecture: ltxv
+author: Lightricks
+license: ltx-video
+homepage: https://huggingface.co/unsloth/LTX-2-GGUF
+description: |
+  Embeddings connector / text encoder for LTX-2 19B video model.
+
+file:
+  url: https://huggingface.co/unsloth/LTX-2-GGUF/resolve/main/text_encoders/ltx-2-19b-dev_embeddings_connectors.safetensors
+  sha256: "50a1bd5e4cbbe35e1c87867b6dc693eb784ccd8e7c8fdb8d054a238a90bf8af1"
+  size: 2862981904
+  format: safetensors
+
+tags: [ltx, ltx-2, text-encoder, video]
+rating: 4.7
+downloads: 300000
+added: "2025-06-01"
+updated: "2025-06-01"

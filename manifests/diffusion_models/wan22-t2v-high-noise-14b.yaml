@@ -1,0 +1,50 @@
+id: wan22-t2v-high-noise-14b
+name: "Wan 2.2 T2V 14B"
+type: diffusion_model
+architecture: wan
+author: Wan-AI
+license: apache-2.0
+homepage: https://huggingface.co/Wan-AI/Wan2.2-T2V-A14B
+description: |
+  Wan 2.2 14B text-to-video model (high-noise expert). Uses MoE architecture
+  with separate high-noise and low-noise experts for cinematic-quality video.
+  Install this to get the full T2V 14B pipeline with all dependencies.
+
+variants:
+  - id: fp16
+    file: wan2.2_t2v_high_noise_14B_fp16.safetensors
+    url: https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_t2v_high_noise_14B_fp16.safetensors
+    sha256: "c793e1515320fc8883ac8f97e2a45270c35edd8c4e334a6d42d3e95455bd8da2"
+    size: 28577095592
+    format: safetensors
+    precision: fp16
+    vram_required: 32768
+  - id: fp8
+    file: wan2.2_t2v_high_noise_14B_fp8_scaled.safetensors
+    url: https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_t2v_high_noise_14B_fp8_scaled.safetensors
+    sha256: "cad711ae211c8b23455ec68cd6a190a33a3d874234a77eb57266d73f8f0e6c9f"
+    size: 14293923632
+    format: safetensors
+    precision: fp8-e4m3fn
+    vram_required: 16384
+
+requires:
+  - id: wan22-t2v-low-noise-14b
+    type: diffusion_model
+    reason: "Low-noise expert — required for Wan 2.2 MoE architecture"
+  - id: umt5-xxl
+    type: text_encoder
+    reason: "UMT5-XXL text encoder for prompt processing"
+  - id: wan21-vae
+    type: vae
+    reason: "Wan 2.1 VAE for video decoding"
+
+defaults:
+  steps: 30
+  cfg: 5.0
+
+tags: [wan, wan2.2, video, text-to-video, 14b, moe, high-quality]
+rating: 4.9
+downloads: 780000
+added: "2025-06-01"
+updated: "2025-06-01"
