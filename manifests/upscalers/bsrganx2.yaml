@@ -1,0 +1,25 @@
+id: bsrganx2
+name: "BSRGANx2 Upscaler"
+type: upscaler
+author: cszn
+license: apache-2.0
+homepage: https://github.com/cszn/BSRGAN
+description: |
+  2x upscaler based on BSRGAN (Blind Super-Resolution GAN).
+  Better than bicubic for real-world degraded/noisy/compressed images.
+  Handles JPEG artifacts, noise, and blur well — good for product photos
+  that have been through lossy compression.
+
+scale_factor: 2
+
+file:
+  url: https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/BSRGANx2.pth
+  sha256: "VERIFY_bsrganx2"
+  size: 71849987
+  format: pth
+
+tags: [upscaler, 2x, bsrgan, denoising, real-world, esrgan]
+rating: 4.6
+downloads: 450000
+added: "2022-01-01"
+updated: "2022-01-01"

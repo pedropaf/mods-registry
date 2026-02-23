@@ -1,0 +1,256 @@
+id: qwen-image-edit
+name: "Qwen Image Edit"
+type: checkpoint
+architecture: qwen-image
+author: Comfy-Org / QuantStack
+license: apache-2.0
+homepage: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI
+description: |
+  AI-powered image editing model based on Qwen 2.5 VL architecture.
+  Supports outpainting, format/ratio changes, AI scene generation, and in-place enhancement.
+  Best with 8 steps using Lightning LoRA, euler sampler, CFG 1.0.
+  Available as native safetensors (bf16/fp8) or GGUF quantizations (Q2_K through Q8_0).
+
+variants:
+  # --- Native safetensors (Comfy-Org, loaded via UnetLoader) ---
+  - id: bf16
+    file: qwen_image_bf16.safetensors
+    url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_bf16.safetensors
+    sha256: "VERIFY_qwen_image_bf16"
+    size: 43927101440
+    format: safetensors
+    precision: bf16
+    vram_required: 40960
+    vram_recommended: 49152
+    note: "Full precision bf16. Best quality, needs A100 40GB+ or similar."
+
+  - id: fp8-hq
+    file: qwen_image_fp8_hq.safetensors
+    url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_fp8_hq.safetensors
+    sha256: "VERIFY_qwen_image_fp8_hq"
+    size: 24373903360
+    format: safetensors
+    precision: fp8-e4m3fn
+    vram_required: 24576
+    vram_recommended: 32768
+    note: "High-quality fp8 quantization with sensitive layers in higher precision."
+
+  - id: fp8-mixed
+    file: qwen_image_fp8mixed.safetensors
+    url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_fp8mixed.safetensors
+    sha256: "VERIFY_qwen_image_fp8mixed"
+    size: 22011707392
+    format: safetensors
+    precision: fp8-e4m3fn
+    vram_required: 24576
+    vram_recommended: 24576
+    note: "Mixed precision fp8 with comfy_quant layers. Sensitive layers kept in high precision."
+
+  - id: fp8
+    file: qwen_image_fp8_e4m3fn.safetensors
+    url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_fp8_e4m3fn.safetensors
+    sha256: "VERIFY_qwen_image_fp8"
+    size: 21902483456
+    format: safetensors
+    precision: fp8-e4m3fn
+    vram_required: 20480
+    vram_recommended: 24576
+    note: "Standard fp8 quantization. Good balance of quality vs VRAM."
+
+  - id: nvfp4
+    file: qwen_image_nvfp4.safetensors
+    url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_nvfp4.safetensors
+    sha256: "VERIFY_qwen_image_nvfp4"
+    size: 21260902400
+    format: safetensors
+    precision: nvfp4
+    vram_required: 16384
+    vram_recommended: 20480
+    note: "NVIDIA fp4 quantization. Lower quality but fits on smaller GPUs."
+
+  # --- 2512 variants (newer architecture revision) ---
+  - id: 2512-bf16
+    file: qwen_image_2512_bf16.safetensors
+    url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_2512_bf16.safetensors
+    sha256: "VERIFY_qwen_image_2512_bf16"
+    size: 43927101440
+    format: safetensors
+    precision: bf16
+    vram_required: 40960
+    vram_recommended: 49152
+    note: "2512 revision, full bf16 precision."
+
+  - id: 2512-fp8
+    file: qwen_image_2512_fp8_e4m3fn.safetensors
+    url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_2512_fp8_e4m3fn.safetensors
+    sha256: "VERIFY_qwen_image_2512_fp8"
+    size: 21902483456
+    format: safetensors
+    precision: fp8-e4m3fn
+    vram_required: 20480
+    vram_recommended: 24576
+    note: "2512 revision, fp8 quantized."
+
+  # --- GGUF quantizations (QuantStack, loaded via UnetLoaderGGUF) ---
+  - id: gguf-q8-0
+    file: Qwen_Image_Edit-Q8_0.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q8_0.gguf
+    sha256: "VERIFY_qwen_gguf_q8_0"
+    size: 23405215744
+    format: gguf
+    precision: q8_0
+    vram_required: 24576
+    vram_recommended: 32768
+    note: "GGUF Q8_0 — best GGUF quality. Requires ComfyUI-GGUF custom node."
+
+  - id: gguf-q6-k
+    file: Qwen_Image_Edit-Q6_K.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q6_K.gguf
+    sha256: "VERIFY_qwen_gguf_q6_k"
+    size: 18039808000
+    format: gguf
+    precision: q6_k
+    vram_required: 20480
+    vram_recommended: 24576
+    note: "GGUF Q6_K — good quality/size balance."
+
+  - id: gguf-q5-k-m
+    file: Qwen_Image_Edit-Q5_K_M.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q5_K_M.gguf
+    sha256: "VERIFY_qwen_gguf_q5_k_m"
+    size: 16000204800
+    format: gguf
+    precision: q5_k_m
+    vram_required: 16384
+    vram_recommended: 20480
+    note: "GGUF Q5_K_M — recommended for 16GB+ GPUs."
+
+  - id: gguf-q5-k-s
+    file: Qwen_Image_Edit-Q5_K_S.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q5_K_S.gguf
+    sha256: "VERIFY_qwen_gguf_q5_k_s"
+    size: 15140249600
+    format: gguf
+    precision: q5_k_s
+    vram_required: 16384
+    vram_recommended: 20480
+    note: "GGUF Q5_K_S — smaller Q5 variant."
+
+  - id: gguf-q5-0
+    file: Qwen_Image_Edit-Q5_0.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q5_0.gguf
+    sha256: "VERIFY_qwen_gguf_q5_0"
+    size: 15461882880
+    format: gguf
+    precision: q5_0
+    vram_required: 16384
+    vram_recommended: 20480
+    note: "GGUF Q5_0."
+
+  - id: gguf-q5-1
+    file: Qwen_Image_Edit-Q5_1.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q5_1.gguf
+    sha256: "VERIFY_qwen_gguf_q5_1"
+    size: 16536027136
+    format: gguf
+    precision: q5_1
+    vram_required: 16384
+    vram_recommended: 20480
+    note: "GGUF Q5_1."
+
+  - id: gguf-q4-k-m
+    file: Qwen_Image_Edit-Q4_K_M.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q4_K_M.gguf
+    sha256: "VERIFY_qwen_gguf_q4_k_m"
+    size: 14066032640
+    format: gguf
+    precision: q4_k_m
+    vram_required: 12288
+    vram_recommended: 16384
+    note: "GGUF Q4_K_M — good for 12GB GPUs."
+
+  - id: gguf-q4-k-s
+    file: Qwen_Image_Edit-Q4_K_S.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q4_K_S.gguf
+    sha256: "VERIFY_qwen_gguf_q4_k_s"
+    size: 12994428928
+    format: gguf
+    precision: q4_k_s
+    vram_required: 12288
+    vram_recommended: 16384
+    note: "GGUF Q4_K_S — smaller Q4 variant."
+
+  - id: gguf-q4-0
+    file: Qwen_Image_Edit-Q4_0.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q4_0.gguf
+    sha256: "VERIFY_qwen_gguf_q4_0"
+    size: 12776923136
+    format: gguf
+    precision: q4_0
+    vram_required: 12288
+    vram_recommended: 16384
+    note: "GGUF Q4_0."
+
+  - id: gguf-q4-1
+    file: Qwen_Image_Edit-Q4_1.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q4_1.gguf
+    sha256: "VERIFY_qwen_gguf_q4_1"
+    size: 13743095808
+    format: gguf
+    precision: q4_1
+    vram_required: 12288
+    vram_recommended: 16384
+    note: "GGUF Q4_1."
+
+  - id: gguf-q3-k-m
+    file: Qwen_Image_Edit-Q3_K_M.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q3_K_M.gguf
+    sha256: "VERIFY_qwen_gguf_q3_k_m"
+    size: 10394116096
+    format: gguf
+    precision: q3_k_m
+    vram_required: 10240
+    vram_recommended: 12288
+    note: "GGUF Q3_K_M — for 10GB+ GPUs. Noticeable quality reduction."
+
+  - id: gguf-q3-k-s
+    file: Qwen_Image_Edit-Q3_K_S.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q3_K_S.gguf
+    sha256: "VERIFY_qwen_gguf_q3_k_s"
+    size: 9609625600
+    format: gguf
+    precision: q3_k_s
+    vram_required: 10240
+    vram_recommended: 12288
+    note: "GGUF Q3_K_S — smaller Q3 variant."
+
+  - id: gguf-q2-k
+    file: Qwen_Image_Edit-Q2_K.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q2_K.gguf
+    sha256: "VERIFY_qwen_gguf_q2_k"
+    size: 7580321792
+    format: gguf
+    precision: q2_k
+    vram_required: 8192
+    vram_recommended: 10240
+    note: "GGUF Q2_K — minimum quality. Fits on 8GB GPUs but significant quality loss."
+
+requires:
+  - id: qwen-image-vae
+    type: vae
+    reason: "Qwen Image Edit requires the Qwen-specific VAE"
+  - id: qwen-image-clip
+    type: text_encoder
+    reason: "Qwen 2.5 VL 7B text/vision encoder for prompt processing"
+
+defaults:
+  steps: 8
+  cfg: 1.0
+  sampler: euler
+  scheduler: simple
+
+tags: [qwen, image-editing, outpainting, scene-generation, comfyui, gguf]
+rating: 4.8
+downloads: 275000
+added: "2025-07-01"
+updated: "2026-01-15"

@@ -1,0 +1,40 @@
+id: qwen-image-clip
+name: "Qwen 2.5 VL 7B Text Encoder"
+type: text_encoder
+architecture: qwen-vl
+author: Comfy-Org
+license: apache-2.0
+homepage: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI
+description: |
+  Qwen 2.5 Vision-Language 7B text/vision encoder for Qwen Image Edit.
+  Handles prompt processing and image understanding for the Qwen Image editing pipeline.
+  Available in full bf16 (16.6 GB) and fp8 quantized (9.4 GB) variants.
+
+variants:
+  - id: fp8
+    file: qwen_2.5_vl_7b_fp8_scaled.safetensors
+    url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors
+    sha256: "VERIFY_qwen_clip_fp8"
+    size: 10071982080
+    format: safetensors
+    precision: fp8-e4m3fn
+    vram_required: 10240
+    vram_recommended: 12288
+    note: "FP8 scaled quantization. Recommended — good quality at half the size."
+
+  - id: bf16
+    file: qwen_2.5_vl_7b.safetensors
+    url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b.safetensors
+    sha256: "VERIFY_qwen_clip_bf16"
+    size: 17825792000
+    format: safetensors
+    precision: bf16
+    vram_required: 16384
+    vram_recommended: 20480
+    note: "Full bf16 precision. Best quality, needs more VRAM."
+
+tags: [qwen, text-encoder, vision-language, clip, comfyui]
+rating: 4.8
+downloads: 275000
+added: "2025-07-01"
+updated: "2025-07-01"

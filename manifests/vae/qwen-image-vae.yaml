@@ -1,0 +1,22 @@
+id: qwen-image-vae
+name: "Qwen Image VAE"
+type: vae
+architecture: qwen-image
+author: Comfy-Org
+license: apache-2.0
+homepage: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI
+description: |
+  VAE for the Qwen Image Edit pipeline. Single file, no variants.
+  Required by all Qwen Image Edit checkpoints.
+
+file:
+  url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/vae/qwen_image_vae.safetensors
+  sha256: "VERIFY_qwen_image_vae"
+  size: 266338304
+  format: safetensors
+
+tags: [qwen, vae, comfyui]
+rating: 5.0
+downloads: 275000
+added: "2025-07-01"
+updated: "2025-07-01"

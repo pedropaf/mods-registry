@@ -30,6 +30,7 @@ VALID_TYPES = {
     "upscaler",
     "embedding",
     "ipadapter",
+    "segmentation",
 }
 
 TYPE_DIR_MAP = {
@@ -41,6 +42,7 @@ TYPE_DIR_MAP = {
     "upscalers": "upscaler",
     "embeddings": "embedding",
     "ipadapters": "ipadapter",
+    "segmentation": "segmentation",
 }
 
 

@@ -1,0 +1,118 @@
+id: qwen-image-edit-lightning
+name: "Qwen Image Edit Lightning LoRA"
+type: lora
+author: lightx2v
+license: apache-2.0
+homepage: https://huggingface.co/lightx2v/Qwen-Image-Lightning
+description: |
+  Distillation LoRA for Qwen Image Edit that reduces inference from ~50 steps to 4-8 steps.
+  Multiple versions available: V1.0 and V2.0, in 4-step and 8-step variants.
+  Also includes Edit-specific variants for image editing (vs generation).
+  bf16 variants are half the size (~850 MB) with no quality loss on bf16/fp8 base models.
+
+base_models: [qwen-image-edit]
+
+variants:
+  # --- 8-step Edit variants (what shopify-reframe-ai uses) ---
+  - id: edit-8step-v1
+    file: Qwen-Image-Edit-Lightning-8steps-V1.0.safetensors
+    url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-8steps-V1.0.safetensors
+    sha256: "VERIFY_qwen_lightning_edit_8s_v1"
+    size: 1825361920
+    format: safetensors
+    precision: fp32
+    note: "Edit-specific, 8-step, V1.0. fp32 weights. Used by shopify-reframe-ai."
+
+  - id: edit-8step-v1-bf16
+    file: Qwen-Image-Edit-Lightning-8steps-V1.0-bf16.safetensors
+    url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-8steps-V1.0-bf16.safetensors
+    sha256: "VERIFY_qwen_lightning_edit_8s_v1_bf16"
+    size: 912680960
+    format: safetensors
+    precision: bf16
+    note: "Edit-specific, 8-step, V1.0 in bf16. Half the size."
+
+  # --- 4-step Edit variants ---
+  - id: edit-4step-v1
+    file: Qwen-Image-Edit-Lightning-4steps-V1.0.safetensors
+    url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-4steps-V1.0.safetensors
+    sha256: "VERIFY_qwen_lightning_edit_4s_v1"
+    size: 1825361920
+    format: safetensors
+    precision: fp32
+    note: "Edit-specific, 4-step, V1.0. Fastest but slightly lower quality than 8-step."
+
+  - id: edit-4step-v1-bf16
+    file: Qwen-Image-Edit-Lightning-4steps-V1.0-bf16.safetensors
+    url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-4steps-V1.0-bf16.safetensors
+    sha256: "VERIFY_qwen_lightning_edit_4s_v1_bf16"
+    size: 912680960
+    format: safetensors
+    precision: bf16
+    note: "Edit-specific, 4-step, V1.0 in bf16."
+
+  # --- Generation Lightning variants (8-step) ---
+  - id: gen-8step-v2
+    file: Qwen-Image-Lightning-8steps-V2.0.safetensors
+    url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V2.0.safetensors
+    sha256: "VERIFY_qwen_lightning_gen_8s_v2"
+    size: 1825361920
+    format: safetensors
+    precision: fp32
+    note: "Generation-focused, 8-step, V2.0. Latest version."
+
+  - id: gen-8step-v2-bf16
+    file: Qwen-Image-Lightning-8steps-V2.0-bf16.safetensors
+    url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V2.0-bf16.safetensors
+    sha256: "VERIFY_qwen_lightning_gen_8s_v2_bf16"
+    size: 912680960
+    format: safetensors
+    precision: bf16
+    note: "Generation-focused, 8-step, V2.0 in bf16."
+
+  # --- Generation Lightning variants (4-step) ---
+  - id: gen-4step-v2
+    file: Qwen-Image-Lightning-4steps-V2.0.safetensors
+    url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V2.0.safetensors
+    sha256: "VERIFY_qwen_lightning_gen_4s_v2"
+    size: 1825361920
+    format: safetensors
+    precision: fp32
+    note: "Generation-focused, 4-step, V2.0. Fastest generation."
+
+  - id: gen-4step-v2-bf16
+    file: Qwen-Image-Lightning-4steps-V2.0-bf16.safetensors
+    url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V2.0-bf16.safetensors
+    sha256: "VERIFY_qwen_lightning_gen_4s_v2_bf16"
+    size: 912680960
+    format: safetensors
+    precision: bf16
+    note: "Generation-focused, 4-step, V2.0 in bf16."
+
+  # --- fp8 base model specific Lightning variants ---
+  - id: fp8-gen-4step-v1-bf16
+    file: Qwen-Image-fp8-e4m3fn-Lightning-4steps-V1.0-bf16.safetensors
+    url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-fp8-e4m3fn-Lightning-4steps-V1.0-bf16.safetensors
+    sha256: "VERIFY_qwen_lightning_fp8_4s_v1_bf16"
+    size: 912680960
+    format: safetensors
+    precision: bf16
+    note: "Trained specifically for fp8 base model. 4-step, bf16."
+
+  - id: fp8-gen-4step-v1-fp32
+    file: Qwen-Image-fp8-e4m3fn-Lightning-4steps-V1.0-fp32.safetensors
+    url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-fp8-e4m3fn-Lightning-4steps-V1.0-fp32.safetensors
+    sha256: "VERIFY_qwen_lightning_fp8_4s_v1_fp32"
+    size: 1825361920
+    format: safetensors
+    precision: fp32
+    note: "Trained specifically for fp8 base model. 4-step, fp32."
+
+recommended_weight: 1.0
+weight_range: [0.8, 1.0]
+
+tags: [qwen, lora, lightning, distillation, fast-inference, comfyui]
+rating: 4.7
+downloads: 773000
+added: "2025-08-01"
+updated: "2025-10-01"

@@ -1,0 +1,24 @@
+id: birefnet-dis
+name: "BiRefNet DIS (Dichotomous Image Segmentation)"
+type: segmentation
+architecture: birefnet
+author: ViperYX
+license: mit
+homepage: https://huggingface.co/ViperYX/BiRefNet
+description: |
+  High-quality background removal / image segmentation model.
+  BiRefNet (Bilateral Reference Network) trained on DIS5K dataset for
+  dichotomous image segmentation — excels at precise foreground/background separation.
+  Used in ComfyUI via ComfyUI_BiRefNet_ll custom node.
+
+file:
+  url: https://huggingface.co/ViperYX/BiRefNet/resolve/main/BiRefNet-DIS_ep580.pth
+  sha256: "VERIFY_birefnet_dis_ep580"
+  size: 889192448
+  format: pth
+
+tags: [segmentation, background-removal, birefnet, matting, comfyui]
+rating: 4.8
+downloads: 65000
+added: "2024-03-01"
+updated: "2024-03-01"

@@ -28,6 +28,61 @@
       "updated": "2024-01-01"
     },
     {
+      "id": "birefnet-dis",
+      "name": "BiRefNet DIS (Dichotomous Image Segmentation)",
+      "type": "segmentation",
+      "architecture": "birefnet",
+      "author": "ViperYX",
+      "license": "mit",
+      "homepage": "https://huggingface.co/ViperYX/BiRefNet",
+      "description": "High-quality background removal / image segmentation model.\nBiRefNet (Bilateral Reference Network) trained on DIS5K dataset for\ndichotomous image segmentation — excels at precise foreground/background separation.\nUsed in ComfyUI via ComfyUI_BiRefNet_ll custom node.\n",
+      "file": {
+        "url": "https://huggingface.co/ViperYX/BiRefNet/resolve/main/BiRefNet-DIS_ep580.pth",
+        "sha256": "VERIFY_birefnet_dis_ep580",
+        "size": 889192448,
+        "format": "pth"
+      },
+      "tags": [
+        "segmentation",
+        "background-removal",
+        "birefnet",
+        "matting",
+        "comfyui"
+      ],
+      "rating": 4.8,
+      "downloads": 65000,
+      "added": "2024-03-01",
+      "updated": "2024-03-01"
+    },
+    {
+      "id": "bsrganx2",
+      "name": "BSRGANx2 Upscaler",
+      "type": "upscaler",
+      "author": "cszn",
+      "license": "apache-2.0",
+      "homepage": "https://github.com/cszn/BSRGAN",
+      "description": "2x upscaler based on BSRGAN (Blind Super-Resolution GAN).\nBetter than bicubic for real-world degraded/noisy/compressed images.\nHandles JPEG artifacts, noise, and blur well — good for product photos\nthat have been through lossy compression.\n",
+      "scale_factor": 2,
+      "file": {
+        "url": "https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/BSRGANx2.pth",
+        "sha256": "VERIFY_bsrganx2",
+        "size": 71849987,
+        "format": "pth"
+      },
+      "tags": [
+        "upscaler",
+        "2x",
+        "bsrgan",
+        "denoising",
+        "real-world",
+        "esrgan"
+      ],
+      "rating": 4.6,
+      "downloads": 450000,
+      "added": "2022-01-01",
+      "updated": "2022-01-01"
+    },
+    {
       "id": "clip-l",
       "name": "CLIP-L Text Encoder",
       "type": "text_encoder",
@@ -256,6 +311,491 @@
       "downloads": 3200000,
       "added": "2024-08-01",
       "updated": "2024-08-01"
+    },
+    {
+      "id": "qwen-image-clip",
+      "name": "Qwen 2.5 VL 7B Text Encoder",
+      "type": "text_encoder",
+      "architecture": "qwen-vl",
+      "author": "Comfy-Org",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI",
+      "description": "Qwen 2.5 Vision-Language 7B text/vision encoder for Qwen Image Edit.\nHandles prompt processing and image understanding for the Qwen Image editing pipeline.\nAvailable in full bf16 (16.6 GB) and fp8 quantized (9.4 GB) variants.\n",
+      "variants": [
+        {
+          "id": "fp8",
+          "file": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors",
+          "sha256": "VERIFY_qwen_clip_fp8",
+          "size": 10071982080,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 10240,
+          "vram_recommended": 12288,
+          "note": "FP8 scaled quantization. Recommended — good quality at half the size."
+        },
+        {
+          "id": "bf16",
+          "file": "qwen_2.5_vl_7b.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b.safetensors",
+          "sha256": "VERIFY_qwen_clip_bf16",
+          "size": 17825792000,
+          "format": "safetensors",
+          "precision": "bf16",
+          "vram_required": 16384,
+          "vram_recommended": 20480,
+          "note": "Full bf16 precision. Best quality, needs more VRAM."
+        }
+      ],
+      "tags": [
+        "qwen",
+        "text-encoder",
+        "vision-language",
+        "clip",
+        "comfyui"
+      ],
+      "rating": 4.8,
+      "downloads": 275000,
+      "added": "2025-07-01",
+      "updated": "2025-07-01"
+    },
+    {
+      "id": "qwen-image-edit",
+      "name": "Qwen Image Edit",
+      "type": "checkpoint",
+      "architecture": "qwen-image",
+      "author": "Comfy-Org / QuantStack",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI",
+      "description": "AI-powered image editing model based on Qwen 2.5 VL architecture.\nSupports outpainting, format/ratio changes, AI scene generation, and in-place enhancement.\nBest with 8 steps using Lightning LoRA, euler sampler, CFG 1.0.\nAvailable as native safetensors (bf16/fp8) or GGUF quantizations (Q2_K through Q8_0).\n",
+      "variants": [
+        {
+          "id": "bf16",
+          "file": "qwen_image_bf16.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_bf16.safetensors",
+          "sha256": "VERIFY_qwen_image_bf16",
+          "size": 43927101440,
+          "format": "safetensors",
+          "precision": "bf16",
+          "vram_required": 40960,
+          "vram_recommended": 49152,
+          "note": "Full precision bf16. Best quality, needs A100 40GB+ or similar."
+        },
+        {
+          "id": "fp8-hq",
+          "file": "qwen_image_fp8_hq.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_fp8_hq.safetensors",
+          "sha256": "VERIFY_qwen_image_fp8_hq",
+          "size": 24373903360,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 24576,
+          "vram_recommended": 32768,
+          "note": "High-quality fp8 quantization with sensitive layers in higher precision."
+        },
+        {
+          "id": "fp8-mixed",
+          "file": "qwen_image_fp8mixed.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_fp8mixed.safetensors",
+          "sha256": "VERIFY_qwen_image_fp8mixed",
+          "size": 22011707392,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 24576,
+          "vram_recommended": 24576,
+          "note": "Mixed precision fp8 with comfy_quant layers. Sensitive layers kept in high precision."
+        },
+        {
+          "id": "fp8",
+          "file": "qwen_image_fp8_e4m3fn.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_fp8_e4m3fn.safetensors",
+          "sha256": "VERIFY_qwen_image_fp8",
+          "size": 21902483456,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 20480,
+          "vram_recommended": 24576,
+          "note": "Standard fp8 quantization. Good balance of quality vs VRAM."
+        },
+        {
+          "id": "nvfp4",
+          "file": "qwen_image_nvfp4.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_nvfp4.safetensors",
+          "sha256": "VERIFY_qwen_image_nvfp4",
+          "size": 21260902400,
+          "format": "safetensors",
+          "precision": "nvfp4",
+          "vram_required": 16384,
+          "vram_recommended": 20480,
+          "note": "NVIDIA fp4 quantization. Lower quality but fits on smaller GPUs."
+        },
+        {
+          "id": "2512-bf16",
+          "file": "qwen_image_2512_bf16.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_2512_bf16.safetensors",
+          "sha256": "VERIFY_qwen_image_2512_bf16",
+          "size": 43927101440,
+          "format": "safetensors",
+          "precision": "bf16",
+          "vram_required": 40960,
+          "vram_recommended": 49152,
+          "note": "2512 revision, full bf16 precision."
+        },
+        {
+          "id": "2512-fp8",
+          "file": "qwen_image_2512_fp8_e4m3fn.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_2512_fp8_e4m3fn.safetensors",
+          "sha256": "VERIFY_qwen_image_2512_fp8",
+          "size": 21902483456,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 20480,
+          "vram_recommended": 24576,
+          "note": "2512 revision, fp8 quantized."
+        },
+        {
+          "id": "gguf-q8-0",
+          "file": "Qwen_Image_Edit-Q8_0.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q8_0.gguf",
+          "sha256": "VERIFY_qwen_gguf_q8_0",
+          "size": 23405215744,
+          "format": "gguf",
+          "precision": "q8_0",
+          "vram_required": 24576,
+          "vram_recommended": 32768,
+          "note": "GGUF Q8_0 — best GGUF quality. Requires ComfyUI-GGUF custom node."
+        },
+        {
+          "id": "gguf-q6-k",
+          "file": "Qwen_Image_Edit-Q6_K.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q6_K.gguf",
+          "sha256": "VERIFY_qwen_gguf_q6_k",
+          "size": 18039808000,
+          "format": "gguf",
+          "precision": "q6_k",
+          "vram_required": 20480,
+          "vram_recommended": 24576,
+          "note": "GGUF Q6_K — good quality/size balance."
+        },
+        {
+          "id": "gguf-q5-k-m",
+          "file": "Qwen_Image_Edit-Q5_K_M.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q5_K_M.gguf",
+          "sha256": "VERIFY_qwen_gguf_q5_k_m",
+          "size": 16000204800,
+          "format": "gguf",
+          "precision": "q5_k_m",
+          "vram_required": 16384,
+          "vram_recommended": 20480,
+          "note": "GGUF Q5_K_M — recommended for 16GB+ GPUs."
+        },
+        {
+          "id": "gguf-q5-k-s",
+          "file": "Qwen_Image_Edit-Q5_K_S.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q5_K_S.gguf",
+          "sha256": "VERIFY_qwen_gguf_q5_k_s",
+          "size": 15140249600,
+          "format": "gguf",
+          "precision": "q5_k_s",
+          "vram_required": 16384,
+          "vram_recommended": 20480,
+          "note": "GGUF Q5_K_S — smaller Q5 variant."
+        },
+        {
+          "id": "gguf-q5-0",
+          "file": "Qwen_Image_Edit-Q5_0.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q5_0.gguf",
+          "sha256": "VERIFY_qwen_gguf_q5_0",
+          "size": 15461882880,
+          "format": "gguf",
+          "precision": "q5_0",
+          "vram_required": 16384,
+          "vram_recommended": 20480,
+          "note": "GGUF Q5_0."
+        },
+        {
+          "id": "gguf-q5-1",
+          "file": "Qwen_Image_Edit-Q5_1.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q5_1.gguf",
+          "sha256": "VERIFY_qwen_gguf_q5_1",
+          "size": 16536027136,
+          "format": "gguf",
+          "precision": "q5_1",
+          "vram_required": 16384,
+          "vram_recommended": 20480,
+          "note": "GGUF Q5_1."
+        },
+        {
+          "id": "gguf-q4-k-m",
+          "file": "Qwen_Image_Edit-Q4_K_M.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q4_K_M.gguf",
+          "sha256": "VERIFY_qwen_gguf_q4_k_m",
+          "size": 14066032640,
+          "format": "gguf",
+          "precision": "q4_k_m",
+          "vram_required": 12288,
+          "vram_recommended": 16384,
+          "note": "GGUF Q4_K_M — good for 12GB GPUs."
+        },
+        {
+          "id": "gguf-q4-k-s",
+          "file": "Qwen_Image_Edit-Q4_K_S.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q4_K_S.gguf",
+          "sha256": "VERIFY_qwen_gguf_q4_k_s",
+          "size": 12994428928,
+          "format": "gguf",
+          "precision": "q4_k_s",
+          "vram_required": 12288,
+          "vram_recommended": 16384,
+          "note": "GGUF Q4_K_S — smaller Q4 variant."
+        },
+        {
+          "id": "gguf-q4-0",
+          "file": "Qwen_Image_Edit-Q4_0.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q4_0.gguf",
+          "sha256": "VERIFY_qwen_gguf_q4_0",
+          "size": 12776923136,
+          "format": "gguf",
+          "precision": "q4_0",
+          "vram_required": 12288,
+          "vram_recommended": 16384,
+          "note": "GGUF Q4_0."
+        },
+        {
+          "id": "gguf-q4-1",
+          "file": "Qwen_Image_Edit-Q4_1.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q4_1.gguf",
+          "sha256": "VERIFY_qwen_gguf_q4_1",
+          "size": 13743095808,
+          "format": "gguf",
+          "precision": "q4_1",
+          "vram_required": 12288,
+          "vram_recommended": 16384,
+          "note": "GGUF Q4_1."
+        },
+        {
+          "id": "gguf-q3-k-m",
+          "file": "Qwen_Image_Edit-Q3_K_M.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q3_K_M.gguf",
+          "sha256": "VERIFY_qwen_gguf_q3_k_m",
+          "size": 10394116096,
+          "format": "gguf",
+          "precision": "q3_k_m",
+          "vram_required": 10240,
+          "vram_recommended": 12288,
+          "note": "GGUF Q3_K_M — for 10GB+ GPUs. Noticeable quality reduction."
+        },
+        {
+          "id": "gguf-q3-k-s",
+          "file": "Qwen_Image_Edit-Q3_K_S.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q3_K_S.gguf",
+          "sha256": "VERIFY_qwen_gguf_q3_k_s",
+          "size": 9609625600,
+          "format": "gguf",
+          "precision": "q3_k_s",
+          "vram_required": 10240,
+          "vram_recommended": 12288,
+          "note": "GGUF Q3_K_S — smaller Q3 variant."
+        },
+        {
+          "id": "gguf-q2-k",
+          "file": "Qwen_Image_Edit-Q2_K.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q2_K.gguf",
+          "sha256": "VERIFY_qwen_gguf_q2_k",
+          "size": 7580321792,
+          "format": "gguf",
+          "precision": "q2_k",
+          "vram_required": 8192,
+          "vram_recommended": 10240,
+          "note": "GGUF Q2_K — minimum quality. Fits on 8GB GPUs but significant quality loss."
+        }
+      ],
+      "requires": [
+        {
+          "id": "qwen-image-vae",
+          "type": "vae",
+          "reason": "Qwen Image Edit requires the Qwen-specific VAE"
+        },
+        {
+          "id": "qwen-image-clip",
+          "type": "text_encoder",
+          "reason": "Qwen 2.5 VL 7B text/vision encoder for prompt processing"
+        }
+      ],
+      "defaults": {
+        "steps": 8,
+        "cfg": 1.0,
+        "sampler": "euler",
+        "scheduler": "simple"
+      },
+      "tags": [
+        "qwen",
+        "image-editing",
+        "outpainting",
+        "scene-generation",
+        "comfyui",
+        "gguf"
+      ],
+      "rating": 4.8,
+      "downloads": 275000,
+      "added": "2025-07-01",
+      "updated": "2026-01-15"
+    },
+    {
+      "id": "qwen-image-edit-lightning",
+      "name": "Qwen Image Edit Lightning LoRA",
+      "type": "lora",
+      "author": "lightx2v",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/lightx2v/Qwen-Image-Lightning",
+      "description": "Distillation LoRA for Qwen Image Edit that reduces inference from ~50 steps to 4-8 steps.\nMultiple versions available: V1.0 and V2.0, in 4-step and 8-step variants.\nAlso includes Edit-specific variants for image editing (vs generation).\nbf16 variants are half the size (~850 MB) with no quality loss on bf16/fp8 base models.\n",
+      "base_models": [
+        "qwen-image-edit"
+      ],
+      "variants": [
+        {
+          "id": "edit-8step-v1",
+          "file": "Qwen-Image-Edit-Lightning-8steps-V1.0.safetensors",
+          "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-8steps-V1.0.safetensors",
+          "sha256": "VERIFY_qwen_lightning_edit_8s_v1",
+          "size": 1825361920,
+          "format": "safetensors",
+          "precision": "fp32",
+          "note": "Edit-specific, 8-step, V1.0. fp32 weights. Used by shopify-reframe-ai."
+        },
+        {
+          "id": "edit-8step-v1-bf16",
+          "file": "Qwen-Image-Edit-Lightning-8steps-V1.0-bf16.safetensors",
+          "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-8steps-V1.0-bf16.safetensors",
+          "sha256": "VERIFY_qwen_lightning_edit_8s_v1_bf16",
+          "size": 912680960,
+          "format": "safetensors",
+          "precision": "bf16",
+          "note": "Edit-specific, 8-step, V1.0 in bf16. Half the size."
+        },
+        {
+          "id": "edit-4step-v1",
+          "file": "Qwen-Image-Edit-Lightning-4steps-V1.0.safetensors",
+          "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-4steps-V1.0.safetensors",
+          "sha256": "VERIFY_qwen_lightning_edit_4s_v1",
+          "size": 1825361920,
+          "format": "safetensors",
+          "precision": "fp32",
+          "note": "Edit-specific, 4-step, V1.0. Fastest but slightly lower quality than 8-step."
+        },
+        {
+          "id": "edit-4step-v1-bf16",
+          "file": "Qwen-Image-Edit-Lightning-4steps-V1.0-bf16.safetensors",
+          "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-4steps-V1.0-bf16.safetensors",
+          "sha256": "VERIFY_qwen_lightning_edit_4s_v1_bf16",
+          "size": 912680960,
+          "format": "safetensors",
+          "precision": "bf16",
+          "note": "Edit-specific, 4-step, V1.0 in bf16."
+        },
+        {
+          "id": "gen-8step-v2",
+          "file": "Qwen-Image-Lightning-8steps-V2.0.safetensors",
+          "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V2.0.safetensors",
+          "sha256": "VERIFY_qwen_lightning_gen_8s_v2",
+          "size": 1825361920,
+          "format": "safetensors",
+          "precision": "fp32",
+          "note": "Generation-focused, 8-step, V2.0. Latest version."
+        },
+        {
+          "id": "gen-8step-v2-bf16",
+          "file": "Qwen-Image-Lightning-8steps-V2.0-bf16.safetensors",
+          "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V2.0-bf16.safetensors",
+          "sha256": "VERIFY_qwen_lightning_gen_8s_v2_bf16",
+          "size": 912680960,
+          "format": "safetensors",
+          "precision": "bf16",
+          "note": "Generation-focused, 8-step, V2.0 in bf16."
+        },
+        {
+          "id": "gen-4step-v2",
+          "file": "Qwen-Image-Lightning-4steps-V2.0.safetensors",
+          "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V2.0.safetensors",
+          "sha256": "VERIFY_qwen_lightning_gen_4s_v2",
+          "size": 1825361920,
+          "format": "safetensors",
+          "precision": "fp32",
+          "note": "Generation-focused, 4-step, V2.0. Fastest generation."
+        },
+        {
+          "id": "gen-4step-v2-bf16",
+          "file": "Qwen-Image-Lightning-4steps-V2.0-bf16.safetensors",
+          "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V2.0-bf16.safetensors",
+          "sha256": "VERIFY_qwen_lightning_gen_4s_v2_bf16",
+          "size": 912680960,
+          "format": "safetensors",
+          "precision": "bf16",
+          "note": "Generation-focused, 4-step, V2.0 in bf16."
+        },
+        {
+          "id": "fp8-gen-4step-v1-bf16",
+          "file": "Qwen-Image-fp8-e4m3fn-Lightning-4steps-V1.0-bf16.safetensors",
+          "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-fp8-e4m3fn-Lightning-4steps-V1.0-bf16.safetensors",
+          "sha256": "VERIFY_qwen_lightning_fp8_4s_v1_bf16",
+          "size": 912680960,
+          "format": "safetensors",
+          "precision": "bf16",
+          "note": "Trained specifically for fp8 base model. 4-step, bf16."
+        },
+        {
+          "id": "fp8-gen-4step-v1-fp32",
+          "file": "Qwen-Image-fp8-e4m3fn-Lightning-4steps-V1.0-fp32.safetensors",
+          "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-fp8-e4m3fn-Lightning-4steps-V1.0-fp32.safetensors",
+          "sha256": "VERIFY_qwen_lightning_fp8_4s_v1_fp32",
+          "size": 1825361920,
+          "format": "safetensors",
+          "precision": "fp32",
+          "note": "Trained specifically for fp8 base model. 4-step, fp32."
+        }
+      ],
+      "recommended_weight": 1.0,
+      "weight_range": [
+        0.8,
+        1.0
+      ],
+      "tags": [
+        "qwen",
+        "lora",
+        "lightning",
+        "distillation",
+        "fast-inference",
+        "comfyui"
+      ],
+      "rating": 4.7,
+      "downloads": 773000,
+      "added": "2025-08-01",
+      "updated": "2025-10-01"
+    },
+    {
+      "id": "qwen-image-vae",
+      "name": "Qwen Image VAE",
+      "type": "vae",
+      "architecture": "qwen-image",
+      "author": "Comfy-Org",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI",
+      "description": "VAE for the Qwen Image Edit pipeline. Single file, no variants.\nRequired by all Qwen Image Edit checkpoints.\n",
+      "file": {
+        "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/vae/qwen_image_vae.safetensors",
+        "sha256": "VERIFY_qwen_image_vae",
+        "size": 266338304,
+        "format": "safetensors"
+      },
+      "tags": [
+        "qwen",
+        "vae",
+        "comfyui"
+      ],
+      "rating": 5.0,
+      "downloads": 275000,
+      "added": "2025-07-01",
+      "updated": "2025-07-01"
     },
     {
       "id": "realesrgan-x4plus",
