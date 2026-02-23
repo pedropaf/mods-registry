@@ -8,6 +8,7 @@ Usage:
 """
 
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -96,6 +97,10 @@ def validate_manifest(manifest: dict, filepath: Path) -> list[str]:
             if "size" in f and not isinstance(f["size"], int):
                 errors.append("File 'size' must be an integer (bytes)")
 
+        # Warn if no preview images (needed for web UI)
+        if not manifest.get("preview_images"):
+            pass  # Optional for now — will become required for web UI
+
     return errors
 
 
@@ -179,6 +184,13 @@ def build_index(output_path: Path = DEFAULT_OUTPUT) -> bool:
             for w in hash_warnings:
                 print(f"  WARNING: {w}")
                 warnings_found = True
+
+            # In CI (strict mode), placeholder hashes are errors
+            strict = os.environ.get("CI") or os.environ.get("GITHUB_ACTIONS") or "--strict" in sys.argv
+            if strict and hash_warnings:
+                print(f"  ERROR: Placeholder hashes not allowed in CI. Run verify_hashes.py first.")
+                errors_found = True
+                continue
 
             items.append(manifest)
 

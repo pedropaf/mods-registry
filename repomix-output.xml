@@ -1,0 +1,3495 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.github/
+  workflows/
+    ci.yml
+    publish.yml
+manifests/
+  checkpoints/
+    flux-dev.yaml
+    flux-schnell.yaml
+    qwen-image-edit.yaml
+    sd-1.5.yaml
+    sdxl-base-1.0.yaml
+  controlnet/
+    flux-depth-controlnet.yaml
+    z-image-turbo-controlnet-union.yaml
+  diffusion_models/
+    z-image-turbo.yaml
+  loras/
+    qwen-image-edit-lightning.yaml
+    z-image-turbo-distill-lora.yaml
+  segmentation/
+    birefnet-dis.yaml
+  text_encoders/
+    clip-l.yaml
+    qwen-image-clip.yaml
+    t5-xxl-fp16.yaml
+    t5-xxl-fp8.yaml
+    z-image-text-encoder.yaml
+  upscalers/
+    4x-ultrasharp.yaml
+    bsrganx2.yaml
+    realesrgan-x4plus.yaml
+  vae/
+    flux-vae.yaml
+    qwen-image-vae.yaml
+    sd-vae-ft-mse.yaml
+    sdxl-vae-fp16-fix.yaml
+    z-image-vae.yaml
+scripts/
+  build_index.py
+  validate.py
+  verify_hashes.py
+.gitignore
+CLAUDE.md
+CONTRIBUTING.md
+index.json
+README.md
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".github/workflows/ci.yml">
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "manifests/**"
+      - "scripts/**"
+      - "schemas/**"
+
+jobs:
+  validate:
+    name: Validate Manifests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Validate all manifests
+        run: python scripts/validate.py
+
+      - name: Build index (dry run)
+        run: python scripts/build_index.py --output /tmp/index.json
+
+      - name: Verify index is valid JSON
+        run: python -c "import json; json.load(open('/tmp/index.json'))"
+</file>
+
+<file path=".github/workflows/publish.yml">
+name: Publish Index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "manifests/**"
+
+  # Allow manual trigger
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    name: Build and Publish Index
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Validate manifests
+        run: python scripts/validate.py
+
+      - name: Build index.json
+        run: python scripts/build_index.py --output index.json
+
+      - name: Get manifest count
+        id: count
+        run: |
+          COUNT=$(python -c "import json; print(len(json.load(open('index.json'))['items']))")
+          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: index-${{ github.sha }}
+          name: "Registry Index (${{ steps.count.outputs.count }} models)"
+          body: |
+            Auto-generated registry index with ${{ steps.count.outputs.count }} models.
+            Commit: ${{ github.sha }}
+          files: index.json
+          make_latest: true
+</file>
+
+<file path="manifests/checkpoints/flux-dev.yaml">
+id: flux-dev
+name: "FLUX.1 Dev"
+type: checkpoint
+architecture: flux
+author: black-forest-labs
+license: flux-1-dev-non-commercial
+homepage: https://huggingface.co/black-forest-labs/FLUX.1-dev
+description: |
+  High-quality text-to-image model from Black Forest Labs.
+  Best results with 20-30 steps, CFG 3.5-4.0, euler sampler.
+  Non-commercial license. Requires accepting terms on HuggingFace.
+
+variants:
+  - id: fp16
+    file: flux1-dev.safetensors
+    url: https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors
+    sha256: "VERIFY_flux1_dev_fp16"
+    size: 23802932552
+    format: safetensors
+    precision: fp16
+    vram_required: 24576
+    vram_recommended: 24576
+  - id: fp8
+    file: flux1-dev-fp8-e4m3fn.safetensors
+    url: https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8-e4m3fn.safetensors
+    sha256: "VERIFY_flux1_dev_fp8"
+    size: 11903959040
+    format: safetensors
+    precision: fp8-e4m3fn
+    vram_required: 12288
+    vram_recommended: 16384
+    note: "Quantized to fp8. Slight quality reduction vs fp16."
+
+requires:
+  - id: flux-vae
+    type: vae
+    reason: "Flux models require the Flux-specific VAE (ae.safetensors)"
+  - id: t5-xxl-fp16
+    type: text_encoder
+    reason: "T5-XXL for prompt processing"
+    optional_variant: t5-xxl-fp8
+  - id: clip-l
+    type: text_encoder
+    reason: "CLIP-L for secondary text encoding"
+
+auth:
+  provider: huggingface
+  terms_url: https://huggingface.co/black-forest-labs/FLUX.1-dev
+  gated: true
+
+defaults:
+  steps: 20
+  cfg: 3.5
+  sampler: euler
+  scheduler: normal
+
+tags: [flux, text-to-image, high-quality, bfl]
+rating: 4.9
+downloads: 2850000
+added: "2024-08-01"
+updated: "2025-01-15"
+</file>
+
+<file path="manifests/checkpoints/flux-schnell.yaml">
+id: flux-schnell
+name: "FLUX.1 Schnell"
+type: checkpoint
+architecture: flux
+author: black-forest-labs
+license: apache-2.0
+homepage: https://huggingface.co/black-forest-labs/FLUX.1-schnell
+description: |
+  Fast text-to-image model from Black Forest Labs.
+  Optimized for speed — best with 1-4 steps, CFG 0 (distilled model).
+  Apache 2.0 license — free for commercial use.
+
+variants:
+  - id: fp16
+    file: flux1-schnell.safetensors
+    url: https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/flux1-schnell.safetensors
+    sha256: "VERIFY_flux1_schnell_fp16"
+    size: 23802932552
+    format: safetensors
+    precision: fp16
+    vram_required: 24576
+    vram_recommended: 24576
+  - id: fp8
+    file: flux1-schnell-fp8-e4m3fn.safetensors
+    url: https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-schnell-fp8-e4m3fn.safetensors
+    sha256: "VERIFY_flux1_schnell_fp8"
+    size: 11903959040
+    format: safetensors
+    precision: fp8-e4m3fn
+    vram_required: 12288
+    vram_recommended: 16384
+    note: "Quantized to fp8. Slight quality reduction vs fp16."
+
+requires:
+  - id: flux-vae
+    type: vae
+    reason: "Flux models require the Flux-specific VAE (ae.safetensors)"
+  - id: t5-xxl-fp16
+    type: text_encoder
+    reason: "T5-XXL for prompt processing"
+    optional_variant: t5-xxl-fp8
+  - id: clip-l
+    type: text_encoder
+    reason: "CLIP-L for secondary text encoding"
+
+auth:
+  provider: huggingface
+  terms_url: https://huggingface.co/black-forest-labs/FLUX.1-schnell
+  gated: true
+
+defaults:
+  steps: 4
+  cfg: 0
+  sampler: euler
+  scheduler: normal
+
+tags: [flux, text-to-image, fast, distilled, bfl]
+rating: 4.7
+downloads: 1920000
+added: "2024-08-01"
+updated: "2025-01-15"
+</file>
+
+<file path="manifests/checkpoints/qwen-image-edit.yaml">
+id: qwen-image-edit
+name: "Qwen Image Edit"
+type: checkpoint
+architecture: qwen-image
+author: Comfy-Org / QuantStack
+license: apache-2.0
+homepage: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI
+description: |
+  AI-powered image editing model based on Qwen 2.5 VL architecture.
+  Supports outpainting, format/ratio changes, AI scene generation, and in-place enhancement.
+  Best with 8 steps using Lightning LoRA, euler sampler, CFG 1.0.
+  Available as native safetensors (bf16/fp8) or GGUF quantizations (Q2_K through Q8_0).
+
+variants:
+  # --- Native safetensors (Comfy-Org, loaded via UnetLoader) ---
+  - id: bf16
+    file: qwen_image_bf16.safetensors
+    url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_bf16.safetensors
+    sha256: "VERIFY_qwen_image_bf16"
+    size: 43927101440
+    format: safetensors
+    precision: bf16
+    vram_required: 40960
+    vram_recommended: 49152
+    note: "Full precision bf16. Best quality, needs A100 40GB+ or similar."
+
+  - id: fp8-hq
+    file: qwen_image_fp8_hq.safetensors
+    url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_fp8_hq.safetensors
+    sha256: "VERIFY_qwen_image_fp8_hq"
+    size: 24373903360
+    format: safetensors
+    precision: fp8-e4m3fn
+    vram_required: 24576
+    vram_recommended: 32768
+    note: "High-quality fp8 quantization with sensitive layers in higher precision."
+
+  - id: fp8-mixed
+    file: qwen_image_fp8mixed.safetensors
+    url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_fp8mixed.safetensors
+    sha256: "VERIFY_qwen_image_fp8mixed"
+    size: 22011707392
+    format: safetensors
+    precision: fp8-e4m3fn
+    vram_required: 24576
+    vram_recommended: 24576
+    note: "Mixed precision fp8 with comfy_quant layers. Sensitive layers kept in high precision."
+
+  - id: fp8
+    file: qwen_image_fp8_e4m3fn.safetensors
+    url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_fp8_e4m3fn.safetensors
+    sha256: "VERIFY_qwen_image_fp8"
+    size: 21902483456
+    format: safetensors
+    precision: fp8-e4m3fn
+    vram_required: 20480
+    vram_recommended: 24576
+    note: "Standard fp8 quantization. Good balance of quality vs VRAM."
+
+  - id: nvfp4
+    file: qwen_image_nvfp4.safetensors
+    url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_nvfp4.safetensors
+    sha256: "VERIFY_qwen_image_nvfp4"
+    size: 21260902400
+    format: safetensors
+    precision: nvfp4
+    vram_required: 16384
+    vram_recommended: 20480
+    note: "NVIDIA fp4 quantization. Lower quality but fits on smaller GPUs."
+
+  # --- 2512 variants (newer architecture revision) ---
+  - id: 2512-bf16
+    file: qwen_image_2512_bf16.safetensors
+    url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_2512_bf16.safetensors
+    sha256: "VERIFY_qwen_image_2512_bf16"
+    size: 43927101440
+    format: safetensors
+    precision: bf16
+    vram_required: 40960
+    vram_recommended: 49152
+    note: "2512 revision, full bf16 precision."
+
+  - id: 2512-fp8
+    file: qwen_image_2512_fp8_e4m3fn.safetensors
+    url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_2512_fp8_e4m3fn.safetensors
+    sha256: "VERIFY_qwen_image_2512_fp8"
+    size: 21902483456
+    format: safetensors
+    precision: fp8-e4m3fn
+    vram_required: 20480
+    vram_recommended: 24576
+    note: "2512 revision, fp8 quantized."
+
+  # --- GGUF quantizations (QuantStack, loaded via UnetLoaderGGUF) ---
+  - id: gguf-q8-0
+    file: Qwen_Image_Edit-Q8_0.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q8_0.gguf
+    sha256: "VERIFY_qwen_gguf_q8_0"
+    size: 23405215744
+    format: gguf
+    precision: q8_0
+    vram_required: 24576
+    vram_recommended: 32768
+    note: "GGUF Q8_0 — best GGUF quality. Requires ComfyUI-GGUF custom node."
+
+  - id: gguf-q6-k
+    file: Qwen_Image_Edit-Q6_K.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q6_K.gguf
+    sha256: "VERIFY_qwen_gguf_q6_k"
+    size: 18039808000
+    format: gguf
+    precision: q6_k
+    vram_required: 20480
+    vram_recommended: 24576
+    note: "GGUF Q6_K — good quality/size balance."
+
+  - id: gguf-q5-k-m
+    file: Qwen_Image_Edit-Q5_K_M.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q5_K_M.gguf
+    sha256: "VERIFY_qwen_gguf_q5_k_m"
+    size: 16000204800
+    format: gguf
+    precision: q5_k_m
+    vram_required: 16384
+    vram_recommended: 20480
+    note: "GGUF Q5_K_M — recommended for 16GB+ GPUs."
+
+  - id: gguf-q5-k-s
+    file: Qwen_Image_Edit-Q5_K_S.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q5_K_S.gguf
+    sha256: "VERIFY_qwen_gguf_q5_k_s"
+    size: 15140249600
+    format: gguf
+    precision: q5_k_s
+    vram_required: 16384
+    vram_recommended: 20480
+    note: "GGUF Q5_K_S — smaller Q5 variant."
+
+  - id: gguf-q5-0
+    file: Qwen_Image_Edit-Q5_0.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q5_0.gguf
+    sha256: "VERIFY_qwen_gguf_q5_0"
+    size: 15461882880
+    format: gguf
+    precision: q5_0
+    vram_required: 16384
+    vram_recommended: 20480
+    note: "GGUF Q5_0."
+
+  - id: gguf-q5-1
+    file: Qwen_Image_Edit-Q5_1.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q5_1.gguf
+    sha256: "VERIFY_qwen_gguf_q5_1"
+    size: 16536027136
+    format: gguf
+    precision: q5_1
+    vram_required: 16384
+    vram_recommended: 20480
+    note: "GGUF Q5_1."
+
+  - id: gguf-q4-k-m
+    file: Qwen_Image_Edit-Q4_K_M.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q4_K_M.gguf
+    sha256: "VERIFY_qwen_gguf_q4_k_m"
+    size: 14066032640
+    format: gguf
+    precision: q4_k_m
+    vram_required: 12288
+    vram_recommended: 16384
+    note: "GGUF Q4_K_M — good for 12GB GPUs."
+
+  - id: gguf-q4-k-s
+    file: Qwen_Image_Edit-Q4_K_S.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q4_K_S.gguf
+    sha256: "VERIFY_qwen_gguf_q4_k_s"
+    size: 12994428928
+    format: gguf
+    precision: q4_k_s
+    vram_required: 12288
+    vram_recommended: 16384
+    note: "GGUF Q4_K_S — smaller Q4 variant."
+
+  - id: gguf-q4-0
+    file: Qwen_Image_Edit-Q4_0.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q4_0.gguf
+    sha256: "VERIFY_qwen_gguf_q4_0"
+    size: 12776923136
+    format: gguf
+    precision: q4_0
+    vram_required: 12288
+    vram_recommended: 16384
+    note: "GGUF Q4_0."
+
+  - id: gguf-q4-1
+    file: Qwen_Image_Edit-Q4_1.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q4_1.gguf
+    sha256: "VERIFY_qwen_gguf_q4_1"
+    size: 13743095808
+    format: gguf
+    precision: q4_1
+    vram_required: 12288
+    vram_recommended: 16384
+    note: "GGUF Q4_1."
+
+  - id: gguf-q3-k-m
+    file: Qwen_Image_Edit-Q3_K_M.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q3_K_M.gguf
+    sha256: "VERIFY_qwen_gguf_q3_k_m"
+    size: 10394116096
+    format: gguf
+    precision: q3_k_m
+    vram_required: 10240
+    vram_recommended: 12288
+    note: "GGUF Q3_K_M — for 10GB+ GPUs. Noticeable quality reduction."
+
+  - id: gguf-q3-k-s
+    file: Qwen_Image_Edit-Q3_K_S.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q3_K_S.gguf
+    sha256: "VERIFY_qwen_gguf_q3_k_s"
+    size: 9609625600
+    format: gguf
+    precision: q3_k_s
+    vram_required: 10240
+    vram_recommended: 12288
+    note: "GGUF Q3_K_S — smaller Q3 variant."
+
+  - id: gguf-q2-k
+    file: Qwen_Image_Edit-Q2_K.gguf
+    url: https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q2_K.gguf
+    sha256: "VERIFY_qwen_gguf_q2_k"
+    size: 7580321792
+    format: gguf
+    precision: q2_k
+    vram_required: 8192
+    vram_recommended: 10240
+    note: "GGUF Q2_K — minimum quality. Fits on 8GB GPUs but significant quality loss."
+
+requires:
+  - id: qwen-image-vae
+    type: vae
+    reason: "Qwen Image Edit requires the Qwen-specific VAE"
+  - id: qwen-image-clip
+    type: text_encoder
+    reason: "Qwen 2.5 VL 7B text/vision encoder for prompt processing"
+
+defaults:
+  steps: 8
+  cfg: 1.0
+  sampler: euler
+  scheduler: simple
+
+tags: [qwen, image-editing, outpainting, scene-generation, comfyui, gguf]
+rating: 4.8
+downloads: 275000
+added: "2025-07-01"
+updated: "2026-01-15"
+</file>
+
+<file path="manifests/checkpoints/sd-1.5.yaml">
+id: sd-1.5
+name: "Stable Diffusion 1.5"
+type: checkpoint
+architecture: sd15
+author: runwayml
+license: creativeml-openrail-m
+homepage: https://huggingface.co/runwayml/stable-diffusion-v1-5
+description: |
+  The original Stable Diffusion 1.5. Lightweight, fast, huge ecosystem
+  of LoRAs, embeddings, and ControlNets. 512x512 native resolution.
+
+variants:
+  - id: fp16
+    file: v1-5-pruned-emaonly.safetensors
+    url: https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.safetensors
+    sha256: "VERIFY_sd15_fp16"
+    size: 4265146304
+    format: safetensors
+    precision: fp16
+    vram_required: 4096
+    vram_recommended: 8192
+
+requires:
+  - id: sd-vae-ft-mse
+    type: vae
+    reason: "Recommended VAE for SD 1.5 (sharper outputs)"
+
+defaults:
+  steps: 25
+  cfg: 7.5
+  sampler: dpmpp_2m
+  scheduler: karras
+
+tags: [sd15, text-to-image, stable-diffusion, lightweight]
+rating: 4.3
+downloads: 12000000
+added: "2022-10-20"
+updated: "2024-01-01"
+</file>
+
+<file path="manifests/controlnet/flux-depth-controlnet.yaml">
+id: flux-depth-controlnet
+name: "FLUX.1 Depth ControlNet"
+type: controlnet
+architecture: flux
+author: InstantX
+license: apache-2.0
+homepage: https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union
+description: |
+  Depth-conditioned ControlNet for FLUX.1 Dev. Allows generating images
+  that follow the depth structure of an input image.
+
+base_models: [flux-dev]
+preprocessor: depth_midas
+
+file:
+  url: https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/resolve/main/diffusion_pytorch_model.safetensors
+  sha256: "VERIFY_flux_depth_cn"
+  size: 6596901888
+  format: safetensors
+
+tags: [flux, controlnet, depth, instantx]
+rating: 4.5
+downloads: 380000
+added: "2024-10-01"
+updated: "2025-01-01"
+</file>
+
+<file path="manifests/controlnet/z-image-turbo-controlnet-union.yaml">
+id: z-image-turbo-controlnet-union
+name: "Z-Image-Turbo Fun ControlNet Union"
+type: controlnet
+architecture: z-image
+author: alibaba-pai
+license: apache-2.0
+homepage: https://huggingface.co/alibaba-pai/Z-Image-Turbo-Fun-Controlnet-Union
+description: |
+  ControlNet union model for Z-Image-Turbo.
+  Supports Canny, HED, Depth, Pose, and MLSD control conditions.
+  Adjust control_context_scale (0.65–0.80) for best results.
+  Use with detailed prompts for better stability.
+  V2.0 with inpaint mode also available separately.
+
+file:
+  name: Z-Image-Turbo-Fun-Controlnet-Union.safetensors
+  url: https://huggingface.co/alibaba-pai/Z-Image-Turbo-Fun-Controlnet-Union/resolve/main/Z-Image-Turbo-Fun-Controlnet-Union.safetensors
+  sha256: "86c085c0d7853f12ce5183499934b54d08371c60f549c5a6b20615cd23989388"
+  size: 3328599040
+  format: safetensors
+
+requires:
+  - id: z-image-turbo
+    type: diffusion_model
+    reason: "Requires Z-Image-Turbo as the base diffusion model"
+
+tags:
+  - z-image
+  - controlnet
+  - canny
+  - depth
+  - pose
+  - comfyui
+
+rating: 4.6
+</file>
+
+<file path="manifests/diffusion_models/z-image-turbo.yaml">
+id: z-image-turbo
+name: "Z-Image-Turbo"
+type: diffusion_model
+architecture: z-image
+author: Tongyi-MAI / Comfy-Org / jayn7
+license: apache-2.0
+homepage: https://huggingface.co/Comfy-Org/z_image_turbo
+description: |
+  Distilled 6B parameter text-to-image model from Alibaba Tongyi Lab.
+  Uses Scalable Single-Stream DiT (S3-DiT) architecture for maximum parameter efficiency.
+  Sub-second inference latency on H800 GPUs, fits within 16GB VRAM consumer devices.
+  Only 8 NFEs (steps) needed. Use euler sampler, guidance_scale 0.0.
+  Excels at photorealistic generation and accurate bilingual text rendering (English & Chinese).
+  Available as native safetensors (bf16/nvfp4) or GGUF quantizations.
+
+variants:
+  # --- Native safetensors (Comfy-Org, loaded via UnetLoader) ---
+  - id: bf16
+    file: z_image_turbo_bf16.safetensors
+    url: https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/diffusion_models/z_image_turbo_bf16.safetensors
+    sha256: "2407613050b809ffdff18a4ac99af83ea6b95443ecebdf80e064a79c825574a6"
+    size: 13207024640
+    format: safetensors
+    precision: bf16
+    vram_required: 16384
+    vram_recommended: 24576
+    note: "Full precision bf16. Best quality."
+
+  - id: nvfp4
+    file: z_image_turbo_nvfp4.safetensors
+    url: https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/diffusion_models/z_image_turbo_nvfp4.safetensors
+    sha256: "VERIFY_z_image_turbo_nvfp4"
+    size: 4843151360
+    format: safetensors
+    precision: nvfp4
+    vram_required: 8192
+    vram_recommended: 12288
+    note: "NVIDIA fp4 quantization. Lower VRAM usage with minimal quality loss."
+
+  # --- GGUF quantizations (jayn7, requires ComfyUI-GGUF custom node) ---
+  - id: gguf-q8-0
+    file: z_image_turbo-Q8_0.gguf
+    url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q8_0.gguf
+    sha256: "f163d60b0eb427469510b8226243d196574a18139a2e40c017409cfbda95ecfe"
+    size: 7755268096
+    format: gguf
+    precision: q8_0
+    vram_required: 10240
+    vram_recommended: 12288
+    note: "GGUF Q8_0 — best GGUF quality. Requires ComfyUI-GGUF custom node."
+
+  - id: gguf-q6-k
+    file: z_image_turbo-Q6_K.gguf
+    url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q6_K.gguf
+    sha256: "fc137d87b49e06fdd5230d67d6c8cfa42a9e1fd38b65ccd355882450c3eb1c82"
+    size: 6346129408
+    format: gguf
+    precision: q6_k
+    vram_required: 8192
+    vram_recommended: 10240
+    note: "GGUF Q6_K — good quality/size balance."
+
+  - id: gguf-q5-k-m
+    file: z_image_turbo-Q5_K_M.gguf
+    url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q5_K_M.gguf
+    sha256: "VERIFY_z_image_gguf_q5_k_m"
+    size: 5926789120
+    format: gguf
+    precision: q5_k_m
+    vram_required: 8192
+    vram_recommended: 10240
+    note: "GGUF Q5_K_M — recommended for 8GB+ GPUs."
+
+  - id: gguf-q5-k-s
+    file: z_image_turbo-Q5_K_S.gguf
+    url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q5_K_S.gguf
+    sha256: "VERIFY_z_image_gguf_q5_k_s"
+    size: 5572034560
+    format: gguf
+    precision: q5_k_s
+    vram_required: 8192
+    vram_recommended: 10240
+    note: "GGUF Q5_K_S — smaller Q5 variant."
+
+  - id: gguf-q4-k-m
+    file: z_image_turbo-Q4_K_M.gguf
+    url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q4_K_M.gguf
+    sha256: "VERIFY_z_image_gguf_q4_k_m"
+    size: 5346283520
+    format: gguf
+    precision: q4_k_m
+    vram_required: 6144
+    vram_recommended: 8192
+    note: "GGUF Q4_K_M — good for 8GB GPUs."
+
+  - id: gguf-q4-k-s
+    file: z_image_turbo-Q4_K_S.gguf
+    url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q4_K_S.gguf
+    sha256: "VERIFY_z_image_gguf_q4_k_s"
+    size: 5003804672
+    format: gguf
+    precision: q4_k_s
+    vram_required: 6144
+    vram_recommended: 8192
+    note: "GGUF Q4_K_S — smaller Q4 variant."
+
+  - id: gguf-q3-k-m
+    file: z_image_turbo-Q3_K_M.gguf
+    url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q3_K_M.gguf
+    sha256: "VERIFY_z_image_gguf_q3_k_m"
+    size: 4424990720
+    format: gguf
+    precision: q3_k_m
+    vram_required: 6144
+    vram_recommended: 8192
+    note: "GGUF Q3_K_M — for 6GB+ GPUs. Noticeable quality reduction."
+
+  - id: gguf-q3-k-s
+    file: z_image_turbo-Q3_K_S.gguf
+    url: https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q3_K_S.gguf
+    sha256: "VERIFY_z_image_gguf_q3_k_s"
+    size: 4069449728
+    format: gguf
+    precision: q3_k_s
+    vram_required: 6144
+    vram_recommended: 8192
+    note: "GGUF Q3_K_S — smaller Q3 variant."
+
+requires:
+  - id: z-image-text-encoder
+    type: text_encoder
+    reason: "Qwen 3 4B text encoder for prompt processing"
+  - id: z-image-vae
+    type: vae
+    reason: "Z-Image VAE for decoding latents to images"
+
+recommended:
+  steps: 8
+  cfg: 0.0
+  sampler: euler
+  scheduler: simple
+
+tags:
+  - z-image
+  - text-to-image
+  - turbo
+  - fast-inference
+  - bilingual
+  - comfyui
+  - gguf
+
+rating: 4.9
+</file>
+
+<file path="manifests/loras/z-image-turbo-distill-lora.yaml">
+id: z-image-turbo-distill-lora
+name: "Z-Image-Turbo Distill Patch LoRA"
+type: lora
+architecture: z-image
+author: Comfy-Org
+license: apache-2.0
+homepage: https://huggingface.co/Comfy-Org/z_image_turbo
+description: |
+  Distillation patch LoRA for Z-Image-Turbo.
+  Used to enable the base Z-Image model to run with fewer steps (turbo mode).
+  Apply via LoraLoader node with strength 1.0.
+
+file:
+  name: z_image_turbo_distill_patch_lora_bf16.safetensors
+  url: https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/loras/z_image_turbo_distill_patch_lora_bf16.safetensors
+  sha256: "VERIFY_z_image_distill_lora"
+  size: 166723584
+  format: safetensors
+
+tags:
+  - z-image
+  - lora
+  - distillation
+  - comfyui
+
+rating: 4.7
+</file>
+
+<file path="manifests/text_encoders/t5-xxl-fp16.yaml">
+id: t5-xxl-fp16
+name: "T5-XXL Text Encoder (fp16)"
+type: text_encoder
+architecture: t5
+author: comfyanonymous
+license: apache-2.0
+homepage: https://huggingface.co/comfyanonymous/flux_text_encoders
+description: |
+  T5-XXL text encoder in fp16 precision. Required by FLUX models
+  for prompt processing. Large model — 9.8 GB.
+  Use fp8 variant if you have less than 24 GB VRAM.
+
+variants:
+  - id: fp16
+    file: t5xxl_fp16.safetensors
+    url: https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors
+    sha256: "VERIFY_t5xxl_fp16"
+    size: 9787849216
+    format: safetensors
+    precision: fp16
+    vram_required: 12288
+    vram_recommended: 16384
+
+tags: [t5, text-encoder, flux, fp16]
+rating: 5.0
+downloads: 2400000
+added: "2024-08-01"
+updated: "2024-08-01"
+</file>
+
+<file path="manifests/text_encoders/z-image-text-encoder.yaml">
+id: z-image-text-encoder
+name: "Z-Image Qwen 3 4B Text Encoder"
+type: text_encoder
+architecture: qwen3
+author: Comfy-Org
+license: apache-2.0
+homepage: https://huggingface.co/Comfy-Org/z_image_turbo
+description: |
+  Qwen 3 4B text encoder used by Z-Image-Turbo.
+  Available in bf16 (full precision), fp8_mixed (reduced VRAM), and fp4_mixed (minimum VRAM).
+  Place in models/text_encoders/ and load with CLIPLoader node.
+
+variants:
+  - id: bf16
+    file: qwen_3_4b.safetensors
+    url: https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/text_encoders/qwen_3_4b.safetensors
+    sha256: "6c671498573ac2f7a5501502ccce8d2b08ea6ca2f661c458e708f36b36edfc5a"
+    size: 8633139200
+    format: safetensors
+    precision: bf16
+    vram_required: 10240
+    vram_recommended: 12288
+    note: "Full precision bf16. Best quality text encoding."
+
+  - id: fp8-mixed
+    file: qwen_3_4b_fp8_mixed.safetensors
+    url: https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/text_encoders/qwen_3_4b_fp8_mixed.safetensors
+    sha256: "VERIFY_z_image_qwen3_4b_fp8_mixed"
+    size: 6044237824
+    format: safetensors
+    precision: fp8-e4m3fn
+    vram_required: 8192
+    vram_recommended: 10240
+    note: "Mixed fp8 quantization. Good quality with reduced VRAM."
+
+  - id: fp4-mixed
+    file: qwen_3_4b_fp4_mixed.safetensors
+    url: https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/text_encoders/qwen_3_4b_fp4_mixed.safetensors
+    sha256: "VERIFY_z_image_qwen3_4b_fp4_mixed"
+    size: 3736076288
+    format: safetensors
+    precision: fp4
+    vram_required: 4096
+    vram_recommended: 6144
+    note: "Mixed fp4 quantization. Minimum VRAM, some quality reduction."
+
+tags:
+  - z-image
+  - text-encoder
+  - qwen3
+  - comfyui
+
+rating: 4.8
+</file>
+
+<file path="manifests/upscalers/bsrganx2.yaml">
+id: bsrganx2
+name: "BSRGANx2 Upscaler"
+type: upscaler
+author: cszn
+license: apache-2.0
+homepage: https://github.com/cszn/BSRGAN
+description: |
+  2x upscaler based on BSRGAN (Blind Super-Resolution GAN).
+  Better than bicubic for real-world degraded/noisy/compressed images.
+  Handles JPEG artifacts, noise, and blur well — good for product photos
+  that have been through lossy compression.
+
+scale_factor: 2
+
+file:
+  url: https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/BSRGANx2.pth
+  sha256: "VERIFY_bsrganx2"
+  size: 71849987
+  format: pth
+
+tags: [upscaler, 2x, bsrgan, denoising, real-world, esrgan]
+rating: 4.6
+downloads: 450000
+added: "2022-01-01"
+updated: "2022-01-01"
+</file>
+
+<file path="manifests/vae/sd-vae-ft-mse.yaml">
+id: sd-vae-ft-mse
+name: "SD VAE ft-MSE"
+type: vae
+architecture: sd15
+author: stabilityai
+license: creativeml-openrail-m
+homepage: https://huggingface.co/stabilityai/sd-vae-ft-mse
+description: |
+  Fine-tuned VAE for Stable Diffusion 1.5. Produces sharper, more
+  detailed outputs compared to the default VAE. MSE-optimized.
+
+file:
+  url: https://huggingface.co/stabilityai/sd-vae-ft-mse/resolve/main/vae-ft-mse-840000-ema-pruned.safetensors
+  sha256: "VERIFY_sd_vae_ft_mse"
+  size: 334695950
+  format: safetensors
+
+tags: [sd15, vae, fine-tuned, mse]
+rating: 4.7
+downloads: 6800000
+added: "2023-01-01"
+updated: "2024-01-01"
+</file>
+
+<file path="manifests/vae/z-image-vae.yaml">
+id: z-image-vae
+name: "Z-Image VAE"
+type: vae
+architecture: z-image
+author: Comfy-Org
+license: apache-2.0
+homepage: https://huggingface.co/Comfy-Org/z_image_turbo
+description: |
+  VAE for Z-Image-Turbo. Decodes latents to images.
+  Place in models/vae/ and load with VAELoader node.
+
+file:
+  name: z-image-vae.safetensors
+  url: https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/vae/ae.safetensors
+  sha256: "afc8e28272cd15db3919bacdb6918ce9c1ed22e96cb12c4d5ed0fba823529e38"
+  size: 351272960
+  format: safetensors
+
+tags:
+  - z-image
+  - vae
+  - comfyui
+
+rating: 5.0
+</file>
+
+<file path="scripts/validate.py">
+#!/usr/bin/env python3
+"""
+Validate manifest YAML files against the expected schema.
+
+Usage:
+    python scripts/validate.py                              # Validate all
+    python scripts/validate.py manifests/checkpoints/flux-dev.yaml  # Validate specific
+"""
+
+import sys
+from pathlib import Path
+
+try:
+    import yaml
+except ImportError:
+    print("ERROR: PyYAML is required. Install with: pip install pyyaml")
+    sys.exit(1)
+
+# Reuse validation from build_index
+sys.path.insert(0, str(Path(__file__).parent))
+from build_index import validate_manifest, check_placeholder_hashes, MANIFESTS_DIR, TYPE_DIR_MAP
+
+
+def validate_files(files: list[Path]) -> bool:
+    """Validate a list of manifest files. Returns True if all valid."""
+    all_valid = True
+
+    for filepath in files:
+        print(f"Validating: {filepath}")
+
+        try:
+            with open(filepath) as f:
+                manifest = yaml.safe_load(f)
+        except yaml.YAMLError as e:
+            print(f"  ERROR: Failed to parse YAML: {e}")
+            all_valid = False
+            continue
+
+        if manifest is None:
+            print(f"  ERROR: Empty manifest file")
+            all_valid = False
+            continue
+
+        errors = validate_manifest(manifest, filepath)
+        warnings = check_placeholder_hashes(manifest)
+
+        if errors:
+            for err in errors:
+                print(f"  ERROR: {err}")
+            all_valid = False
+        elif warnings:
+            for w in warnings:
+                print(f"  WARNING: {w}")
+            print(f"  OK (with warnings)")
+        else:
+            print(f"  OK")
+
+    return all_valid
+
+
+def find_all_manifests() -> list[Path]:
+    """Find all YAML files in manifests/."""
+    files = []
+    for type_dir in sorted(MANIFESTS_DIR.iterdir()):
+        if type_dir.is_dir() and type_dir.name in TYPE_DIR_MAP:
+            files.extend(sorted(type_dir.glob("*.yaml")))
+    return files
+
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        files = [Path(f) for f in sys.argv[1:]]
+    else:
+        files = find_all_manifests()
+
+    if not files:
+        print("No manifest files found.")
+        sys.exit(1)
+
+    print(f"Validating {len(files)} manifest(s)...\n")
+    valid = validate_files(files)
+
+    print(f"\n{'All manifests valid!' if valid else 'Some manifests have errors.'}")
+    sys.exit(0 if valid else 1)
+</file>
+
+<file path="scripts/verify_hashes.py">
+#!/usr/bin/env python3
+"""
+Download files from a manifest and compute/verify their SHA256 hashes.
+
+Usage:
+    python scripts/verify_hashes.py manifests/vae/flux-vae.yaml
+    python scripts/verify_hashes.py manifests/checkpoints/flux-dev.yaml --variant fp8
+"""
+
+import hashlib
+import sys
+import tempfile
+from pathlib import Path
+from urllib.request import urlopen, Request
+
+try:
+    import yaml
+except ImportError:
+    print("ERROR: PyYAML is required. Install with: pip install pyyaml")
+    sys.exit(1)
+
+
+def compute_sha256(url: str, filename: str) -> str:
+    """Download a file and compute its SHA256 hash."""
+    print(f"  Downloading: {filename}")
+    print(f"  URL: {url}")
+
+    req = Request(url, headers={"User-Agent": "mods-registry/1.0"})
+
+    hasher = hashlib.sha256()
+    downloaded = 0
+
+    with tempfile.NamedTemporaryFile(delete=True) as tmp:
+        with urlopen(req, timeout=120) as response:
+            content_length = response.headers.get("Content-Length")
+            total = int(content_length) if content_length else None
+
+            while True:
+                chunk = response.read(8192 * 1024)  # 8MB chunks
+                if not chunk:
+                    break
+                hasher.update(chunk)
+                downloaded += len(chunk)
+
+                if total:
+                    pct = (downloaded / total) * 100
+                    mb = downloaded / (1024 * 1024)
+                    total_mb = total / (1024 * 1024)
+                    print(
+                        f"\r  Progress: {mb:.0f}/{total_mb:.0f} MB ({pct:.1f}%)",
+                        end="",
+                        flush=True,
+                    )
+                else:
+                    mb = downloaded / (1024 * 1024)
+                    print(f"\r  Downloaded: {mb:.0f} MB", end="", flush=True)
+
+    print()  # newline after progress
+    return hasher.hexdigest()
+
+
+def verify_manifest(filepath: Path, variant_filter: str | None = None):
+    """Verify hashes for a manifest."""
+    with open(filepath) as f:
+        manifest = yaml.safe_load(f)
+
+    print(f"\nVerifying: {manifest['name']} ({manifest['id']})")
+    print(f"Type: {manifest['type']}")
+
+    files_to_check = []
+
+    if "variants" in manifest and manifest["variants"]:
+        for v in manifest["variants"]:
+            if variant_filter and v["id"] != variant_filter:
+                continue
+            files_to_check.append(
+                {
+                    "label": f"Variant: {v['id']}",
+                    "url": v["url"],
+                    "filename": v["file"],
+                    "expected": v["sha256"],
+                    "size": v["size"],
+                }
+            )
+    elif "file" in manifest and manifest["file"]:
+        f = manifest["file"]
+        files_to_check.append(
+            {
+                "label": "File",
+                "url": f["url"],
+                "filename": f.get("file", filepath.stem),
+                "expected": f["sha256"],
+                "size": f["size"],
+            }
+        )
+
+    if not files_to_check:
+        print("  No files to verify.")
+        return
+
+    for entry in files_to_check:
+        print(f"\n  [{entry['label']}]")
+        size_gb = entry["size"] / (1024**3)
+        print(f"  Size: {size_gb:.2f} GB")
+
+        is_placeholder = entry["expected"].startswith("VERIFY_")
+        if is_placeholder:
+            print(f"  Expected hash: PLACEHOLDER ({entry['expected']})")
+        else:
+            print(f"  Expected hash: {entry['expected']}")
+
+        try:
+            actual = compute_sha256(entry["url"], entry["filename"])
+        except Exception as e:
+            print(f"  ERROR: Download failed: {e}")
+            continue
+
+        print(f"  Computed hash: {actual}")
+
+        if is_placeholder:
+            print(f"  → Replace placeholder with: {actual}")
+        elif actual == entry["expected"]:
+            print(f"  ✓ Hash matches!")
+        else:
+            print(f"  ✗ HASH MISMATCH!")
+            print(f"    Expected: {entry['expected']}")
+            print(f"    Got:      {actual}")
+
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python scripts/verify_hashes.py <manifest.yaml> [--variant <id>]")
+        sys.exit(1)
+
+    filepath = Path(sys.argv[1])
+    variant = None
+    if "--variant" in sys.argv:
+        idx = sys.argv.index("--variant")
+        if idx + 1 < len(sys.argv):
+            variant = sys.argv[idx + 1]
+
+    if not filepath.exists():
+        print(f"ERROR: File not found: {filepath}")
+        sys.exit(1)
+
+    verify_manifest(filepath, variant)
+</file>
+
+<file path="CLAUDE.md">
+# CLAUDE.md — Mods Registry
+
+## What is this?
+
+This is the **model registry** for [mods](https://github.com/modshq/mods) — the CLI model manager for AI image generation. It contains YAML manifest files describing models, LoRAs, VAEs, text encoders, and other assets, along with tooling to compile them into an `index.json` that the `mods` CLI fetches.
+
+## Repository Structure
+
+```
+mods-registry/
+  manifests/
+    checkpoints/        # Checkpoint model manifests
+    loras/              # LoRA adapter manifests
+    vae/                # VAE manifests
+    text_encoders/      # Text encoder manifests (CLIP, T5, etc.)
+    controlnet/         # ControlNet manifests
+    upscalers/          # Upscaler model manifests
+    embeddings/         # Textual inversion embedding manifests
+    ipadapters/         # IP-Adapter manifests
+  schemas/
+    manifest.schema.json  # JSON Schema for manifest validation
+  scripts/
+    build_index.py      # Compiles all manifests → index.json
+    validate.py         # Validates manifests against schema
+    verify_hashes.py    # Downloads files to verify SHA256 hashes
+  .github/
+    workflows/
+      ci.yml            # Validate manifests on PR
+      publish.yml       # Build + publish index.json on merge to main
+  index.json            # Auto-generated compiled index (don't edit)
+  CONTRIBUTING.md       # How to add models
+  README.md
+```
+
+## How It Works
+
+1. Contributors add YAML manifest files in `manifests/<type>/`
+2. CI validates the manifest against the schema
+3. On merge to `main`, CI runs `build_index.py` which:
+   - Reads all YAML manifests
+   - Validates them
+   - Compiles into a single `index.json`
+   - Publishes as a GitHub Release asset
+4. The `mods` CLI fetches this `index.json` via `mods update`
+
+## Manifest Schema
+
+Every manifest is a YAML file. Required fields:
+- `id` — Unique identifier (lowercase, hyphens). Must match filename.
+- `name` — Human-readable display name
+- `type` — One of: checkpoint, lora, vae, text_encoder, controlnet, upscaler, embedding, ipadapter
+- Either `variants` (for multi-variant items like checkpoints) or `file` (for single-file items like LoRAs)
+- Every file entry needs: `url`, `sha256`, `size`, `format`
+
+Optional fields: `author`, `license`, `homepage`, `description`, `architecture`, `requires`, `auth`, `defaults`, `base_models`, `trigger_words`, `tags`, `rating`, `downloads`, `preview_images`, `added`, `updated`
+
+See existing manifests for examples.
+
+## SHA256 Hashes
+
+**Every file must have a verified SHA256 hash.** Hashes marked with `VERIFY_` prefix are placeholders that need to be computed by downloading the actual file.
+
+To verify a hash:
+```bash
+python scripts/verify_hashes.py manifests/checkpoints/flux-vae.yaml
+```
+
+Or compute a hash for a local file:
+```bash
+sha256sum path/to/model.safetensors
+```
+
+## Adding a Model
+
+1. Create a YAML file in the appropriate `manifests/<type>/` directory
+2. Filename must match the `id` field (e.g., `flux-dev.yaml` has `id: flux-dev`)
+3. Fill in all required fields
+4. Run `python scripts/validate.py manifests/<type>/your-model.yaml`
+5. Run `python scripts/build_index.py` to verify it compiles
+6. Submit a PR
+
+## Scripts
+
+All scripts require Python 3.10+ and PyYAML (`pip install pyyaml`).
+
+- `python scripts/build_index.py` — Build index.json from all manifests
+- `python scripts/validate.py [file...]` — Validate specific manifests
+- `python scripts/validate.py` — Validate all manifests
+- `python scripts/verify_hashes.py <file>` — Download and verify SHA256 for a manifest
+
+## Code Conventions
+
+- Manifest filenames: lowercase, hyphens, `.yaml` extension
+- IDs: lowercase, hyphens only (e.g., `flux-dev`, `t5-xxl-fp16`)
+- Sizes: in bytes (integer)
+- VRAM: in MB (integer)
+- URLs: direct download links (no redirects requiring JS)
+- Hashes: lowercase hex SHA256
+- Dates: ISO 8601 format (YYYY-MM-DD)
+</file>
+
+<file path="CONTRIBUTING.md">
+# Contributing to mods-registry
+
+Thank you for contributing model manifests! This registry powers the `mods` CLI model manager.
+
+## Adding a Model
+
+### 1. Choose the Right Directory
+
+| Model Type | Directory | Example |
+|------------|-----------|---------|
+| Checkpoint | `manifests/checkpoints/` | FLUX.1 Dev, SDXL |
+| LoRA | `manifests/loras/` | Realistic skin, style LoRAs |
+| VAE | `manifests/vae/` | SDXL VAE, Flux VAE |
+| Text Encoder | `manifests/text_encoders/` | CLIP-L, T5-XXL |
+| ControlNet | `manifests/controlnet/` | Depth, Canny |
+| Upscaler | `manifests/upscalers/` | 4x UltraSharp |
+| Embedding | `manifests/embeddings/` | Textual inversions |
+| IP-Adapter | `manifests/ipadapters/` | FaceID, Plus |
+
+### 2. Create a YAML Manifest
+
+Create a file named `<id>.yaml` in the appropriate directory. The `id` must be lowercase with hyphens only.
+
+**Minimum required fields:**
+
+```yaml
+id: my-model-name
+name: "My Model Display Name"
+type: checkpoint  # or lora, vae, etc.
+
+# For single-file models (LoRAs, VAEs, etc.):
+file:
+  url: https://direct-download-url.com/model.safetensors
+  sha256: "abc123..."  # Full SHA256 hash
+  size: 186000000      # Size in bytes (integer)
+  format: safetensors
+
+# For multi-variant models (checkpoints with fp16/fp8/etc.):
+variants:
+  - id: fp16
+    file: model-fp16.safetensors
+    url: https://...
+    sha256: "..."
+    size: 23800000000
+    format: safetensors
+    precision: fp16
+    vram_required: 24576   # MB
+```
+
+### 3. Get the SHA256 Hash
+
+```bash
+# If you have the file locally:
+sha256sum path/to/model.safetensors
+
+# Or use the verification script (downloads the file):
+python scripts/verify_hashes.py manifests/checkpoints/my-model.yaml
+```
+
+### 4. Validate
+
+```bash
+pip install pyyaml
+python scripts/validate.py manifests/checkpoints/my-model.yaml
+python scripts/build_index.py  # Make sure it compiles
+```
+
+### 5. Submit a PR
+
+- One manifest per PR (unless adding a model with its dependencies)
+- Include a brief description of the model
+- Make sure `validate.py` passes
+- Placeholder hashes (`VERIFY_...`) are acceptable in PRs — maintainers will verify
+
+## Guidelines
+
+- **Direct download URLs only.** No JavaScript-required downloads. HuggingFace `/resolve/main/` URLs work great.
+- **Accurate file sizes.** Use exact byte counts, not approximations.
+- **Proper licensing.** Include the correct license identifier.
+- **Dependencies.** If a model requires a VAE or text encoder, add it to `requires`.
+- **Don't modify index.json.** It's auto-generated by CI.
+
+## Questions?
+
+Open an issue if you need help adding a model.
+</file>
+
+<file path="README.md">
+# mods-registry
+
+Model registry for [mods](https://github.com/modshq/mods) — the CLI model manager for AI image generation.
+
+This repository contains YAML manifest files that describe models, LoRAs, VAEs, text encoders, and other assets. The `mods` CLI fetches a compiled index from this registry to know what's available and how to download it.
+
+## Current Models
+
+| Type | Count | Examples |
+|------|-------|---------|
+| Checkpoints | 4 | FLUX.1 Dev, FLUX.1 Schnell, SDXL Base, SD 1.5 |
+| VAEs | 3 | Flux VAE, SDXL VAE fp16-fix, SD VAE ft-MSE |
+| Text Encoders | 3 | T5-XXL fp16, T5-XXL fp8, CLIP-L |
+| ControlNets | 1 | FLUX Depth |
+| Upscalers | 2 | 4x UltraSharp, RealESRGAN x4plus |
+
+## For Users
+
+You don't interact with this repo directly. Just use the `mods` CLI:
+
+```bash
+mods update       # Fetches latest index from this registry
+mods search flux  # Search available models
+mods install flux-dev  # Install a model
+```
+
+## For Contributors
+
+Want to add a model? See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+```bash
+# Quick start
+git clone https://github.com/modshq/mods-registry
+cd mods-registry
+pip install pyyaml
+
+# Add your manifest
+cp manifests/checkpoints/flux-dev.yaml manifests/checkpoints/my-model.yaml
+# Edit the file...
+
+# Validate
+python scripts/validate.py manifests/checkpoints/my-model.yaml
+python scripts/build_index.py
+```
+
+## License
+
+MIT
+</file>
+
+<file path="manifests/checkpoints/sdxl-base-1.0.yaml">
+id: sdxl-base-1.0
+name: "Stable Diffusion XL Base 1.0"
+type: checkpoint
+architecture: sdxl
+author: stabilityai
+license: openrail++
+homepage: https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0
+description: |
+  Stable Diffusion XL base model. High resolution text-to-image generation
+  at 1024x1024. Works great with LoRAs and ControlNets.
+
+variants:
+  - id: fp16
+    file: sd_xl_base_1.0.safetensors
+    url: https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors
+    sha256: "31e35c80fc4829d14f90153f4c74cd59c90b779f6afe05a74cd6120b893f7e5b"
+    size: 6938078334
+    format: safetensors
+    precision: fp16
+    vram_required: 8192
+    vram_recommended: 12288
+
+requires:
+  - id: sdxl-vae-fp16-fix
+    type: vae
+    reason: "Recommended VAE for SDXL (fixes fp16 NaN issues)"
+
+defaults:
+  steps: 30
+  cfg: 7.0
+  sampler: dpmpp_2m
+  scheduler: karras
+
+tags: [sdxl, text-to-image, stable-diffusion, high-resolution]
+rating: 4.6
+downloads: 5400000
+added: "2023-07-26"
+updated: "2024-06-01"
+</file>
+
+<file path="manifests/loras/qwen-image-edit-lightning.yaml">
+id: qwen-image-edit-lightning
+name: "Qwen Image Edit Lightning LoRA"
+type: lora
+author: lightx2v
+license: apache-2.0
+homepage: https://huggingface.co/lightx2v/Qwen-Image-Lightning
+description: |
+  Distillation LoRA for Qwen Image Edit that reduces inference from ~50 steps to 4-8 steps.
+  Multiple versions available: V1.0 and V2.0, in 4-step and 8-step variants.
+  Also includes Edit-specific variants for image editing (vs generation).
+  bf16 variants are half the size (~850 MB) with no quality loss on bf16/fp8 base models.
+
+base_models: [qwen-image-edit]
+
+variants:
+  # --- 8-step Edit variants (what shopify-reframe-ai uses) ---
+  - id: edit-8step-v1
+    file: Qwen-Image-Edit-Lightning-8steps-V1.0.safetensors
+    url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-8steps-V1.0.safetensors
+    sha256: "5910104f8922bd3fa359c675ba2a72681327f538cfa768eb33044055bd27a826"
+    size: 1825361920
+    format: safetensors
+    precision: fp32
+    note: "Edit-specific, 8-step, V1.0. fp32 weights. Used by shopify-reframe-ai."
+
+  - id: edit-8step-v1-bf16
+    file: Qwen-Image-Edit-Lightning-8steps-V1.0-bf16.safetensors
+    url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-8steps-V1.0-bf16.safetensors
+    sha256: "VERIFY_qwen_lightning_edit_8s_v1_bf16"
+    size: 912680960
+    format: safetensors
+    precision: bf16
+    note: "Edit-specific, 8-step, V1.0 in bf16. Half the size."
+
+  # --- 4-step Edit variants ---
+  - id: edit-4step-v1
+    file: Qwen-Image-Edit-Lightning-4steps-V1.0.safetensors
+    url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-4steps-V1.0.safetensors
+    sha256: "VERIFY_qwen_lightning_edit_4s_v1"
+    size: 1825361920
+    format: safetensors
+    precision: fp32
+    note: "Edit-specific, 4-step, V1.0. Fastest but slightly lower quality than 8-step."
+
+  - id: edit-4step-v1-bf16
+    file: Qwen-Image-Edit-Lightning-4steps-V1.0-bf16.safetensors
+    url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-4steps-V1.0-bf16.safetensors
+    sha256: "d8132c32e7df906603dd6b072ff2fb0af88ab15ef0f3ac697a2011c8b47bbeb1"
+    size: 912680960
+    format: safetensors
+    precision: bf16
+    note: "Edit-specific, 4-step, V1.0 in bf16."
+
+  # --- Generation Lightning variants (8-step) ---
+  - id: gen-8step-v2
+    file: Qwen-Image-Lightning-8steps-V2.0.safetensors
+    url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V2.0.safetensors
+    sha256: "VERIFY_qwen_lightning_gen_8s_v2"
+    size: 1825361920
+    format: safetensors
+    precision: fp32
+    note: "Generation-focused, 8-step, V2.0. Latest version."
+
+  - id: gen-8step-v2-bf16
+    file: Qwen-Image-Lightning-8steps-V2.0-bf16.safetensors
+    url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V2.0-bf16.safetensors
+    sha256: "VERIFY_qwen_lightning_gen_8s_v2_bf16"
+    size: 912680960
+    format: safetensors
+    precision: bf16
+    note: "Generation-focused, 8-step, V2.0 in bf16."
+
+  # --- Generation Lightning variants (4-step) ---
+  - id: gen-4step-v2
+    file: Qwen-Image-Lightning-4steps-V2.0.safetensors
+    url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V2.0.safetensors
+    sha256: "VERIFY_qwen_lightning_gen_4s_v2"
+    size: 1825361920
+    format: safetensors
+    precision: fp32
+    note: "Generation-focused, 4-step, V2.0. Fastest generation."
+
+  - id: gen-4step-v2-bf16
+    file: Qwen-Image-Lightning-4steps-V2.0-bf16.safetensors
+    url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V2.0-bf16.safetensors
+    sha256: "VERIFY_qwen_lightning_gen_4s_v2_bf16"
+    size: 912680960
+    format: safetensors
+    precision: bf16
+    note: "Generation-focused, 4-step, V2.0 in bf16."
+
+  # --- fp8 base model specific Lightning variants ---
+  - id: fp8-gen-4step-v1-bf16
+    file: Qwen-Image-fp8-e4m3fn-Lightning-4steps-V1.0-bf16.safetensors
+    url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-fp8-e4m3fn-Lightning-4steps-V1.0-bf16.safetensors
+    sha256: "VERIFY_qwen_lightning_fp8_4s_v1_bf16"
+    size: 912680960
+    format: safetensors
+    precision: bf16
+    note: "Trained specifically for fp8 base model. 4-step, bf16."
+
+  - id: fp8-gen-4step-v1-fp32
+    file: Qwen-Image-fp8-e4m3fn-Lightning-4steps-V1.0-fp32.safetensors
+    url: https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-fp8-e4m3fn-Lightning-4steps-V1.0-fp32.safetensors
+    sha256: "VERIFY_qwen_lightning_fp8_4s_v1_fp32"
+    size: 1825361920
+    format: safetensors
+    precision: fp32
+    note: "Trained specifically for fp8 base model. 4-step, fp32."
+
+recommended_weight: 1.0
+weight_range: [0.8, 1.0]
+
+tags: [qwen, lora, lightning, distillation, fast-inference, comfyui]
+rating: 4.7
+downloads: 773000
+added: "2025-08-01"
+updated: "2025-10-01"
+</file>
+
+<file path="manifests/segmentation/birefnet-dis.yaml">
+id: birefnet-dis
+name: "BiRefNet DIS (Dichotomous Image Segmentation)"
+type: segmentation
+architecture: birefnet
+author: ViperYX
+license: mit
+homepage: https://huggingface.co/ViperYX/BiRefNet
+description: |
+  High-quality background removal / image segmentation model.
+  BiRefNet (Bilateral Reference Network) trained on DIS5K dataset for
+  dichotomous image segmentation — excels at precise foreground/background separation.
+  Used in ComfyUI via ComfyUI_BiRefNet_ll custom node.
+
+file:
+  url: https://huggingface.co/ViperYX/BiRefNet/resolve/main/BiRefNet-DIS_ep580.pth
+  sha256: "9b4510f31d72e41507a4b75c4e62206b1d7e2223e0125b29644acd4b142793b0"
+  size: 889192448
+  format: pth
+
+tags: [segmentation, background-removal, birefnet, matting, comfyui]
+rating: 4.8
+downloads: 65000
+added: "2024-03-01"
+updated: "2024-03-01"
+</file>
+
+<file path="manifests/text_encoders/clip-l.yaml">
+id: clip-l
+name: "CLIP-L Text Encoder"
+type: text_encoder
+architecture: clip
+author: comfyanonymous
+license: apache-2.0
+homepage: https://huggingface.co/comfyanonymous/flux_text_encoders
+description: |
+  CLIP-L (Large) text encoder. Used as secondary text encoder by FLUX models
+  alongside T5-XXL. Small and lightweight — 246 MB.
+
+file:
+  url: https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors
+  sha256: "660c6f5b1abae9dc498ac2d21e1347d2abdb0cf6c0c0c8576cd796491d9a6cdd"
+  size: 246144152
+  format: safetensors
+
+tags: [clip, text-encoder, flux, lightweight]
+rating: 5.0
+downloads: 2600000
+added: "2024-08-01"
+updated: "2024-08-01"
+</file>
+
+<file path="manifests/text_encoders/qwen-image-clip.yaml">
+id: qwen-image-clip
+name: "Qwen 2.5 VL 7B Text Encoder"
+type: text_encoder
+architecture: qwen-vl
+author: Comfy-Org
+license: apache-2.0
+homepage: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI
+description: |
+  Qwen 2.5 Vision-Language 7B text/vision encoder for Qwen Image Edit.
+  Handles prompt processing and image understanding for the Qwen Image editing pipeline.
+  Available in full bf16 (16.6 GB) and fp8 quantized (9.4 GB) variants.
+
+variants:
+  - id: fp8
+    file: qwen_2.5_vl_7b_fp8_scaled.safetensors
+    url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors
+    sha256: "cb5636d852a0ea6a9075ab1bef496c0db7aef13c02350571e388aea959c5c0b4"
+    size: 10071982080
+    format: safetensors
+    precision: fp8-e4m3fn
+    vram_required: 10240
+    vram_recommended: 12288
+    note: "FP8 scaled quantization. Recommended — good quality at half the size."
+
+  - id: bf16
+    file: qwen_2.5_vl_7b.safetensors
+    url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b.safetensors
+    sha256: "VERIFY_qwen_clip_bf16"
+    size: 17825792000
+    format: safetensors
+    precision: bf16
+    vram_required: 16384
+    vram_recommended: 20480
+    note: "Full bf16 precision. Best quality, needs more VRAM."
+
+tags: [qwen, text-encoder, vision-language, clip, comfyui]
+rating: 4.8
+downloads: 275000
+added: "2025-07-01"
+updated: "2025-07-01"
+</file>
+
+<file path="manifests/text_encoders/t5-xxl-fp8.yaml">
+id: t5-xxl-fp8
+name: "T5-XXL Text Encoder (fp8)"
+type: text_encoder
+architecture: t5
+author: comfyanonymous
+license: apache-2.0
+homepage: https://huggingface.co/comfyanonymous/flux_text_encoders
+description: |
+  T5-XXL text encoder quantized to fp8 precision. Uses half the VRAM
+  of the fp16 version with minimal quality impact.
+  Recommended for 12-16 GB VRAM setups using FLUX models.
+
+variants:
+  - id: fp8
+    file: t5xxl_fp8_e4m3fn.safetensors
+    url: https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors
+    sha256: "7d330da4816157540d6bb7838bf63a0f02f573fc48ca4d8de34bb0cbfd514f09"
+    size: 4893843456
+    format: safetensors
+    precision: fp8-e4m3fn
+    vram_required: 6144
+    vram_recommended: 8192
+
+tags: [t5, text-encoder, flux, fp8, quantized]
+rating: 4.8
+downloads: 1800000
+added: "2024-08-01"
+updated: "2024-08-01"
+</file>
+
+<file path="manifests/upscalers/4x-ultrasharp.yaml">
+id: 4x-ultrasharp
+name: "4x UltraSharp Upscaler"
+type: upscaler
+author: Kim2091
+license: cc-by-nc-sa-4.0
+homepage: https://openmodeldb.info/models/4x-UltraSharp
+description: |
+  High-quality 4x upscaler. Excellent for photo-realistic upscaling.
+  One of the most popular upscalers in the AI image generation community.
+
+scale_factor: 4
+
+file:
+  url: https://huggingface.co/Kim2091/UltraSharp/resolve/main/4x-UltraSharp.pth
+  sha256: "a5812231fc936b42af08a5edba784195495d303d5b3248c24489ef0c4021fe01"
+  size: 66921375
+  format: pth
+
+tags: [upscaler, 4x, photo-realistic, esrgan]
+rating: 4.9
+downloads: 3200000
+added: "2023-01-01"
+updated: "2024-01-01"
+</file>
+
+<file path="manifests/upscalers/realesrgan-x4plus.yaml">
+id: realesrgan-x4plus
+name: "RealESRGAN x4plus"
+type: upscaler
+author: xinntao
+license: bsd-3-clause
+homepage: https://github.com/xinntao/Real-ESRGAN
+description: |
+  General-purpose 4x upscaler from the Real-ESRGAN project.
+  Good balance of quality and speed. Works well for both
+  photos and AI-generated images.
+
+scale_factor: 4
+
+file:
+  url: https://huggingface.co/ai-forever/Real-ESRGAN/resolve/main/RealESRGAN_x4.pth
+  sha256: "aa00f09ad753d88576b21ed977e97d634976377031b178acc3b5b238df463400"
+  size: 67040989
+  format: pth
+
+tags: [upscaler, 4x, realesrgan, general-purpose]
+rating: 4.7
+downloads: 4500000
+added: "2022-06-01"
+updated: "2024-01-01"
+</file>
+
+<file path="manifests/vae/flux-vae.yaml">
+id: flux-vae
+name: "FLUX VAE (ae.safetensors)"
+type: vae
+architecture: flux
+author: black-forest-labs
+license: apache-2.0
+homepage: https://huggingface.co/black-forest-labs/FLUX.1-schnell
+description: |
+  The VAE used by all FLUX models. Required for FLUX.1 Dev and Schnell.
+  Same file (ae.safetensors) is bundled in both the Dev and Schnell repos.
+
+file:
+  url: https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors
+  sha256: "f5b59a26851551b67ae1fe58d32e76486e1e812def4696a4bea97f16604d40a3"
+  size: 335304388
+  format: safetensors
+
+tags: [flux, vae, bfl]
+rating: 5.0
+downloads: 3200000
+added: "2024-08-01"
+updated: "2024-08-01"
+</file>
+
+<file path="manifests/vae/qwen-image-vae.yaml">
+id: qwen-image-vae
+name: "Qwen Image VAE"
+type: vae
+architecture: qwen-image
+author: Comfy-Org
+license: apache-2.0
+homepage: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI
+description: |
+  VAE for the Qwen Image Edit pipeline. Single file, no variants.
+  Required by all Qwen Image Edit checkpoints.
+
+file:
+  url: https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/vae/qwen_image_vae.safetensors
+  sha256: "a70580f0213e67967ee9c95f05bb400e8fb08307e017a924bf3441223e023d1f"
+  size: 266338304
+  format: safetensors
+
+tags: [qwen, vae, comfyui]
+rating: 5.0
+downloads: 275000
+added: "2025-07-01"
+updated: "2025-07-01"
+</file>
+
+<file path="manifests/vae/sdxl-vae-fp16-fix.yaml">
+id: sdxl-vae-fp16-fix
+name: "SDXL VAE (fp16 NaN fix)"
+type: vae
+architecture: sdxl
+author: madebyollin
+license: apache-2.0
+homepage: https://huggingface.co/madebyollin/sdxl-vae-fp16-fix
+description: |
+  Fixed SDXL VAE that works correctly in fp16 precision.
+  The original SDXL VAE produces NaN values in fp16 mode — this version
+  fixes that issue. Recommended for all SDXL workflows.
+
+file:
+  url: https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/main/diffusion_pytorch_model.safetensors
+  sha256: "63aeecb90ff7bc1c115395962d3e803571385b61938377bc7089b36e81e92e2e"
+  size: 334643268
+  format: safetensors
+
+tags: [sdxl, vae, fp16-fix]
+rating: 4.9
+downloads: 4100000
+added: "2023-08-15"
+updated: "2024-01-01"
+</file>
+
+<file path=".gitignore">
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+</file>
+
+<file path="scripts/build_index.py">
+#!/usr/bin/env python3
+"""
+Build index.json from all YAML manifests in the manifests/ directory.
+
+Usage:
+    python scripts/build_index.py
+    python scripts/build_index.py --output dist/index.json
+"""
+
+import json
+import sys
+from pathlib import Path
+
+try:
+    import yaml
+except ImportError:
+    print("ERROR: PyYAML is required. Install with: pip install pyyaml")
+    sys.exit(1)
+
+
+MANIFESTS_DIR = Path(__file__).parent.parent / "manifests"
+DEFAULT_OUTPUT = Path(__file__).parent.parent / "index.json"
+
+VALID_TYPES = {
+    "checkpoint",
+    "diffusion_model",
+    "lora",
+    "vae",
+    "text_encoder",
+    "controlnet",
+    "upscaler",
+    "embedding",
+    "ipadapter",
+    "segmentation",
+}
+
+TYPE_DIR_MAP = {
+    "checkpoints": "checkpoint",
+    "diffusion_models": "diffusion_model",
+    "loras": "lora",
+    "vae": "vae",
+    "text_encoders": "text_encoder",
+    "controlnet": "controlnet",
+    "upscalers": "upscaler",
+    "embeddings": "embedding",
+    "ipadapters": "ipadapter",
+    "segmentation": "segmentation",
+}
+
+
+def validate_manifest(manifest: dict, filepath: Path) -> list[str]:
+    """Validate a single manifest. Returns list of errors."""
+    errors = []
+    filename_id = filepath.stem
+
+    # Required fields
+    for field in ["id", "name", "type"]:
+        if field not in manifest:
+            errors.append(f"Missing required field: {field}")
+
+    if not errors:
+        # ID must match filename
+        if manifest["id"] != filename_id:
+            errors.append(
+                f"ID '{manifest['id']}' does not match filename '{filename_id}'"
+            )
+
+        # Type must be valid
+        if manifest["type"] not in VALID_TYPES:
+            errors.append(
+                f"Invalid type '{manifest['type']}'. Must be one of: {VALID_TYPES}"
+            )
+
+        # Must have either variants or file
+        has_variants = "variants" in manifest and len(manifest.get("variants", [])) > 0
+        has_file = "file" in manifest and manifest["file"] is not None
+
+        if not has_variants and not has_file:
+            errors.append("Must have either 'variants' (non-empty) or 'file'")
+
+        # Validate variants
+        if has_variants:
+            for i, variant in enumerate(manifest["variants"]):
+                for field in ["id", "file", "url", "sha256", "size"]:
+                    if field not in variant:
+                        errors.append(f"Variant {i} missing required field: {field}")
+                if "size" in variant and not isinstance(variant["size"], int):
+                    errors.append(f"Variant {i} 'size' must be an integer (bytes)")
+
+        # Validate file
+        if has_file:
+            f = manifest["file"]
+            for field in ["url", "sha256", "size"]:
+                if field not in f:
+                    errors.append(f"File missing required field: {field}")
+            if "size" in f and not isinstance(f["size"], int):
+                errors.append("File 'size' must be an integer (bytes)")
+
+    return errors
+
+
+def check_placeholder_hashes(manifest: dict) -> list[str]:
+    """Check for placeholder hashes that haven't been verified."""
+    warnings = []
+
+    if "variants" in manifest:
+        for v in manifest["variants"]:
+            if v.get("sha256", "").startswith("VERIFY_"):
+                warnings.append(
+                    f"Variant '{v.get('id', '?')}' has placeholder hash: {v['sha256']}"
+                )
+
+    if "file" in manifest and manifest["file"]:
+        if manifest["file"].get("sha256", "").startswith("VERIFY_"):
+            warnings.append(
+                f"File has placeholder hash: {manifest['file']['sha256']}"
+            )
+
+    return warnings
+
+
+def build_index(output_path: Path = DEFAULT_OUTPUT) -> bool:
+    """Build index.json from all manifests. Returns True if successful."""
+    items = []
+    errors_found = False
+    warnings_found = False
+
+    if not MANIFESTS_DIR.exists():
+        print(f"ERROR: Manifests directory not found: {MANIFESTS_DIR}")
+        return False
+
+    # Walk all type directories
+    for type_dir in sorted(MANIFESTS_DIR.iterdir()):
+        if not type_dir.is_dir():
+            continue
+
+        dir_name = type_dir.name
+        if dir_name not in TYPE_DIR_MAP:
+            print(f"WARNING: Unknown directory: {dir_name}")
+            continue
+
+        expected_type = TYPE_DIR_MAP[dir_name]
+
+        for manifest_file in sorted(type_dir.glob("*.yaml")):
+            print(f"  Processing: {manifest_file.relative_to(MANIFESTS_DIR)}")
+
+            try:
+                with open(manifest_file) as f:
+                    manifest = yaml.safe_load(f)
+            except yaml.YAMLError as e:
+                print(f"  ERROR: Failed to parse YAML: {e}")
+                errors_found = True
+                continue
+
+            if manifest is None:
+                print(f"  ERROR: Empty manifest file")
+                errors_found = True
+                continue
+
+            # Validate
+            validation_errors = validate_manifest(manifest, manifest_file)
+            if validation_errors:
+                for err in validation_errors:
+                    print(f"  ERROR: {err}")
+                errors_found = True
+                continue
+
+            # Check type matches directory
+            if manifest["type"] != expected_type:
+                print(
+                    f"  ERROR: Type '{manifest['type']}' doesn't match directory "
+                    f"'{dir_name}' (expected '{expected_type}')"
+                )
+                errors_found = True
+                continue
+
+            # Check for placeholder hashes
+            hash_warnings = check_placeholder_hashes(manifest)
+            for w in hash_warnings:
+                print(f"  WARNING: {w}")
+                warnings_found = True
+
+            items.append(manifest)
+
+    if errors_found:
+        print(f"\nERROR: Validation failed. Fix errors above before building index.")
+        return False
+
+    # Sort items by ID for deterministic output
+    items.sort(key=lambda x: x["id"])
+
+    # Build index
+    index = {
+        "version": 1,
+        "items": items,
+    }
+
+    # Write output
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(output_path, "w") as f:
+        json.dump(index, f, indent=2, ensure_ascii=False)
+
+    print(f"\nBuilt index with {len(items)} items → {output_path}")
+    if warnings_found:
+        print("WARNING: Some hashes are placeholders. Run verify_hashes.py to compute them.")
+
+    return True
+
+
+if __name__ == "__main__":
+    output = Path(sys.argv[1]) if len(sys.argv) > 1 and sys.argv[1] != "--output" else DEFAULT_OUTPUT
+    if len(sys.argv) > 2 and sys.argv[1] == "--output":
+        output = Path(sys.argv[2])
+
+    print(f"Building index from {MANIFESTS_DIR}/")
+    success = build_index(output)
+    sys.exit(0 if success else 1)
+</file>
+
+<file path="index.json">
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "4x-ultrasharp",
+      "name": "4x UltraSharp Upscaler",
+      "type": "upscaler",
+      "author": "Kim2091",
+      "license": "cc-by-nc-sa-4.0",
+      "homepage": "https://openmodeldb.info/models/4x-UltraSharp",
+      "description": "High-quality 4x upscaler. Excellent for photo-realistic upscaling.\nOne of the most popular upscalers in the AI image generation community.\n",
+      "scale_factor": 4,
+      "file": {
+        "url": "https://huggingface.co/Kim2091/UltraSharp/resolve/main/4x-UltraSharp.pth",
+        "sha256": "a5812231fc936b42af08a5edba784195495d303d5b3248c24489ef0c4021fe01",
+        "size": 66921375,
+        "format": "pth"
+      },
+      "tags": [
+        "upscaler",
+        "4x",
+        "photo-realistic",
+        "esrgan"
+      ],
+      "rating": 4.9,
+      "downloads": 3200000,
+      "added": "2023-01-01",
+      "updated": "2024-01-01"
+    },
+    {
+      "id": "birefnet-dis",
+      "name": "BiRefNet DIS (Dichotomous Image Segmentation)",
+      "type": "segmentation",
+      "architecture": "birefnet",
+      "author": "ViperYX",
+      "license": "mit",
+      "homepage": "https://huggingface.co/ViperYX/BiRefNet",
+      "description": "High-quality background removal / image segmentation model.\nBiRefNet (Bilateral Reference Network) trained on DIS5K dataset for\ndichotomous image segmentation — excels at precise foreground/background separation.\nUsed in ComfyUI via ComfyUI_BiRefNet_ll custom node.\n",
+      "file": {
+        "url": "https://huggingface.co/ViperYX/BiRefNet/resolve/main/BiRefNet-DIS_ep580.pth",
+        "sha256": "9b4510f31d72e41507a4b75c4e62206b1d7e2223e0125b29644acd4b142793b0",
+        "size": 889192448,
+        "format": "pth"
+      },
+      "tags": [
+        "segmentation",
+        "background-removal",
+        "birefnet",
+        "matting",
+        "comfyui"
+      ],
+      "rating": 4.8,
+      "downloads": 65000,
+      "added": "2024-03-01",
+      "updated": "2024-03-01"
+    },
+    {
+      "id": "bsrganx2",
+      "name": "BSRGANx2 Upscaler",
+      "type": "upscaler",
+      "author": "cszn",
+      "license": "apache-2.0",
+      "homepage": "https://github.com/cszn/BSRGAN",
+      "description": "2x upscaler based on BSRGAN (Blind Super-Resolution GAN).\nBetter than bicubic for real-world degraded/noisy/compressed images.\nHandles JPEG artifacts, noise, and blur well — good for product photos\nthat have been through lossy compression.\n",
+      "scale_factor": 2,
+      "file": {
+        "url": "https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/BSRGANx2.pth",
+        "sha256": "VERIFY_bsrganx2",
+        "size": 71849987,
+        "format": "pth"
+      },
+      "tags": [
+        "upscaler",
+        "2x",
+        "bsrgan",
+        "denoising",
+        "real-world",
+        "esrgan"
+      ],
+      "rating": 4.6,
+      "downloads": 450000,
+      "added": "2022-01-01",
+      "updated": "2022-01-01"
+    },
+    {
+      "id": "clip-l",
+      "name": "CLIP-L Text Encoder",
+      "type": "text_encoder",
+      "architecture": "clip",
+      "author": "comfyanonymous",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/comfyanonymous/flux_text_encoders",
+      "description": "CLIP-L (Large) text encoder. Used as secondary text encoder by FLUX models\nalongside T5-XXL. Small and lightweight — 246 MB.\n",
+      "file": {
+        "url": "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors",
+        "sha256": "660c6f5b1abae9dc498ac2d21e1347d2abdb0cf6c0c0c8576cd796491d9a6cdd",
+        "size": 246144152,
+        "format": "safetensors"
+      },
+      "tags": [
+        "clip",
+        "text-encoder",
+        "flux",
+        "lightweight"
+      ],
+      "rating": 5.0,
+      "downloads": 2600000,
+      "added": "2024-08-01",
+      "updated": "2024-08-01"
+    },
+    {
+      "id": "flux-depth-controlnet",
+      "name": "FLUX.1 Depth ControlNet",
+      "type": "controlnet",
+      "architecture": "flux",
+      "author": "InstantX",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union",
+      "description": "Depth-conditioned ControlNet for FLUX.1 Dev. Allows generating images\nthat follow the depth structure of an input image.\n",
+      "base_models": [
+        "flux-dev"
+      ],
+      "preprocessor": "depth_midas",
+      "file": {
+        "url": "https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/resolve/main/diffusion_pytorch_model.safetensors",
+        "sha256": "VERIFY_flux_depth_cn",
+        "size": 6596901888,
+        "format": "safetensors"
+      },
+      "tags": [
+        "flux",
+        "controlnet",
+        "depth",
+        "instantx"
+      ],
+      "rating": 4.5,
+      "downloads": 380000,
+      "added": "2024-10-01",
+      "updated": "2025-01-01"
+    },
+    {
+      "id": "flux-dev",
+      "name": "FLUX.1 Dev",
+      "type": "checkpoint",
+      "architecture": "flux",
+      "author": "black-forest-labs",
+      "license": "flux-1-dev-non-commercial",
+      "homepage": "https://huggingface.co/black-forest-labs/FLUX.1-dev",
+      "description": "High-quality text-to-image model from Black Forest Labs.\nBest results with 20-30 steps, CFG 3.5-4.0, euler sampler.\nNon-commercial license. Requires accepting terms on HuggingFace.\n",
+      "variants": [
+        {
+          "id": "fp16",
+          "file": "flux1-dev.safetensors",
+          "url": "https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors",
+          "sha256": "VERIFY_flux1_dev_fp16",
+          "size": 23802932552,
+          "format": "safetensors",
+          "precision": "fp16",
+          "vram_required": 24576,
+          "vram_recommended": 24576
+        },
+        {
+          "id": "fp8",
+          "file": "flux1-dev-fp8-e4m3fn.safetensors",
+          "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8-e4m3fn.safetensors",
+          "sha256": "VERIFY_flux1_dev_fp8",
+          "size": 11903959040,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 12288,
+          "vram_recommended": 16384,
+          "note": "Quantized to fp8. Slight quality reduction vs fp16."
+        }
+      ],
+      "requires": [
+        {
+          "id": "flux-vae",
+          "type": "vae",
+          "reason": "Flux models require the Flux-specific VAE (ae.safetensors)"
+        },
+        {
+          "id": "t5-xxl-fp16",
+          "type": "text_encoder",
+          "reason": "T5-XXL for prompt processing",
+          "optional_variant": "t5-xxl-fp8"
+        },
+        {
+          "id": "clip-l",
+          "type": "text_encoder",
+          "reason": "CLIP-L for secondary text encoding"
+        }
+      ],
+      "auth": {
+        "provider": "huggingface",
+        "terms_url": "https://huggingface.co/black-forest-labs/FLUX.1-dev",
+        "gated": true
+      },
+      "defaults": {
+        "steps": 20,
+        "cfg": 3.5,
+        "sampler": "euler",
+        "scheduler": "normal"
+      },
+      "tags": [
+        "flux",
+        "text-to-image",
+        "high-quality",
+        "bfl"
+      ],
+      "rating": 4.9,
+      "downloads": 2850000,
+      "added": "2024-08-01",
+      "updated": "2025-01-15"
+    },
+    {
+      "id": "flux-schnell",
+      "name": "FLUX.1 Schnell",
+      "type": "checkpoint",
+      "architecture": "flux",
+      "author": "black-forest-labs",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
+      "description": "Fast text-to-image model from Black Forest Labs.\nOptimized for speed — best with 1-4 steps, CFG 0 (distilled model).\nApache 2.0 license — free for commercial use.\n",
+      "variants": [
+        {
+          "id": "fp16",
+          "file": "flux1-schnell.safetensors",
+          "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/flux1-schnell.safetensors",
+          "sha256": "VERIFY_flux1_schnell_fp16",
+          "size": 23802932552,
+          "format": "safetensors",
+          "precision": "fp16",
+          "vram_required": 24576,
+          "vram_recommended": 24576
+        },
+        {
+          "id": "fp8",
+          "file": "flux1-schnell-fp8-e4m3fn.safetensors",
+          "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-schnell-fp8-e4m3fn.safetensors",
+          "sha256": "VERIFY_flux1_schnell_fp8",
+          "size": 11903959040,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 12288,
+          "vram_recommended": 16384,
+          "note": "Quantized to fp8. Slight quality reduction vs fp16."
+        }
+      ],
+      "requires": [
+        {
+          "id": "flux-vae",
+          "type": "vae",
+          "reason": "Flux models require the Flux-specific VAE (ae.safetensors)"
+        },
+        {
+          "id": "t5-xxl-fp16",
+          "type": "text_encoder",
+          "reason": "T5-XXL for prompt processing",
+          "optional_variant": "t5-xxl-fp8"
+        },
+        {
+          "id": "clip-l",
+          "type": "text_encoder",
+          "reason": "CLIP-L for secondary text encoding"
+        }
+      ],
+      "auth": {
+        "provider": "huggingface",
+        "terms_url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
+        "gated": true
+      },
+      "defaults": {
+        "steps": 4,
+        "cfg": 0,
+        "sampler": "euler",
+        "scheduler": "normal"
+      },
+      "tags": [
+        "flux",
+        "text-to-image",
+        "fast",
+        "distilled",
+        "bfl"
+      ],
+      "rating": 4.7,
+      "downloads": 1920000,
+      "added": "2024-08-01",
+      "updated": "2025-01-15"
+    },
+    {
+      "id": "flux-vae",
+      "name": "FLUX VAE (ae.safetensors)",
+      "type": "vae",
+      "architecture": "flux",
+      "author": "black-forest-labs",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/black-forest-labs/FLUX.1-schnell",
+      "description": "The VAE used by all FLUX models. Required for FLUX.1 Dev and Schnell.\nSame file (ae.safetensors) is bundled in both the Dev and Schnell repos.\n",
+      "file": {
+        "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors",
+        "sha256": "f5b59a26851551b67ae1fe58d32e76486e1e812def4696a4bea97f16604d40a3",
+        "size": 335304388,
+        "format": "safetensors"
+      },
+      "tags": [
+        "flux",
+        "vae",
+        "bfl"
+      ],
+      "rating": 5.0,
+      "downloads": 3200000,
+      "added": "2024-08-01",
+      "updated": "2024-08-01"
+    },
+    {
+      "id": "qwen-image-clip",
+      "name": "Qwen 2.5 VL 7B Text Encoder",
+      "type": "text_encoder",
+      "architecture": "qwen-vl",
+      "author": "Comfy-Org",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI",
+      "description": "Qwen 2.5 Vision-Language 7B text/vision encoder for Qwen Image Edit.\nHandles prompt processing and image understanding for the Qwen Image editing pipeline.\nAvailable in full bf16 (16.6 GB) and fp8 quantized (9.4 GB) variants.\n",
+      "variants": [
+        {
+          "id": "fp8",
+          "file": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors",
+          "sha256": "cb5636d852a0ea6a9075ab1bef496c0db7aef13c02350571e388aea959c5c0b4",
+          "size": 10071982080,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 10240,
+          "vram_recommended": 12288,
+          "note": "FP8 scaled quantization. Recommended — good quality at half the size."
+        },
+        {
+          "id": "bf16",
+          "file": "qwen_2.5_vl_7b.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b.safetensors",
+          "sha256": "VERIFY_qwen_clip_bf16",
+          "size": 17825792000,
+          "format": "safetensors",
+          "precision": "bf16",
+          "vram_required": 16384,
+          "vram_recommended": 20480,
+          "note": "Full bf16 precision. Best quality, needs more VRAM."
+        }
+      ],
+      "tags": [
+        "qwen",
+        "text-encoder",
+        "vision-language",
+        "clip",
+        "comfyui"
+      ],
+      "rating": 4.8,
+      "downloads": 275000,
+      "added": "2025-07-01",
+      "updated": "2025-07-01"
+    },
+    {
+      "id": "qwen-image-edit",
+      "name": "Qwen Image Edit",
+      "type": "checkpoint",
+      "architecture": "qwen-image",
+      "author": "Comfy-Org / QuantStack",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI",
+      "description": "AI-powered image editing model based on Qwen 2.5 VL architecture.\nSupports outpainting, format/ratio changes, AI scene generation, and in-place enhancement.\nBest with 8 steps using Lightning LoRA, euler sampler, CFG 1.0.\nAvailable as native safetensors (bf16/fp8) or GGUF quantizations (Q2_K through Q8_0).\n",
+      "variants": [
+        {
+          "id": "bf16",
+          "file": "qwen_image_bf16.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_bf16.safetensors",
+          "sha256": "VERIFY_qwen_image_bf16",
+          "size": 43927101440,
+          "format": "safetensors",
+          "precision": "bf16",
+          "vram_required": 40960,
+          "vram_recommended": 49152,
+          "note": "Full precision bf16. Best quality, needs A100 40GB+ or similar."
+        },
+        {
+          "id": "fp8-hq",
+          "file": "qwen_image_fp8_hq.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_fp8_hq.safetensors",
+          "sha256": "VERIFY_qwen_image_fp8_hq",
+          "size": 24373903360,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 24576,
+          "vram_recommended": 32768,
+          "note": "High-quality fp8 quantization with sensitive layers in higher precision."
+        },
+        {
+          "id": "fp8-mixed",
+          "file": "qwen_image_fp8mixed.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_fp8mixed.safetensors",
+          "sha256": "VERIFY_qwen_image_fp8mixed",
+          "size": 22011707392,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 24576,
+          "vram_recommended": 24576,
+          "note": "Mixed precision fp8 with comfy_quant layers. Sensitive layers kept in high precision."
+        },
+        {
+          "id": "fp8",
+          "file": "qwen_image_fp8_e4m3fn.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_fp8_e4m3fn.safetensors",
+          "sha256": "VERIFY_qwen_image_fp8",
+          "size": 21902483456,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 20480,
+          "vram_recommended": 24576,
+          "note": "Standard fp8 quantization. Good balance of quality vs VRAM."
+        },
+        {
+          "id": "nvfp4",
+          "file": "qwen_image_nvfp4.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_nvfp4.safetensors",
+          "sha256": "VERIFY_qwen_image_nvfp4",
+          "size": 21260902400,
+          "format": "safetensors",
+          "precision": "nvfp4",
+          "vram_required": 16384,
+          "vram_recommended": 20480,
+          "note": "NVIDIA fp4 quantization. Lower quality but fits on smaller GPUs."
+        },
+        {
+          "id": "2512-bf16",
+          "file": "qwen_image_2512_bf16.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_2512_bf16.safetensors",
+          "sha256": "VERIFY_qwen_image_2512_bf16",
+          "size": 43927101440,
+          "format": "safetensors",
+          "precision": "bf16",
+          "vram_required": 40960,
+          "vram_recommended": 49152,
+          "note": "2512 revision, full bf16 precision."
+        },
+        {
+          "id": "2512-fp8",
+          "file": "qwen_image_2512_fp8_e4m3fn.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_2512_fp8_e4m3fn.safetensors",
+          "sha256": "VERIFY_qwen_image_2512_fp8",
+          "size": 21902483456,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 20480,
+          "vram_recommended": 24576,
+          "note": "2512 revision, fp8 quantized."
+        },
+        {
+          "id": "gguf-q8-0",
+          "file": "Qwen_Image_Edit-Q8_0.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q8_0.gguf",
+          "sha256": "VERIFY_qwen_gguf_q8_0",
+          "size": 23405215744,
+          "format": "gguf",
+          "precision": "q8_0",
+          "vram_required": 24576,
+          "vram_recommended": 32768,
+          "note": "GGUF Q8_0 — best GGUF quality. Requires ComfyUI-GGUF custom node."
+        },
+        {
+          "id": "gguf-q6-k",
+          "file": "Qwen_Image_Edit-Q6_K.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q6_K.gguf",
+          "sha256": "VERIFY_qwen_gguf_q6_k",
+          "size": 18039808000,
+          "format": "gguf",
+          "precision": "q6_k",
+          "vram_required": 20480,
+          "vram_recommended": 24576,
+          "note": "GGUF Q6_K — good quality/size balance."
+        },
+        {
+          "id": "gguf-q5-k-m",
+          "file": "Qwen_Image_Edit-Q5_K_M.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q5_K_M.gguf",
+          "sha256": "VERIFY_qwen_gguf_q5_k_m",
+          "size": 16000204800,
+          "format": "gguf",
+          "precision": "q5_k_m",
+          "vram_required": 16384,
+          "vram_recommended": 20480,
+          "note": "GGUF Q5_K_M — recommended for 16GB+ GPUs."
+        },
+        {
+          "id": "gguf-q5-k-s",
+          "file": "Qwen_Image_Edit-Q5_K_S.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q5_K_S.gguf",
+          "sha256": "VERIFY_qwen_gguf_q5_k_s",
+          "size": 15140249600,
+          "format": "gguf",
+          "precision": "q5_k_s",
+          "vram_required": 16384,
+          "vram_recommended": 20480,
+          "note": "GGUF Q5_K_S — smaller Q5 variant."
+        },
+        {
+          "id": "gguf-q5-0",
+          "file": "Qwen_Image_Edit-Q5_0.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q5_0.gguf",
+          "sha256": "VERIFY_qwen_gguf_q5_0",
+          "size": 15461882880,
+          "format": "gguf",
+          "precision": "q5_0",
+          "vram_required": 16384,
+          "vram_recommended": 20480,
+          "note": "GGUF Q5_0."
+        },
+        {
+          "id": "gguf-q5-1",
+          "file": "Qwen_Image_Edit-Q5_1.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q5_1.gguf",
+          "sha256": "VERIFY_qwen_gguf_q5_1",
+          "size": 16536027136,
+          "format": "gguf",
+          "precision": "q5_1",
+          "vram_required": 16384,
+          "vram_recommended": 20480,
+          "note": "GGUF Q5_1."
+        },
+        {
+          "id": "gguf-q4-k-m",
+          "file": "Qwen_Image_Edit-Q4_K_M.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q4_K_M.gguf",
+          "sha256": "VERIFY_qwen_gguf_q4_k_m",
+          "size": 14066032640,
+          "format": "gguf",
+          "precision": "q4_k_m",
+          "vram_required": 12288,
+          "vram_recommended": 16384,
+          "note": "GGUF Q4_K_M — good for 12GB GPUs."
+        },
+        {
+          "id": "gguf-q4-k-s",
+          "file": "Qwen_Image_Edit-Q4_K_S.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q4_K_S.gguf",
+          "sha256": "VERIFY_qwen_gguf_q4_k_s",
+          "size": 12994428928,
+          "format": "gguf",
+          "precision": "q4_k_s",
+          "vram_required": 12288,
+          "vram_recommended": 16384,
+          "note": "GGUF Q4_K_S — smaller Q4 variant."
+        },
+        {
+          "id": "gguf-q4-0",
+          "file": "Qwen_Image_Edit-Q4_0.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q4_0.gguf",
+          "sha256": "VERIFY_qwen_gguf_q4_0",
+          "size": 12776923136,
+          "format": "gguf",
+          "precision": "q4_0",
+          "vram_required": 12288,
+          "vram_recommended": 16384,
+          "note": "GGUF Q4_0."
+        },
+        {
+          "id": "gguf-q4-1",
+          "file": "Qwen_Image_Edit-Q4_1.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q4_1.gguf",
+          "sha256": "VERIFY_qwen_gguf_q4_1",
+          "size": 13743095808,
+          "format": "gguf",
+          "precision": "q4_1",
+          "vram_required": 12288,
+          "vram_recommended": 16384,
+          "note": "GGUF Q4_1."
+        },
+        {
+          "id": "gguf-q3-k-m",
+          "file": "Qwen_Image_Edit-Q3_K_M.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q3_K_M.gguf",
+          "sha256": "VERIFY_qwen_gguf_q3_k_m",
+          "size": 10394116096,
+          "format": "gguf",
+          "precision": "q3_k_m",
+          "vram_required": 10240,
+          "vram_recommended": 12288,
+          "note": "GGUF Q3_K_M — for 10GB+ GPUs. Noticeable quality reduction."
+        },
+        {
+          "id": "gguf-q3-k-s",
+          "file": "Qwen_Image_Edit-Q3_K_S.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q3_K_S.gguf",
+          "sha256": "VERIFY_qwen_gguf_q3_k_s",
+          "size": 9609625600,
+          "format": "gguf",
+          "precision": "q3_k_s",
+          "vram_required": 10240,
+          "vram_recommended": 12288,
+          "note": "GGUF Q3_K_S — smaller Q3 variant."
+        },
+        {
+          "id": "gguf-q2-k",
+          "file": "Qwen_Image_Edit-Q2_K.gguf",
+          "url": "https://huggingface.co/QuantStack/Qwen-Image-Edit-GGUF/resolve/main/Qwen_Image_Edit-Q2_K.gguf",
+          "sha256": "VERIFY_qwen_gguf_q2_k",
+          "size": 7580321792,
+          "format": "gguf",
+          "precision": "q2_k",
+          "vram_required": 8192,
+          "vram_recommended": 10240,
+          "note": "GGUF Q2_K — minimum quality. Fits on 8GB GPUs but significant quality loss."
+        }
+      ],
+      "requires": [
+        {
+          "id": "qwen-image-vae",
+          "type": "vae",
+          "reason": "Qwen Image Edit requires the Qwen-specific VAE"
+        },
+        {
+          "id": "qwen-image-clip",
+          "type": "text_encoder",
+          "reason": "Qwen 2.5 VL 7B text/vision encoder for prompt processing"
+        }
+      ],
+      "defaults": {
+        "steps": 8,
+        "cfg": 1.0,
+        "sampler": "euler",
+        "scheduler": "simple"
+      },
+      "tags": [
+        "qwen",
+        "image-editing",
+        "outpainting",
+        "scene-generation",
+        "comfyui",
+        "gguf"
+      ],
+      "rating": 4.8,
+      "downloads": 275000,
+      "added": "2025-07-01",
+      "updated": "2026-01-15"
+    },
+    {
+      "id": "qwen-image-edit-lightning",
+      "name": "Qwen Image Edit Lightning LoRA",
+      "type": "lora",
+      "author": "lightx2v",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/lightx2v/Qwen-Image-Lightning",
+      "description": "Distillation LoRA for Qwen Image Edit that reduces inference from ~50 steps to 4-8 steps.\nMultiple versions available: V1.0 and V2.0, in 4-step and 8-step variants.\nAlso includes Edit-specific variants for image editing (vs generation).\nbf16 variants are half the size (~850 MB) with no quality loss on bf16/fp8 base models.\n",
+      "base_models": [
+        "qwen-image-edit"
+      ],
+      "variants": [
+        {
+          "id": "edit-8step-v1",
+          "file": "Qwen-Image-Edit-Lightning-8steps-V1.0.safetensors",
+          "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-8steps-V1.0.safetensors",
+          "sha256": "5910104f8922bd3fa359c675ba2a72681327f538cfa768eb33044055bd27a826",
+          "size": 1825361920,
+          "format": "safetensors",
+          "precision": "fp32",
+          "note": "Edit-specific, 8-step, V1.0. fp32 weights. Used by shopify-reframe-ai."
+        },
+        {
+          "id": "edit-8step-v1-bf16",
+          "file": "Qwen-Image-Edit-Lightning-8steps-V1.0-bf16.safetensors",
+          "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-8steps-V1.0-bf16.safetensors",
+          "sha256": "VERIFY_qwen_lightning_edit_8s_v1_bf16",
+          "size": 912680960,
+          "format": "safetensors",
+          "precision": "bf16",
+          "note": "Edit-specific, 8-step, V1.0 in bf16. Half the size."
+        },
+        {
+          "id": "edit-4step-v1",
+          "file": "Qwen-Image-Edit-Lightning-4steps-V1.0.safetensors",
+          "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-4steps-V1.0.safetensors",
+          "sha256": "VERIFY_qwen_lightning_edit_4s_v1",
+          "size": 1825361920,
+          "format": "safetensors",
+          "precision": "fp32",
+          "note": "Edit-specific, 4-step, V1.0. Fastest but slightly lower quality than 8-step."
+        },
+        {
+          "id": "edit-4step-v1-bf16",
+          "file": "Qwen-Image-Edit-Lightning-4steps-V1.0-bf16.safetensors",
+          "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Edit-Lightning-4steps-V1.0-bf16.safetensors",
+          "sha256": "d8132c32e7df906603dd6b072ff2fb0af88ab15ef0f3ac697a2011c8b47bbeb1",
+          "size": 912680960,
+          "format": "safetensors",
+          "precision": "bf16",
+          "note": "Edit-specific, 4-step, V1.0 in bf16."
+        },
+        {
+          "id": "gen-8step-v2",
+          "file": "Qwen-Image-Lightning-8steps-V2.0.safetensors",
+          "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V2.0.safetensors",
+          "sha256": "VERIFY_qwen_lightning_gen_8s_v2",
+          "size": 1825361920,
+          "format": "safetensors",
+          "precision": "fp32",
+          "note": "Generation-focused, 8-step, V2.0. Latest version."
+        },
+        {
+          "id": "gen-8step-v2-bf16",
+          "file": "Qwen-Image-Lightning-8steps-V2.0-bf16.safetensors",
+          "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-8steps-V2.0-bf16.safetensors",
+          "sha256": "VERIFY_qwen_lightning_gen_8s_v2_bf16",
+          "size": 912680960,
+          "format": "safetensors",
+          "precision": "bf16",
+          "note": "Generation-focused, 8-step, V2.0 in bf16."
+        },
+        {
+          "id": "gen-4step-v2",
+          "file": "Qwen-Image-Lightning-4steps-V2.0.safetensors",
+          "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V2.0.safetensors",
+          "sha256": "VERIFY_qwen_lightning_gen_4s_v2",
+          "size": 1825361920,
+          "format": "safetensors",
+          "precision": "fp32",
+          "note": "Generation-focused, 4-step, V2.0. Fastest generation."
+        },
+        {
+          "id": "gen-4step-v2-bf16",
+          "file": "Qwen-Image-Lightning-4steps-V2.0-bf16.safetensors",
+          "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-Lightning-4steps-V2.0-bf16.safetensors",
+          "sha256": "VERIFY_qwen_lightning_gen_4s_v2_bf16",
+          "size": 912680960,
+          "format": "safetensors",
+          "precision": "bf16",
+          "note": "Generation-focused, 4-step, V2.0 in bf16."
+        },
+        {
+          "id": "fp8-gen-4step-v1-bf16",
+          "file": "Qwen-Image-fp8-e4m3fn-Lightning-4steps-V1.0-bf16.safetensors",
+          "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-fp8-e4m3fn-Lightning-4steps-V1.0-bf16.safetensors",
+          "sha256": "VERIFY_qwen_lightning_fp8_4s_v1_bf16",
+          "size": 912680960,
+          "format": "safetensors",
+          "precision": "bf16",
+          "note": "Trained specifically for fp8 base model. 4-step, bf16."
+        },
+        {
+          "id": "fp8-gen-4step-v1-fp32",
+          "file": "Qwen-Image-fp8-e4m3fn-Lightning-4steps-V1.0-fp32.safetensors",
+          "url": "https://huggingface.co/lightx2v/Qwen-Image-Lightning/resolve/main/Qwen-Image-fp8-e4m3fn-Lightning-4steps-V1.0-fp32.safetensors",
+          "sha256": "VERIFY_qwen_lightning_fp8_4s_v1_fp32",
+          "size": 1825361920,
+          "format": "safetensors",
+          "precision": "fp32",
+          "note": "Trained specifically for fp8 base model. 4-step, fp32."
+        }
+      ],
+      "recommended_weight": 1.0,
+      "weight_range": [
+        0.8,
+        1.0
+      ],
+      "tags": [
+        "qwen",
+        "lora",
+        "lightning",
+        "distillation",
+        "fast-inference",
+        "comfyui"
+      ],
+      "rating": 4.7,
+      "downloads": 773000,
+      "added": "2025-08-01",
+      "updated": "2025-10-01"
+    },
+    {
+      "id": "qwen-image-vae",
+      "name": "Qwen Image VAE",
+      "type": "vae",
+      "architecture": "qwen-image",
+      "author": "Comfy-Org",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI",
+      "description": "VAE for the Qwen Image Edit pipeline. Single file, no variants.\nRequired by all Qwen Image Edit checkpoints.\n",
+      "file": {
+        "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/vae/qwen_image_vae.safetensors",
+        "sha256": "a70580f0213e67967ee9c95f05bb400e8fb08307e017a924bf3441223e023d1f",
+        "size": 266338304,
+        "format": "safetensors"
+      },
+      "tags": [
+        "qwen",
+        "vae",
+        "comfyui"
+      ],
+      "rating": 5.0,
+      "downloads": 275000,
+      "added": "2025-07-01",
+      "updated": "2025-07-01"
+    },
+    {
+      "id": "realesrgan-x4plus",
+      "name": "RealESRGAN x4plus",
+      "type": "upscaler",
+      "author": "xinntao",
+      "license": "bsd-3-clause",
+      "homepage": "https://github.com/xinntao/Real-ESRGAN",
+      "description": "General-purpose 4x upscaler from the Real-ESRGAN project.\nGood balance of quality and speed. Works well for both\nphotos and AI-generated images.\n",
+      "scale_factor": 4,
+      "file": {
+        "url": "https://huggingface.co/ai-forever/Real-ESRGAN/resolve/main/RealESRGAN_x4.pth",
+        "sha256": "aa00f09ad753d88576b21ed977e97d634976377031b178acc3b5b238df463400",
+        "size": 67040989,
+        "format": "pth"
+      },
+      "tags": [
+        "upscaler",
+        "4x",
+        "realesrgan",
+        "general-purpose"
+      ],
+      "rating": 4.7,
+      "downloads": 4500000,
+      "added": "2022-06-01",
+      "updated": "2024-01-01"
+    },
+    {
+      "id": "sd-1.5",
+      "name": "Stable Diffusion 1.5",
+      "type": "checkpoint",
+      "architecture": "sd15",
+      "author": "runwayml",
+      "license": "creativeml-openrail-m",
+      "homepage": "https://huggingface.co/runwayml/stable-diffusion-v1-5",
+      "description": "The original Stable Diffusion 1.5. Lightweight, fast, huge ecosystem\nof LoRAs, embeddings, and ControlNets. 512x512 native resolution.\n",
+      "variants": [
+        {
+          "id": "fp16",
+          "file": "v1-5-pruned-emaonly.safetensors",
+          "url": "https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.safetensors",
+          "sha256": "VERIFY_sd15_fp16",
+          "size": 4265146304,
+          "format": "safetensors",
+          "precision": "fp16",
+          "vram_required": 4096,
+          "vram_recommended": 8192
+        }
+      ],
+      "requires": [
+        {
+          "id": "sd-vae-ft-mse",
+          "type": "vae",
+          "reason": "Recommended VAE for SD 1.5 (sharper outputs)"
+        }
+      ],
+      "defaults": {
+        "steps": 25,
+        "cfg": 7.5,
+        "sampler": "dpmpp_2m",
+        "scheduler": "karras"
+      },
+      "tags": [
+        "sd15",
+        "text-to-image",
+        "stable-diffusion",
+        "lightweight"
+      ],
+      "rating": 4.3,
+      "downloads": 12000000,
+      "added": "2022-10-20",
+      "updated": "2024-01-01"
+    },
+    {
+      "id": "sd-vae-ft-mse",
+      "name": "SD VAE ft-MSE",
+      "type": "vae",
+      "architecture": "sd15",
+      "author": "stabilityai",
+      "license": "creativeml-openrail-m",
+      "homepage": "https://huggingface.co/stabilityai/sd-vae-ft-mse",
+      "description": "Fine-tuned VAE for Stable Diffusion 1.5. Produces sharper, more\ndetailed outputs compared to the default VAE. MSE-optimized.\n",
+      "file": {
+        "url": "https://huggingface.co/stabilityai/sd-vae-ft-mse/resolve/main/vae-ft-mse-840000-ema-pruned.safetensors",
+        "sha256": "VERIFY_sd_vae_ft_mse",
+        "size": 334695950,
+        "format": "safetensors"
+      },
+      "tags": [
+        "sd15",
+        "vae",
+        "fine-tuned",
+        "mse"
+      ],
+      "rating": 4.7,
+      "downloads": 6800000,
+      "added": "2023-01-01",
+      "updated": "2024-01-01"
+    },
+    {
+      "id": "sdxl-base-1.0",
+      "name": "Stable Diffusion XL Base 1.0",
+      "type": "checkpoint",
+      "architecture": "sdxl",
+      "author": "stabilityai",
+      "license": "openrail++",
+      "homepage": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0",
+      "description": "Stable Diffusion XL base model. High resolution text-to-image generation\nat 1024x1024. Works great with LoRAs and ControlNets.\n",
+      "variants": [
+        {
+          "id": "fp16",
+          "file": "sd_xl_base_1.0.safetensors",
+          "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors",
+          "sha256": "31e35c80fc4829d14f90153f4c74cd59c90b779f6afe05a74cd6120b893f7e5b",
+          "size": 6938078334,
+          "format": "safetensors",
+          "precision": "fp16",
+          "vram_required": 8192,
+          "vram_recommended": 12288
+        }
+      ],
+      "requires": [
+        {
+          "id": "sdxl-vae-fp16-fix",
+          "type": "vae",
+          "reason": "Recommended VAE for SDXL (fixes fp16 NaN issues)"
+        }
+      ],
+      "defaults": {
+        "steps": 30,
+        "cfg": 7.0,
+        "sampler": "dpmpp_2m",
+        "scheduler": "karras"
+      },
+      "tags": [
+        "sdxl",
+        "text-to-image",
+        "stable-diffusion",
+        "high-resolution"
+      ],
+      "rating": 4.6,
+      "downloads": 5400000,
+      "added": "2023-07-26",
+      "updated": "2024-06-01"
+    },
+    {
+      "id": "sdxl-vae-fp16-fix",
+      "name": "SDXL VAE (fp16 NaN fix)",
+      "type": "vae",
+      "architecture": "sdxl",
+      "author": "madebyollin",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/madebyollin/sdxl-vae-fp16-fix",
+      "description": "Fixed SDXL VAE that works correctly in fp16 precision.\nThe original SDXL VAE produces NaN values in fp16 mode — this version\nfixes that issue. Recommended for all SDXL workflows.\n",
+      "file": {
+        "url": "https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/main/diffusion_pytorch_model.safetensors",
+        "sha256": "63aeecb90ff7bc1c115395962d3e803571385b61938377bc7089b36e81e92e2e",
+        "size": 334643268,
+        "format": "safetensors"
+      },
+      "tags": [
+        "sdxl",
+        "vae",
+        "fp16-fix"
+      ],
+      "rating": 4.9,
+      "downloads": 4100000,
+      "added": "2023-08-15",
+      "updated": "2024-01-01"
+    },
+    {
+      "id": "t5-xxl-fp16",
+      "name": "T5-XXL Text Encoder (fp16)",
+      "type": "text_encoder",
+      "architecture": "t5",
+      "author": "comfyanonymous",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/comfyanonymous/flux_text_encoders",
+      "description": "T5-XXL text encoder in fp16 precision. Required by FLUX models\nfor prompt processing. Large model — 9.8 GB.\nUse fp8 variant if you have less than 24 GB VRAM.\n",
+      "variants": [
+        {
+          "id": "fp16",
+          "file": "t5xxl_fp16.safetensors",
+          "url": "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors",
+          "sha256": "VERIFY_t5xxl_fp16",
+          "size": 9787849216,
+          "format": "safetensors",
+          "precision": "fp16",
+          "vram_required": 12288,
+          "vram_recommended": 16384
+        }
+      ],
+      "tags": [
+        "t5",
+        "text-encoder",
+        "flux",
+        "fp16"
+      ],
+      "rating": 5.0,
+      "downloads": 2400000,
+      "added": "2024-08-01",
+      "updated": "2024-08-01"
+    },
+    {
+      "id": "t5-xxl-fp8",
+      "name": "T5-XXL Text Encoder (fp8)",
+      "type": "text_encoder",
+      "architecture": "t5",
+      "author": "comfyanonymous",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/comfyanonymous/flux_text_encoders",
+      "description": "T5-XXL text encoder quantized to fp8 precision. Uses half the VRAM\nof the fp16 version with minimal quality impact.\nRecommended for 12-16 GB VRAM setups using FLUX models.\n",
+      "variants": [
+        {
+          "id": "fp8",
+          "file": "t5xxl_fp8_e4m3fn.safetensors",
+          "url": "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors",
+          "sha256": "7d330da4816157540d6bb7838bf63a0f02f573fc48ca4d8de34bb0cbfd514f09",
+          "size": 4893843456,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 6144,
+          "vram_recommended": 8192
+        }
+      ],
+      "tags": [
+        "t5",
+        "text-encoder",
+        "flux",
+        "fp8",
+        "quantized"
+      ],
+      "rating": 4.8,
+      "downloads": 1800000,
+      "added": "2024-08-01",
+      "updated": "2024-08-01"
+    },
+    {
+      "id": "z-image-text-encoder",
+      "name": "Z-Image Qwen 3 4B Text Encoder",
+      "type": "text_encoder",
+      "architecture": "qwen3",
+      "author": "Comfy-Org",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Comfy-Org/z_image_turbo",
+      "description": "Qwen 3 4B text encoder used by Z-Image-Turbo.\nAvailable in bf16 (full precision), fp8_mixed (reduced VRAM), and fp4_mixed (minimum VRAM).\nPlace in models/text_encoders/ and load with CLIPLoader node.\n",
+      "variants": [
+        {
+          "id": "bf16",
+          "file": "qwen_3_4b.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/text_encoders/qwen_3_4b.safetensors",
+          "sha256": "6c671498573ac2f7a5501502ccce8d2b08ea6ca2f661c458e708f36b36edfc5a",
+          "size": 8633139200,
+          "format": "safetensors",
+          "precision": "bf16",
+          "vram_required": 10240,
+          "vram_recommended": 12288,
+          "note": "Full precision bf16. Best quality text encoding."
+        },
+        {
+          "id": "fp8-mixed",
+          "file": "qwen_3_4b_fp8_mixed.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/text_encoders/qwen_3_4b_fp8_mixed.safetensors",
+          "sha256": "VERIFY_z_image_qwen3_4b_fp8_mixed",
+          "size": 6044237824,
+          "format": "safetensors",
+          "precision": "fp8-e4m3fn",
+          "vram_required": 8192,
+          "vram_recommended": 10240,
+          "note": "Mixed fp8 quantization. Good quality with reduced VRAM."
+        },
+        {
+          "id": "fp4-mixed",
+          "file": "qwen_3_4b_fp4_mixed.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/text_encoders/qwen_3_4b_fp4_mixed.safetensors",
+          "sha256": "VERIFY_z_image_qwen3_4b_fp4_mixed",
+          "size": 3736076288,
+          "format": "safetensors",
+          "precision": "fp4",
+          "vram_required": 4096,
+          "vram_recommended": 6144,
+          "note": "Mixed fp4 quantization. Minimum VRAM, some quality reduction."
+        }
+      ],
+      "tags": [
+        "z-image",
+        "text-encoder",
+        "qwen3",
+        "comfyui"
+      ],
+      "rating": 4.8
+    },
+    {
+      "id": "z-image-turbo",
+      "name": "Z-Image-Turbo",
+      "type": "diffusion_model",
+      "architecture": "z-image",
+      "author": "Tongyi-MAI / Comfy-Org / jayn7",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Comfy-Org/z_image_turbo",
+      "description": "Distilled 6B parameter text-to-image model from Alibaba Tongyi Lab.\nUses Scalable Single-Stream DiT (S3-DiT) architecture for maximum parameter efficiency.\nSub-second inference latency on H800 GPUs, fits within 16GB VRAM consumer devices.\nOnly 8 NFEs (steps) needed. Use euler sampler, guidance_scale 0.0.\nExcels at photorealistic generation and accurate bilingual text rendering (English & Chinese).\nAvailable as native safetensors (bf16/nvfp4) or GGUF quantizations.\n",
+      "variants": [
+        {
+          "id": "bf16",
+          "file": "z_image_turbo_bf16.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/diffusion_models/z_image_turbo_bf16.safetensors",
+          "sha256": "2407613050b809ffdff18a4ac99af83ea6b95443ecebdf80e064a79c825574a6",
+          "size": 13207024640,
+          "format": "safetensors",
+          "precision": "bf16",
+          "vram_required": 16384,
+          "vram_recommended": 24576,
+          "note": "Full precision bf16. Best quality."
+        },
+        {
+          "id": "nvfp4",
+          "file": "z_image_turbo_nvfp4.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/diffusion_models/z_image_turbo_nvfp4.safetensors",
+          "sha256": "VERIFY_z_image_turbo_nvfp4",
+          "size": 4843151360,
+          "format": "safetensors",
+          "precision": "nvfp4",
+          "vram_required": 8192,
+          "vram_recommended": 12288,
+          "note": "NVIDIA fp4 quantization. Lower VRAM usage with minimal quality loss."
+        },
+        {
+          "id": "gguf-q8-0",
+          "file": "z_image_turbo-Q8_0.gguf",
+          "url": "https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q8_0.gguf",
+          "sha256": "f163d60b0eb427469510b8226243d196574a18139a2e40c017409cfbda95ecfe",
+          "size": 7755268096,
+          "format": "gguf",
+          "precision": "q8_0",
+          "vram_required": 10240,
+          "vram_recommended": 12288,
+          "note": "GGUF Q8_0 — best GGUF quality. Requires ComfyUI-GGUF custom node."
+        },
+        {
+          "id": "gguf-q6-k",
+          "file": "z_image_turbo-Q6_K.gguf",
+          "url": "https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q6_K.gguf",
+          "sha256": "fc137d87b49e06fdd5230d67d6c8cfa42a9e1fd38b65ccd355882450c3eb1c82",
+          "size": 6346129408,
+          "format": "gguf",
+          "precision": "q6_k",
+          "vram_required": 8192,
+          "vram_recommended": 10240,
+          "note": "GGUF Q6_K — good quality/size balance."
+        },
+        {
+          "id": "gguf-q5-k-m",
+          "file": "z_image_turbo-Q5_K_M.gguf",
+          "url": "https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q5_K_M.gguf",
+          "sha256": "VERIFY_z_image_gguf_q5_k_m",
+          "size": 5926789120,
+          "format": "gguf",
+          "precision": "q5_k_m",
+          "vram_required": 8192,
+          "vram_recommended": 10240,
+          "note": "GGUF Q5_K_M — recommended for 8GB+ GPUs."
+        },
+        {
+          "id": "gguf-q5-k-s",
+          "file": "z_image_turbo-Q5_K_S.gguf",
+          "url": "https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q5_K_S.gguf",
+          "sha256": "VERIFY_z_image_gguf_q5_k_s",
+          "size": 5572034560,
+          "format": "gguf",
+          "precision": "q5_k_s",
+          "vram_required": 8192,
+          "vram_recommended": 10240,
+          "note": "GGUF Q5_K_S — smaller Q5 variant."
+        },
+        {
+          "id": "gguf-q4-k-m",
+          "file": "z_image_turbo-Q4_K_M.gguf",
+          "url": "https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q4_K_M.gguf",
+          "sha256": "VERIFY_z_image_gguf_q4_k_m",
+          "size": 5346283520,
+          "format": "gguf",
+          "precision": "q4_k_m",
+          "vram_required": 6144,
+          "vram_recommended": 8192,
+          "note": "GGUF Q4_K_M — good for 8GB GPUs."
+        },
+        {
+          "id": "gguf-q4-k-s",
+          "file": "z_image_turbo-Q4_K_S.gguf",
+          "url": "https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q4_K_S.gguf",
+          "sha256": "VERIFY_z_image_gguf_q4_k_s",
+          "size": 5003804672,
+          "format": "gguf",
+          "precision": "q4_k_s",
+          "vram_required": 6144,
+          "vram_recommended": 8192,
+          "note": "GGUF Q4_K_S — smaller Q4 variant."
+        },
+        {
+          "id": "gguf-q3-k-m",
+          "file": "z_image_turbo-Q3_K_M.gguf",
+          "url": "https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q3_K_M.gguf",
+          "sha256": "VERIFY_z_image_gguf_q3_k_m",
+          "size": 4424990720,
+          "format": "gguf",
+          "precision": "q3_k_m",
+          "vram_required": 6144,
+          "vram_recommended": 8192,
+          "note": "GGUF Q3_K_M — for 6GB+ GPUs. Noticeable quality reduction."
+        },
+        {
+          "id": "gguf-q3-k-s",
+          "file": "z_image_turbo-Q3_K_S.gguf",
+          "url": "https://huggingface.co/jayn7/Z-Image-Turbo-GGUF/resolve/main/z_image_turbo-Q3_K_S.gguf",
+          "sha256": "VERIFY_z_image_gguf_q3_k_s",
+          "size": 4069449728,
+          "format": "gguf",
+          "precision": "q3_k_s",
+          "vram_required": 6144,
+          "vram_recommended": 8192,
+          "note": "GGUF Q3_K_S — smaller Q3 variant."
+        }
+      ],
+      "requires": [
+        {
+          "id": "z-image-text-encoder",
+          "type": "text_encoder",
+          "reason": "Qwen 3 4B text encoder for prompt processing"
+        },
+        {
+          "id": "z-image-vae",
+          "type": "vae",
+          "reason": "Z-Image VAE for decoding latents to images"
+        }
+      ],
+      "recommended": {
+        "steps": 8,
+        "cfg": 0.0,
+        "sampler": "euler",
+        "scheduler": "simple"
+      },
+      "tags": [
+        "z-image",
+        "text-to-image",
+        "turbo",
+        "fast-inference",
+        "bilingual",
+        "comfyui",
+        "gguf"
+      ],
+      "rating": 4.9
+    },
+    {
+      "id": "z-image-turbo-controlnet-union",
+      "name": "Z-Image-Turbo Fun ControlNet Union",
+      "type": "controlnet",
+      "architecture": "z-image",
+      "author": "alibaba-pai",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/alibaba-pai/Z-Image-Turbo-Fun-Controlnet-Union",
+      "description": "ControlNet union model for Z-Image-Turbo.\nSupports Canny, HED, Depth, Pose, and MLSD control conditions.\nAdjust control_context_scale (0.65–0.80) for best results.\nUse with detailed prompts for better stability.\nV2.0 with inpaint mode also available separately.\n",
+      "file": {
+        "name": "Z-Image-Turbo-Fun-Controlnet-Union.safetensors",
+        "url": "https://huggingface.co/alibaba-pai/Z-Image-Turbo-Fun-Controlnet-Union/resolve/main/Z-Image-Turbo-Fun-Controlnet-Union.safetensors",
+        "sha256": "86c085c0d7853f12ce5183499934b54d08371c60f549c5a6b20615cd23989388",
+        "size": 3328599040,
+        "format": "safetensors"
+      },
+      "requires": [
+        {
+          "id": "z-image-turbo",
+          "type": "diffusion_model",
+          "reason": "Requires Z-Image-Turbo as the base diffusion model"
+        }
+      ],
+      "tags": [
+        "z-image",
+        "controlnet",
+        "canny",
+        "depth",
+        "pose",
+        "comfyui"
+      ],
+      "rating": 4.6
+    },
+    {
+      "id": "z-image-turbo-distill-lora",
+      "name": "Z-Image-Turbo Distill Patch LoRA",
+      "type": "lora",
+      "architecture": "z-image",
+      "author": "Comfy-Org",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Comfy-Org/z_image_turbo",
+      "description": "Distillation patch LoRA for Z-Image-Turbo.\nUsed to enable the base Z-Image model to run with fewer steps (turbo mode).\nApply via LoraLoader node with strength 1.0.\n",
+      "file": {
+        "name": "z_image_turbo_distill_patch_lora_bf16.safetensors",
+        "url": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/loras/z_image_turbo_distill_patch_lora_bf16.safetensors",
+        "sha256": "VERIFY_z_image_distill_lora",
+        "size": 166723584,
+        "format": "safetensors"
+      },
+      "tags": [
+        "z-image",
+        "lora",
+        "distillation",
+        "comfyui"
+      ],
+      "rating": 4.7
+    },
+    {
+      "id": "z-image-vae",
+      "name": "Z-Image VAE",
+      "type": "vae",
+      "architecture": "z-image",
+      "author": "Comfy-Org",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Comfy-Org/z_image_turbo",
+      "description": "VAE for Z-Image-Turbo. Decodes latents to images.\nPlace in models/vae/ and load with VAELoader node.\n",
+      "file": {
+        "name": "z-image-vae.safetensors",
+        "url": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/vae/ae.safetensors",
+        "sha256": "afc8e28272cd15db3919bacdb6918ce9c1ed22e96cb12c4d5ed0fba823529e38",
+        "size": 351272960,
+        "format": "safetensors"
+      },
+      "tags": [
+        "z-image",
+        "vae",
+        "comfyui"
+      ],
+      "rating": 5.0
+    }
+  ]
+}
+</file>
+
+</files>

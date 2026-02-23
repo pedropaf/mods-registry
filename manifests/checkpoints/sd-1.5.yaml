@@ -36,3 +36,6 @@ rating: 4.3
 downloads: 12000000
 added: "2022-10-20"
 updated: "2024-01-01"
+
+preview_images:
+  - https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly-demo-images/image_01.png

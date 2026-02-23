@@ -29,8 +29,8 @@ jobs:
       - name: Validate manifests
         run: python scripts/validate.py
 
-      - name: Build index.json
-        run: python scripts/build_index.py --output index.json
+      - name: Build index.json (strict — no placeholder hashes allowed)
+        run: python scripts/build_index.py --output index.json --strict
 
       - name: Get manifest count
         id: count

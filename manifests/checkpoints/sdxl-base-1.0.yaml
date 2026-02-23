@@ -31,6 +31,9 @@ defaults:
   sampler: dpmpp_2m
   scheduler: karras
 
+preview_images:
+  - https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/output.png
+
 tags: [sdxl, text-to-image, stable-diffusion, high-resolution]
 rating: 4.6
 downloads: 5400000

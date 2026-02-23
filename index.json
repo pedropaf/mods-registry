@@ -258,7 +258,10 @@
       "rating": 4.9,
       "downloads": 2850000,
       "added": "2024-08-01",
-      "updated": "2025-01-15"
+      "updated": "2025-01-15",
+      "preview_images": [
+        "https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/poster.png"
+      ]
     },
     {
       "id": "flux-fill-dev",
@@ -1114,7 +1117,10 @@
       "rating": 4.3,
       "downloads": 12000000,
       "added": "2022-10-20",
-      "updated": "2024-01-01"
+      "updated": "2024-01-01",
+      "preview_images": [
+        "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly-demo-images/image_01.png"
+      ]
     },
     {
       "id": "sd-2.1",
@@ -1299,6 +1305,9 @@
         "sampler": "dpmpp_2m",
         "scheduler": "karras"
       },
+      "preview_images": [
+        "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/output.png"
+      ],
       "tags": [
         "sdxl",
         "text-to-image",
@@ -1757,6 +1766,9 @@
         "bilingual",
         "comfyui",
         "gguf"
+      ],
+      "preview_images": [
+        "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/z_image_turbo_example.png"
       ],
       "rating": 4.9
     },
