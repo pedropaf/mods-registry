@@ -25,26 +25,33 @@ TIMEOUT = 30  # seconds per request
 
 
 def collect_urls(manifest_path: Path) -> list[dict]:
-    """Extract all download URLs from a manifest file."""
+    """Extract all download URLs and homepage URLs from a manifest file."""
     with open(manifest_path) as f:
         data = yaml.safe_load(f)
 
     urls = []
     manifest_id = data.get("id", manifest_path.stem)
 
+    # Homepage URL
+    homepage = data.get("homepage")
+    if homepage:
+        urls.append({"manifest": manifest_id, "url": homepage, "kind": "homepage"})
+
     # Single file
     if "file" in data and isinstance(data["file"], dict):
         url = data["file"].get("url")
         if url:
-            urls.append({"manifest": manifest_id, "url": url})
+            urls.append({"manifest": manifest_id, "url": url, "kind": "download"})
 
     # Variants
     for variant in data.get("variants", []):
-        if isinstance(variant, dict) and "file" in variant:
-            url = variant["file"].get("url")
+        if isinstance(variant, dict):
+            url = variant.get("url")
+            if not url and "file" in variant:
+                url = variant["file"].get("url") if isinstance(variant["file"], dict) else None
             if url:
                 vid = variant.get("id", "?")
-                urls.append({"manifest": f"{manifest_id}:{vid}", "url": url})
+                urls.append({"manifest": f"{manifest_id}:{vid}", "url": url, "kind": "download"})
 
     return urls
 
@@ -84,12 +91,14 @@ def main():
 
     for entry in all_urls:
         status, reason = check_url(entry["url"])
+        kind = entry.get("kind", "download")
+        label = f"[{kind}] {entry['manifest']}"
         if 200 <= status < 400:
             ok_count += 1
-            print(f"  ✓ {entry['manifest']}")
+            print(f"  ✓ {label}")
         else:
             broken.append({**entry, "status": status, "reason": reason})
-            print(f"  ✗ {entry['manifest']} → {status} {reason}")
+            print(f"  ✗ {label} → {status} {reason}")
 
     print()
     print(f"Results: {ok_count} OK, {len(broken)} broken")

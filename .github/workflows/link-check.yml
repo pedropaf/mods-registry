@@ -46,11 +46,11 @@ jobs:
             const broken = report.broken || [];
             if (broken.length === 0) return;
 
-            const body = `## 🔗 Broken Download URLs Detected
+            const body = `## 🔗 Broken URLs Detected
 
             The daily link check found **${broken.length}** broken URL(s):
 
-            ${broken.map(b => `- **${b.manifest}**: \`${b.url}\` → HTTP ${b.status}`).join('\n')}
+            ${broken.map(b => `- **${b.manifest}** (${b.kind || 'download'}): \`${b.url}\` → HTTP ${b.status}`).join('\n')}
 
             These models will fail to install. Please update the manifests with working URLs.
 
