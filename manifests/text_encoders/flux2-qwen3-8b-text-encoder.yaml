@@ -1,0 +1,22 @@
+id: flux2-qwen3-8b-text-encoder
+name: "FLUX.2 Qwen 3 8B Text Encoder"
+type: text_encoder
+architecture: qwen
+author: Comfy-Org
+license: apache-2.0
+homepage: https://huggingface.co/Comfy-Org/flux2-klein-9B
+description: |
+  Qwen 3 8B text encoder (fp8 mixed) for FLUX.2 Klein 9B models.
+  Required for both base and distilled 9B variants.
+
+file:
+  url: https://huggingface.co/Comfy-Org/flux2-klein-9B/resolve/main/split_files/text_encoders/qwen_3_8b_fp8mixed.safetensors
+  sha256: "VERIFY_flux2_qwen3_8b"
+  size: 8500000000
+  format: safetensors
+
+tags: [flux2, text-encoder, qwen, klein-9b, fp8]
+rating: 5.0
+downloads: 0
+added: "2025-07-01"
+updated: "2025-07-01"

@@ -1,0 +1,23 @@
+id: flux2-vae
+name: "FLUX.2 VAE"
+type: vae
+architecture: flux2
+author: black-forest-labs / Comfy-Org
+license: apache-2.0
+homepage: https://huggingface.co/Comfy-Org/flux2-dev
+description: |
+  VAE for all FLUX.2 models (Dev, Klein 4B, Klein 9B).
+  Different from FLUX.1 VAE — do not mix them.
+  Shared across all FLUX.2 model variants.
+
+file:
+  url: https://huggingface.co/Comfy-Org/flux2-dev/resolve/main/split_files/vae/flux2-vae.safetensors
+  sha256: "VERIFY_flux2_vae"
+  size: 335000000
+  format: safetensors
+
+tags: [flux2, vae, bfl]
+rating: 5.0
+downloads: 0
+added: "2025-07-01"
+updated: "2025-07-01"

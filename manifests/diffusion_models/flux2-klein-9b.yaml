@@ -9,7 +9,7 @@ description: |
   FLUX.2 Klein 9B from Unsloth, available as GGUF quantizations.
   Successor to FLUX.1 with improved image quality and editing capabilities.
   Supports text-to-image and image editing workflows.
-  Uses the same FLUX VAE, T5-XXL, and CLIP-L text encoders as FLUX.1.
+  Uses FLUX.2 VAE and Qwen 3 8B text encoder.
   Requires ComfyUI-GGUF custom node for GGUF variants.
 
 variants:
@@ -157,16 +157,12 @@ variants:
     note: "GGUF Q2_K — worst quality but smallest. Noticeable degradation."
 
 requires:
-  - id: flux-vae
+  - id: flux2-vae
     type: vae
-    reason: "FLUX VAE for decoding latents to images"
-  - id: t5-xxl-fp16
+    reason: "FLUX.2 VAE for decoding latents to images"
+  - id: flux2-qwen3-8b-text-encoder
     type: text_encoder
-    reason: "T5-XXL for prompt processing"
-    optional_variant: t5-xxl-fp8
-  - id: clip-l
-    type: text_encoder
-    reason: "CLIP-L for secondary text encoding"
+    reason: "Qwen 3 8B text encoder for prompt processing"
 
 tags:
   - flux

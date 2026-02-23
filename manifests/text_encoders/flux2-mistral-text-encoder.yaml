@@ -1,0 +1,22 @@
+id: flux2-mistral-text-encoder
+name: "FLUX.2 Mistral 3 Small Text Encoder"
+type: text_encoder
+architecture: mistral
+author: Comfy-Org
+license: apache-2.0
+homepage: https://huggingface.co/Comfy-Org/flux2-dev
+description: |
+  Mistral 3 Small text encoder (bf16) for FLUX.2 Dev.
+  Required for FLUX.2 Dev text-to-image generation.
+
+file:
+  url: https://huggingface.co/Comfy-Org/flux2-dev/resolve/main/split_files/text_encoders/mistral_3_small_flux2_bf16.safetensors
+  sha256: "VERIFY_flux2_mistral"
+  size: 24000000000
+  format: safetensors
+
+tags: [flux2, text-encoder, mistral, dev]
+rating: 5.0
+downloads: 0
+added: "2025-07-01"
+updated: "2025-07-01"

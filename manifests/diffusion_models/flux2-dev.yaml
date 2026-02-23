@@ -1,0 +1,59 @@
+id: flux2-dev
+name: "FLUX.2 Dev"
+type: diffusion_model
+architecture: flux2
+author: black-forest-labs / Comfy-Org
+license: flux-2-dev-non-commercial
+homepage: https://huggingface.co/Comfy-Org/flux2-dev
+description: |
+  FLUX.2 Dev — next-generation image model from Black Forest Labs.
+  Up to 4MP photorealistic output with improved lighting, skin, fabric, and hand detail.
+  Multi-reference consistency (up to 10 images), improved editing precision,
+  better visual understanding, and professional-class text rendering.
+  Uses Mistral 3 Small text encoder and FLUX.2 VAE.
+  Open-source (non-commercial license).
+
+variants:
+  - id: fp8mixed
+    file: flux2_dev_fp8mixed.safetensors
+    url: https://huggingface.co/Comfy-Org/flux2-dev/resolve/main/split_files/diffusion_models/flux2_dev_fp8mixed.safetensors
+    sha256: "VERIFY_flux2_dev_fp8mixed"
+    size: 12000000000
+    format: safetensors
+    precision: fp8-mixed
+    vram_required: 12288
+    vram_recommended: 16384
+    note: "fp8 mixed precision quantization from Comfy-Org."
+
+requires:
+  - id: flux2-vae
+    type: vae
+    reason: "FLUX.2 VAE for decoding latents to images"
+  - id: flux2-mistral-text-encoder
+    type: text_encoder
+    reason: "Mistral 3 Small text encoder for prompt processing"
+
+auth:
+  provider: huggingface
+  terms_url: https://huggingface.co/black-forest-labs/FLUX.2-dev
+  gated: true
+
+defaults:
+  steps: 20
+  cfg: 3.5
+  sampler: euler
+  scheduler: normal
+
+tags:
+  - flux2
+  - text-to-image
+  - high-quality
+  - photorealistic
+  - multi-reference
+  - bfl
+  - comfyui
+
+rating: 4.9
+downloads: 0
+added: "2025-07-01"
+updated: "2025-07-01"

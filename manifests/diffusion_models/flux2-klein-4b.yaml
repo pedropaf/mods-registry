@@ -1,0 +1,69 @@
+id: flux2-klein-4b
+name: "FLUX.2 Klein 4B"
+type: diffusion_model
+architecture: flux2
+author: black-forest-labs / Comfy-Org
+license: flux-2-klein-non-commercial
+homepage: https://huggingface.co/Comfy-Org/flux2-klein-4B
+description: |
+  FLUX.2 Klein 4B — the fastest model in the FLUX family.
+  Unifies text-to-image and image editing in one compact architecture.
+  Two variants: Base (undistilled, best for fine-tuning) and Distilled (4-step, ~1.2s on 5090).
+  Only 8.4 GB VRAM for distilled variant. Supports style transforms, semantic edits,
+  object replacement/removal, multi-reference composition, and iterative edits.
+
+variants:
+  - id: distilled-fp8
+    file: flux-2-klein-4b-fp8.safetensors
+    url: https://huggingface.co/black-forest-labs/FLUX.2-klein-4b-fp8/resolve/main/flux-2-klein-4b-fp8.safetensors
+    sha256: "VERIFY_flux2_klein_4b_distilled_fp8"
+    size: 4500000000
+    format: safetensors
+    precision: fp8
+    vram_required: 8192
+    vram_recommended: 10240
+    note: "4-step distilled. ~1.2s on RTX 5090. Best for speed."
+
+  - id: base-fp8
+    file: flux-2-klein-base-4b-fp8.safetensors
+    url: https://huggingface.co/black-forest-labs/FLUX.2-klein-base-4b-fp8/resolve/main/flux-2-klein-base-4b-fp8.safetensors
+    sha256: "VERIFY_flux2_klein_4b_base_fp8"
+    size: 4500000000
+    format: safetensors
+    precision: fp8
+    vram_required: 10240
+    vram_recommended: 12288
+    note: "Undistilled base. Better for fine-tuning and maximum flexibility."
+
+requires:
+  - id: flux2-vae
+    type: vae
+    reason: "FLUX.2 VAE for decoding latents to images"
+  - id: flux2-qwen3-4b-text-encoder
+    type: text_encoder
+    reason: "Qwen 3 4B text encoder for prompt processing"
+
+auth:
+  provider: huggingface
+  terms_url: https://huggingface.co/black-forest-labs/FLUX.2-klein-4b-fp8
+  gated: true
+
+defaults:
+  steps: 4
+  cfg: 1.0
+  sampler: euler
+  scheduler: simple
+
+tags:
+  - flux2
+  - klein
+  - text-to-image
+  - image-editing
+  - fast-inference
+  - 4b
+  - comfyui
+
+rating: 4.8
+downloads: 0
+added: "2025-07-01"
+updated: "2025-07-01"
