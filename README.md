@@ -1,6 +1,8 @@
 # mods-registry
 
-Model registry for [mods](https://github.com/modshq/mods) — the CLI model manager for AI image generation.
+Model registry for [mods](https://github.com/modshq-org/mods) — the CLI model manager for AI image generation.
+
+**[Website](https://mods.pedroalonso.net)** · **[Browse Models](https://mods.pedroalonso.net/models)** · **[CLI Docs](https://mods.pedroalonso.net/docs)** · **[CLI Repo](https://github.com/modshq-org/mods)**
 
 This repository contains YAML manifest files that describe models, LoRAs, VAEs, text encoders, and other assets. The `mods` CLI fetches a compiled index from this registry to know what's available and how to download it.
 
@@ -30,7 +32,7 @@ Want to add a model? See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ```bash
 # Quick start
-git clone https://github.com/modshq/mods-registry
+git clone https://github.com/modshq-org/mods-registry
 cd mods-registry
 pip install pyyaml
 

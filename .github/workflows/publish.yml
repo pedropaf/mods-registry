@@ -48,3 +48,7 @@ jobs:
             Commit: ${{ github.sha }}
           files: index.json
           make_latest: true
+
+      - name: Trigger site rebuild
+        if: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK_URL != '' }}
+        run: curl -s -X POST "${{ secrets.CLOUDFLARE_DEPLOY_HOOK_URL }}"
