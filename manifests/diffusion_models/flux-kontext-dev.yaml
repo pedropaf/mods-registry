@@ -1,0 +1,109 @@
+id: flux-kontext-dev
+name: "FLUX.1 Kontext Dev"
+type: diffusion_model
+architecture: flux
+author: black-forest-labs / unsloth
+license: flux-1-dev-non-commercial-license
+homepage: https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev
+description: |
+  FLUX.1 Kontext Dev — 12B parameter image editing model by Black Forest Labs.
+  Edit existing images via text instructions with robust consistency across
+  successive edits. Supports character/style/object reference without finetuning.
+  Trained with guidance distillation for efficient inference.
+  GGUF variants from unsloth, usable with ComfyUI-GGUF custom node.
+  Non-commercial license.
+
+variants:
+  - id: bf16
+    file: flux1-kontext-dev-BF16.gguf
+    url: https://huggingface.co/unsloth/FLUX.1-Kontext-dev-GGUF/resolve/main/flux1-kontext-dev-BF16.gguf
+    sha256: "756e4cd7c56518f1fa0e9db9ea12ccbaa2d5686513ae6cf7f92d46006dcc9918"
+    size: 23809041696
+    format: gguf
+    precision: bf16
+    vram_required: 24576
+    vram_recommended: 32768
+    note: "Full precision bf16 GGUF. Best quality."
+
+  - id: gguf-q8-0
+    file: flux1-kontext-dev-Q8_0.gguf
+    url: https://huggingface.co/unsloth/FLUX.1-Kontext-dev-GGUF/resolve/main/flux1-kontext-dev-Q8_0.gguf
+    sha256: "f67d26470c9d9524cdf8208ca9b337a03692246b4dcca1241cce42ec2adc3f62"
+    size: 12714452256
+    format: gguf
+    precision: q8_0
+    vram_required: 16384
+    vram_recommended: 20480
+    note: "GGUF Q8_0 — highest quality quantization."
+
+  - id: gguf-q6-k
+    file: flux1-kontext-dev-Q6_K.gguf
+    url: https://huggingface.co/unsloth/FLUX.1-Kontext-dev-GGUF/resolve/main/flux1-kontext-dev-Q6_K.gguf
+    sha256: "881bfa6011e7668259df958a7f1e71ab622a5fd3bc7e2d2d016efe93833f033b"
+    size: 9848349984
+    format: gguf
+    precision: q6_k
+    vram_required: 12288
+    vram_recommended: 16384
+    note: "GGUF Q6_K — great quality/size balance."
+
+  - id: gguf-q5-k-m
+    file: flux1-kontext-dev-Q5_K_M.gguf
+    url: https://huggingface.co/unsloth/FLUX.1-Kontext-dev-GGUF/resolve/main/flux1-kontext-dev-Q5_K_M.gguf
+    sha256: "eefd37f36128fcd895c34a973509e0638161a1c0ea07727146a937f6476bde9a"
+    size: 8419501344
+    format: gguf
+    precision: q5_k_m
+    vram_required: 10240
+    vram_recommended: 12288
+    note: "GGUF Q5_K_M — recommended for 12GB GPUs."
+
+  - id: gguf-q4-k-m
+    file: flux1-kontext-dev-Q4_K_M.gguf
+    url: https://huggingface.co/unsloth/FLUX.1-Kontext-dev-GGUF/resolve/main/flux1-kontext-dev-Q4_K_M.gguf
+    sha256: "6d5461f40d4a199f3581e66883652605fd49c7d2700c16f60c7ab125274e4b99"
+    size: 6931817760
+    format: gguf
+    precision: q4_k_m
+    vram_required: 8192
+    vram_recommended: 10240
+    note: "GGUF Q4_K_M — good for 8GB+ GPUs."
+
+  - id: gguf-q3-k-m
+    file: flux1-kontext-dev-Q3_K_M.gguf
+    url: https://huggingface.co/unsloth/FLUX.1-Kontext-dev-GGUF/resolve/main/flux1-kontext-dev-Q3_K_M.gguf
+    sha256: "924beeccaa59c26bcdae0502ffd808a04220d85089adcc9f55b4a94dbfc73cbf"
+    size: 5368489248
+    format: gguf
+    precision: q3_k_m
+    vram_required: 6144
+    vram_recommended: 8192
+    note: "GGUF Q3_K_M — budget option for lower VRAM."
+
+  - id: gguf-q2-k
+    file: flux1-kontext-dev-Q2_K.gguf
+    url: https://huggingface.co/unsloth/FLUX.1-Kontext-dev-GGUF/resolve/main/flux1-kontext-dev-Q2_K.gguf
+    sha256: "6e100ad7066f90a82746e4b899794446edeb127a21cdff8e7075e4a81eac793c"
+    size: 4023690528
+    format: gguf
+    precision: q2_k
+    vram_required: 6144
+    vram_recommended: 8192
+    note: "GGUF Q2_K — smallest variant. Noticeable quality loss."
+
+requires:
+  - id: clip-l
+    type: text_encoder
+    reason: "CLIP-L text encoder for FLUX"
+  - id: t5-xxl-fp8
+    type: text_encoder
+    reason: "T5-XXL text encoder for FLUX"
+  - id: flux-vae
+    type: vae
+    reason: "FLUX VAE for image decoding"
+
+tags: [flux, kontext, image-editing, image-to-image, 12b, gguf]
+rating: 4.9
+downloads: 5314000
+added: "2025-06-17"
+updated: "2025-06-17"

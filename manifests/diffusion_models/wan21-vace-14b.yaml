@@ -1,0 +1,98 @@
+id: wan21-vace-14b
+name: "Wan 2.1 VACE 14B"
+type: diffusion_model
+architecture: wan
+author: Wan-AI / QuantStack
+license: apache-2.0
+homepage: https://huggingface.co/Wan-AI/Wan2.1-VACE-14B
+description: |
+  Wan 2.1 VACE 14B — Video All-in-one Control & Edit model.
+  Unified 14B parameter model supporting inpainting, outpainting, subject-driven
+  generation, pose control, depth control, and more — all in a single model.
+  Apache 2.0 license — free for commercial use.
+  GGUF variants from QuantStack, usable with ComfyUI-GGUF custom node.
+
+variants:
+  - id: bf16
+    file: Wan2.1_14B_VACE-BF16.gguf
+    url: https://huggingface.co/QuantStack/Wan2.1_14B_VACE-GGUF/resolve/main/Wan2.1_14B_VACE-BF16.gguf
+    sha256: "498dd73d131b3eaa48a8c53c902aaabcd321291b1374e87d4c13435ee5fa314c"
+    size: 34691741600
+    format: gguf
+    precision: bf16
+    vram_required: 36864
+    vram_recommended: 40960
+    note: "Full precision bf16 GGUF. Best quality, needs A100 40GB+."
+
+  - id: gguf-q8-0
+    file: Wan2.1_14B_VACE-Q8_0.gguf
+    url: https://huggingface.co/QuantStack/Wan2.1_14B_VACE-GGUF/resolve/main/Wan2.1_14B_VACE-Q8_0.gguf
+    sha256: "f7ead2ec96fbe46c025709e5d13ad6174941e2e18b2cdb193ff125574bb48f28"
+    size: 18663274400
+    format: gguf
+    precision: q8_0
+    vram_required: 20480
+    vram_recommended: 24576
+    note: "GGUF Q8_0 — highest quality quantization."
+
+  - id: gguf-q6-k
+    file: Wan2.1_14B_VACE-Q6_K.gguf
+    url: https://huggingface.co/QuantStack/Wan2.1_14B_VACE-GGUF/resolve/main/Wan2.1_14B_VACE-Q6_K.gguf
+    sha256: "6e11a6c797940c6cba150907beed443cf9447f375a7832cf85de2b8772a45ec8"
+    size: 14522587040
+    format: gguf
+    precision: q6_k
+    vram_required: 16384
+    vram_recommended: 20480
+    note: "GGUF Q6_K — great quality/size balance."
+
+  - id: gguf-q5-k-m
+    file: Wan2.1_14B_VACE-Q5_K_M.gguf
+    url: https://huggingface.co/QuantStack/Wan2.1_14B_VACE-GGUF/resolve/main/Wan2.1_14B_VACE-Q5_K_M.gguf
+    sha256: "b19bac11f0a91581e03770c0457c17ccb9d6b08433a93bfa1e95e848f0aaf0dd"
+    size: 13037336480
+    format: gguf
+    precision: q5_k_m
+    vram_required: 16384
+    vram_recommended: 16384
+    note: "GGUF Q5_K_M — recommended for 16GB GPUs."
+
+  - id: gguf-q4-k-m
+    file: Wan2.1_14B_VACE-Q4_K_M.gguf
+    url: https://huggingface.co/QuantStack/Wan2.1_14B_VACE-GGUF/resolve/main/Wan2.1_14B_VACE-Q4_K_M.gguf
+    sha256: "242f64162128a12813af67951155744cd4bad309a0aa03fb235ba3676fb323d3"
+    size: 11639453600
+    format: gguf
+    precision: q4_k_m
+    vram_required: 12288
+    vram_recommended: 16384
+    note: "GGUF Q4_K_M — good for 12GB GPUs."
+
+  - id: gguf-q3-k-s
+    file: Wan2.1_14B_VACE-Q3_K_S.gguf
+    url: https://huggingface.co/QuantStack/Wan2.1_14B_VACE-GGUF/resolve/main/Wan2.1_14B_VACE-Q3_K_S.gguf
+    sha256: "1e32875e16458097966505fd9a9eecb570991a8c3df272d520d40453c258819d"
+    size: 7844059040
+    format: gguf
+    precision: q3_k_s
+    vram_required: 10240
+    vram_recommended: 12288
+    note: "GGUF Q3_K_S — budget option for lower VRAM."
+
+requires:
+  - id: umt5-xxl
+    type: text_encoder
+    reason: "UMT5-XXL text encoder for prompt processing"
+  - id: wan21-vae
+    type: vae
+    reason: "Wan 2.1 VAE for video decoding"
+
+defaults:
+  steps: 30
+  cfg: 5.0
+
+tags: [wan, wan2.1, vace, video, inpainting, outpainting, control, editing, 14b]
+rating: 4.8
+downloads: 9635000
+added: "2025-06-01"
+updated: "2025-06-01"

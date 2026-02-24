@@ -312,6 +312,131 @@
       "updated": "2025-01-01"
     },
     {
+      "id": "flux-kontext-dev",
+      "name": "FLUX.1 Kontext Dev",
+      "type": "diffusion_model",
+      "architecture": "flux",
+      "author": "black-forest-labs / unsloth",
+      "license": "flux-1-dev-non-commercial-license",
+      "homepage": "https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev",
+      "description": "FLUX.1 Kontext Dev — 12B parameter image editing model by Black Forest Labs.\nEdit existing images via text instructions with robust consistency across\nsuccessive edits. Supports character/style/object reference without finetuning.\nTrained with guidance distillation for efficient inference.\nGGUF variants from unsloth, usable with ComfyUI-GGUF custom node.\nNon-commercial license.\n",
+      "variants": [
+        {
+          "id": "bf16",
+          "file": "flux1-kontext-dev-BF16.gguf",
+          "url": "https://huggingface.co/unsloth/FLUX.1-Kontext-dev-GGUF/resolve/main/flux1-kontext-dev-BF16.gguf",
+          "sha256": "756e4cd7c56518f1fa0e9db9ea12ccbaa2d5686513ae6cf7f92d46006dcc9918",
+          "size": 23809041696,
+          "format": "gguf",
+          "precision": "bf16",
+          "vram_required": 24576,
+          "vram_recommended": 32768,
+          "note": "Full precision bf16 GGUF. Best quality."
+        },
+        {
+          "id": "gguf-q8-0",
+          "file": "flux1-kontext-dev-Q8_0.gguf",
+          "url": "https://huggingface.co/unsloth/FLUX.1-Kontext-dev-GGUF/resolve/main/flux1-kontext-dev-Q8_0.gguf",
+          "sha256": "f67d26470c9d9524cdf8208ca9b337a03692246b4dcca1241cce42ec2adc3f62",
+          "size": 12714452256,
+          "format": "gguf",
+          "precision": "q8_0",
+          "vram_required": 16384,
+          "vram_recommended": 20480,
+          "note": "GGUF Q8_0 — highest quality quantization."
+        },
+        {
+          "id": "gguf-q6-k",
+          "file": "flux1-kontext-dev-Q6_K.gguf",
+          "url": "https://huggingface.co/unsloth/FLUX.1-Kontext-dev-GGUF/resolve/main/flux1-kontext-dev-Q6_K.gguf",
+          "sha256": "881bfa6011e7668259df958a7f1e71ab622a5fd3bc7e2d2d016efe93833f033b",
+          "size": 9848349984,
+          "format": "gguf",
+          "precision": "q6_k",
+          "vram_required": 12288,
+          "vram_recommended": 16384,
+          "note": "GGUF Q6_K — great quality/size balance."
+        },
+        {
+          "id": "gguf-q5-k-m",
+          "file": "flux1-kontext-dev-Q5_K_M.gguf",
+          "url": "https://huggingface.co/unsloth/FLUX.1-Kontext-dev-GGUF/resolve/main/flux1-kontext-dev-Q5_K_M.gguf",
+          "sha256": "eefd37f36128fcd895c34a973509e0638161a1c0ea07727146a937f6476bde9a",
+          "size": 8419501344,
+          "format": "gguf",
+          "precision": "q5_k_m",
+          "vram_required": 10240,
+          "vram_recommended": 12288,
+          "note": "GGUF Q5_K_M — recommended for 12GB GPUs."
+        },
+        {
+          "id": "gguf-q4-k-m",
+          "file": "flux1-kontext-dev-Q4_K_M.gguf",
+          "url": "https://huggingface.co/unsloth/FLUX.1-Kontext-dev-GGUF/resolve/main/flux1-kontext-dev-Q4_K_M.gguf",
+          "sha256": "6d5461f40d4a199f3581e66883652605fd49c7d2700c16f60c7ab125274e4b99",
+          "size": 6931817760,
+          "format": "gguf",
+          "precision": "q4_k_m",
+          "vram_required": 8192,
+          "vram_recommended": 10240,
+          "note": "GGUF Q4_K_M — good for 8GB+ GPUs."
+        },
+        {
+          "id": "gguf-q3-k-m",
+          "file": "flux1-kontext-dev-Q3_K_M.gguf",
+          "url": "https://huggingface.co/unsloth/FLUX.1-Kontext-dev-GGUF/resolve/main/flux1-kontext-dev-Q3_K_M.gguf",
+          "sha256": "924beeccaa59c26bcdae0502ffd808a04220d85089adcc9f55b4a94dbfc73cbf",
+          "size": 5368489248,
+          "format": "gguf",
+          "precision": "q3_k_m",
+          "vram_required": 6144,
+          "vram_recommended": 8192,
+          "note": "GGUF Q3_K_M — budget option for lower VRAM."
+        },
+        {
+          "id": "gguf-q2-k",
+          "file": "flux1-kontext-dev-Q2_K.gguf",
+          "url": "https://huggingface.co/unsloth/FLUX.1-Kontext-dev-GGUF/resolve/main/flux1-kontext-dev-Q2_K.gguf",
+          "sha256": "6e100ad7066f90a82746e4b899794446edeb127a21cdff8e7075e4a81eac793c",
+          "size": 4023690528,
+          "format": "gguf",
+          "precision": "q2_k",
+          "vram_required": 6144,
+          "vram_recommended": 8192,
+          "note": "GGUF Q2_K — smallest variant. Noticeable quality loss."
+        }
+      ],
+      "requires": [
+        {
+          "id": "clip-l",
+          "type": "text_encoder",
+          "reason": "CLIP-L text encoder for FLUX"
+        },
+        {
+          "id": "t5-xxl-fp8",
+          "type": "text_encoder",
+          "reason": "T5-XXL text encoder for FLUX"
+        },
+        {
+          "id": "flux-vae",
+          "type": "vae",
+          "reason": "FLUX VAE for image decoding"
+        }
+      ],
+      "tags": [
+        "flux",
+        "kontext",
+        "image-editing",
+        "image-to-image",
+        "12b",
+        "gguf"
+      ],
+      "rating": 4.9,
+      "downloads": 5314000,
+      "added": "2025-06-17",
+      "updated": "2025-06-17"
+    },
+    {
       "id": "flux-redux-dev",
       "name": "FLUX.1 Redux Dev",
       "type": "ipadapter",
@@ -2613,6 +2738,121 @@
       "rating": 4.8,
       "downloads": 1500000,
       "added": "2025-03-01",
+      "updated": "2025-06-01"
+    },
+    {
+      "id": "wan21-vace-14b",
+      "name": "Wan 2.1 VACE 14B",
+      "type": "diffusion_model",
+      "architecture": "wan",
+      "author": "Wan-AI / QuantStack",
+      "license": "apache-2.0",
+      "homepage": "https://huggingface.co/Wan-AI/Wan2.1-VACE-14B",
+      "description": "Wan 2.1 VACE 14B — Video All-in-one Control & Edit model.\nUnified 14B parameter model supporting inpainting, outpainting, subject-driven\ngeneration, pose control, depth control, and more — all in a single model.\nApache 2.0 license — free for commercial use.\nGGUF variants from QuantStack, usable with ComfyUI-GGUF custom node.\n",
+      "variants": [
+        {
+          "id": "bf16",
+          "file": "Wan2.1_14B_VACE-BF16.gguf",
+          "url": "https://huggingface.co/QuantStack/Wan2.1_14B_VACE-GGUF/resolve/main/Wan2.1_14B_VACE-BF16.gguf",
+          "sha256": "498dd73d131b3eaa48a8c53c902aaabcd321291b1374e87d4c13435ee5fa314c",
+          "size": 34691741600,
+          "format": "gguf",
+          "precision": "bf16",
+          "vram_required": 36864,
+          "vram_recommended": 40960,
+          "note": "Full precision bf16 GGUF. Best quality, needs A100 40GB+."
+        },
+        {
+          "id": "gguf-q8-0",
+          "file": "Wan2.1_14B_VACE-Q8_0.gguf",
+          "url": "https://huggingface.co/QuantStack/Wan2.1_14B_VACE-GGUF/resolve/main/Wan2.1_14B_VACE-Q8_0.gguf",
+          "sha256": "f7ead2ec96fbe46c025709e5d13ad6174941e2e18b2cdb193ff125574bb48f28",
+          "size": 18663274400,
+          "format": "gguf",
+          "precision": "q8_0",
+          "vram_required": 20480,
+          "vram_recommended": 24576,
+          "note": "GGUF Q8_0 — highest quality quantization."
+        },
+        {
+          "id": "gguf-q6-k",
+          "file": "Wan2.1_14B_VACE-Q6_K.gguf",
+          "url": "https://huggingface.co/QuantStack/Wan2.1_14B_VACE-GGUF/resolve/main/Wan2.1_14B_VACE-Q6_K.gguf",
+          "sha256": "6e11a6c797940c6cba150907beed443cf9447f375a7832cf85de2b8772a45ec8",
+          "size": 14522587040,
+          "format": "gguf",
+          "precision": "q6_k",
+          "vram_required": 16384,
+          "vram_recommended": 20480,
+          "note": "GGUF Q6_K — great quality/size balance."
+        },
+        {
+          "id": "gguf-q5-k-m",
+          "file": "Wan2.1_14B_VACE-Q5_K_M.gguf",
+          "url": "https://huggingface.co/QuantStack/Wan2.1_14B_VACE-GGUF/resolve/main/Wan2.1_14B_VACE-Q5_K_M.gguf",
+          "sha256": "b19bac11f0a91581e03770c0457c17ccb9d6b08433a93bfa1e95e848f0aaf0dd",
+          "size": 13037336480,
+          "format": "gguf",
+          "precision": "q5_k_m",
+          "vram_required": 16384,
+          "vram_recommended": 16384,
+          "note": "GGUF Q5_K_M — recommended for 16GB GPUs."
+        },
+        {
+          "id": "gguf-q4-k-m",
+          "file": "Wan2.1_14B_VACE-Q4_K_M.gguf",
+          "url": "https://huggingface.co/QuantStack/Wan2.1_14B_VACE-GGUF/resolve/main/Wan2.1_14B_VACE-Q4_K_M.gguf",
+          "sha256": "242f64162128a12813af67951155744cd4bad309a0aa03fb235ba3676fb323d3",
+          "size": 11639453600,
+          "format": "gguf",
+          "precision": "q4_k_m",
+          "vram_required": 12288,
+          "vram_recommended": 16384,
+          "note": "GGUF Q4_K_M — good for 12GB GPUs."
+        },
+        {
+          "id": "gguf-q3-k-s",
+          "file": "Wan2.1_14B_VACE-Q3_K_S.gguf",
+          "url": "https://huggingface.co/QuantStack/Wan2.1_14B_VACE-GGUF/resolve/main/Wan2.1_14B_VACE-Q3_K_S.gguf",
+          "sha256": "1e32875e16458097966505fd9a9eecb570991a8c3df272d520d40453c258819d",
+          "size": 7844059040,
+          "format": "gguf",
+          "precision": "q3_k_s",
+          "vram_required": 10240,
+          "vram_recommended": 12288,
+          "note": "GGUF Q3_K_S — budget option for lower VRAM."
+        }
+      ],
+      "requires": [
+        {
+          "id": "umt5-xxl",
+          "type": "text_encoder",
+          "reason": "UMT5-XXL text encoder for prompt processing"
+        },
+        {
+          "id": "wan21-vae",
+          "type": "vae",
+          "reason": "Wan 2.1 VAE for video decoding"
+        }
+      ],
+      "defaults": {
+        "steps": 30,
+        "cfg": 5.0
+      },
+      "tags": [
+        "wan",
+        "wan2.1",
+        "vace",
+        "video",
+        "inpainting",
+        "outpainting",
+        "control",
+        "editing",
+        "14b"
+      ],
+      "rating": 4.8,
+      "downloads": 9635000,
+      "added": "2025-06-01",
       "updated": "2025-06-01"
     },
     {
