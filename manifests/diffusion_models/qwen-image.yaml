@@ -1,0 +1,116 @@
+id: qwen-image
+name: "Qwen Image"
+type: diffusion_model
+architecture: qwen-image
+author: Qwen / city96
+license: apache-2.0
+homepage: https://huggingface.co/Qwen/Qwen-Image
+description: |
+  Qwen Image — 20B parameter text-to-image generation model by Qwen (Alibaba).
+  Based on Qwen 2.5 VL architecture. Generates high-quality images from text prompts.
+  This is the base text-to-image model, distinct from Qwen Image Edit which is
+  specialized for image editing tasks. Apache 2.0 license — free for commercial use.
+  GGUF variants require the ComfyUI-GGUF custom node.
+
+variants:
+  - id: bf16
+    file: qwen-image-BF16.gguf
+    url: https://huggingface.co/city96/Qwen-Image-gguf/resolve/main/qwen-image-BF16.gguf
+    sha256: "ebb2508748bc52ee5756fa5f43a4da1818bd495a3068c8d1021909f004976107"
+    size: 40872114720
+    format: gguf
+    precision: bf16
+    vram_required: 40960
+    vram_recommended: 49152
+    note: "Full precision bf16 GGUF. Best quality, needs A100 40GB+."
+
+  - id: gguf-q8-0
+    file: qwen-image-Q8_0.gguf
+    url: https://huggingface.co/city96/Qwen-Image-gguf/resolve/main/qwen-image-Q8_0.gguf
+    sha256: "d4e13114622b523027ec358e4d806f5c3db34dbcbeafaf0ce2420999a343f81d"
+    size: 21761817120
+    format: gguf
+    precision: q8_0
+    vram_required: 24576
+    vram_recommended: 32768
+    note: "GGUF Q8_0 — best quantized quality."
+
+  - id: gguf-q6-k
+    file: qwen-image-Q6_K.gguf
+    url: https://huggingface.co/city96/Qwen-Image-gguf/resolve/main/qwen-image-Q6_K.gguf
+    sha256: "1a35a094d6da1f1b170afcd93174db71d2d74adc5f1c99b3595961be507e99a5"
+    size: 16824990240
+    format: gguf
+    precision: q6_k
+    vram_required: 20480
+    vram_recommended: 24576
+    note: "GGUF Q6_K — great quality/size balance."
+
+  - id: gguf-q5-k-m
+    file: qwen-image-Q5_K_M.gguf
+    url: https://huggingface.co/city96/Qwen-Image-gguf/resolve/main/qwen-image-Q5_K_M.gguf
+    sha256: "196c8c14aaef4febd18432e8775104313439b842b9383d0b7d0d1c13f7eeca55"
+    size: 14934899232
+    format: gguf
+    precision: q5_k_m
+    vram_required: 16384
+    vram_recommended: 20480
+    note: "GGUF Q5_K_M — recommended for 16GB+ GPUs."
+
+  - id: gguf-q4-k-m
+    file: qwen-image-Q4_K_M.gguf
+    url: https://huggingface.co/city96/Qwen-Image-gguf/resolve/main/qwen-image-Q4_K_M.gguf
+    sha256: "a3cb9363825152ce6b7430d5cd7fe47dc84cbe6a30c6baffa1ba32b938c1e866"
+    size: 13065746976
+    format: gguf
+    precision: q4_k_m
+    vram_required: 12288
+    vram_recommended: 16384
+    note: "GGUF Q4_K_M — good for 12GB GPUs."
+
+  - id: gguf-q3-k-m
+    file: qwen-image-Q3_K_M.gguf
+    url: https://huggingface.co/city96/Qwen-Image-gguf/resolve/main/qwen-image-Q3_K_M.gguf
+    sha256: "f08d9e2cdc411cff1ca228eb5e8ea4c449a285d92545f81d4007100064b2c017"
+    size: 9679567392
+    format: gguf
+    precision: q3_k_m
+    vram_required: 10240
+    vram_recommended: 12288
+    note: "GGUF Q3_K_M — budget option. Uses dynamic precision on first/last layers."
+
+  - id: gguf-q2-k
+    file: qwen-image-Q2_K.gguf
+    url: https://huggingface.co/city96/Qwen-Image-gguf/resolve/main/qwen-image-Q2_K.gguf
+    sha256: "ab2ae71efaa260f45b6f503af18dd560c24b499e4ef674821bcb56dc312badfe"
+    size: 7062518304
+    format: gguf
+    precision: q2_k
+    vram_required: 8192
+    vram_recommended: 10240
+    note: "GGUF Q2_K — smallest. Dynamic precision keeps it usable."
+
+requires:
+  - id: qwen-image-vae
+    type: vae
+    reason: "Qwen Image VAE for decoding latents"
+  - id: qwen-image-clip
+    type: text_encoder
+    reason: "Qwen 2.5 VL 7B text/vision encoder for prompt processing"
+
+defaults:
+  steps: 30
+  cfg: 7.0
+
+tags:
+  - qwen
+  - text-to-image
+  - 20b
+  - gguf
+  - high-quality
+  - comfyui
+
+rating: 4.8
+downloads: 12000
+added: "2026-02-24"
+updated: "2026-02-24"
