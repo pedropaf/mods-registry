@@ -102,6 +102,16 @@ defaults:
   steps: 30
   cfg: 7.0
 
+cloud_available: true
+cloud_training:
+  gpu: A100-80GB
+  estimated_minutes: 15
+  supported_ranks: [4, 8, 16, 32]
+cloud_inference:
+  gpu: A100-80GB
+  supports_lora: true
+  cold_start_seconds: 120
+
 tags:
   - qwen
   - text-to-image

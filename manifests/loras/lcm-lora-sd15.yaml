@@ -17,6 +17,8 @@ file:
   size: 134217728
   format: safetensors
 
+category: acceleration
+
 tags: [sd15, lora, lcm, fast-inference, distillation]
 rating: 4.5
 downloads: 1800000

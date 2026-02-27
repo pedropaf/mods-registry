@@ -10,6 +10,7 @@ Usage:
 import json
 import os
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 try:
@@ -33,6 +34,7 @@ VALID_TYPES = {
     "embedding",
     "ipadapter",
     "segmentation",
+    "recipe",
 }
 
 TYPE_DIR_MAP = {
@@ -46,6 +48,21 @@ TYPE_DIR_MAP = {
     "embeddings": "embedding",
     "ipadapters": "ipadapter",
     "segmentation": "segmentation",
+    "recipes": "recipe",
+}
+
+VALID_CATEGORIES = {
+    "general",
+    "style",
+    "character",
+    "concept",
+    "product",
+    "technique",
+    "acceleration",
+    "editing",
+    "upscaling",
+    "segmentation",
+    "controlnet",
 }
 
 
@@ -72,12 +89,27 @@ def validate_manifest(manifest: dict, filepath: Path) -> list[str]:
                 f"Invalid type '{manifest['type']}'. Must be one of: {VALID_TYPES}"
             )
 
-        # Must have either variants or file
+        # Validate category if present
+        if "category" in manifest and manifest["category"] not in VALID_CATEGORIES:
+            errors.append(
+                f"Invalid category '{manifest['category']}'. Must be one of: {VALID_CATEGORIES}"
+            )
+
+        # Recipe type: must have recipe config, doesn't need file/variants
+        is_recipe = manifest["type"] == "recipe"
+
+        # Check for variants/file presence (used by non-recipe types and validation below)
         has_variants = "variants" in manifest and len(manifest.get("variants", [])) > 0
         has_file = "file" in manifest and manifest["file"] is not None
 
-        if not has_variants and not has_file:
-            errors.append("Must have either 'variants' (non-empty) or 'file'")
+        if is_recipe:
+            if "recipe" not in manifest:
+                errors.append("Recipe type must have a 'recipe' config section")
+            elif "base_model" not in manifest.get("recipe", {}):
+                errors.append("Recipe 'recipe' section must have 'base_model'")
+        else:
+            if not has_variants and not has_file:
+                errors.append("Must have either 'variants' (non-empty) or 'file'")
 
         # Validate variants
         if has_variants:
@@ -201,9 +233,23 @@ def build_index(output_path: Path = DEFAULT_OUTPUT) -> bool:
     # Sort items by ID for deterministic output
     items.sort(key=lambda x: x["id"])
 
-    # Build index
+    # Count by type
+    type_counts = {}
+    cloud_count = 0
+    for item in items:
+        t = item.get("type", "unknown")
+        type_counts[t] = type_counts.get(t, 0) + 1
+        if item.get("cloud_available"):
+            cloud_count += 1
+
+    # Build index v2 with metadata
     index = {
-        "version": 1,
+        "version": 2,
+        "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "total_count": len(items),
+        "type_counts": type_counts,
+        "cloud_available_count": cloud_count,
+        "schema_url": "https://registry.mods.sh/schemas/manifest.schema.json",
         "items": items,
     }
 

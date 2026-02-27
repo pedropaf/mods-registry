@@ -1,0 +1,498 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://registry.mods.sh/schemas/manifest.schema.json",
+  "title": "Mods Registry Manifest",
+  "description": "Schema for model, LoRA, recipe, and asset manifests in the mods registry.",
+  "type": "object",
+  "required": ["id", "name", "type"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$",
+      "description": "Unique identifier. Lowercase, hyphens only. Must match filename."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable display name."
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "checkpoint",
+        "diffusion_model",
+        "lora",
+        "vae",
+        "text_encoder",
+        "controlnet",
+        "upscaler",
+        "embedding",
+        "ipadapter",
+        "segmentation",
+        "recipe"
+      ],
+      "description": "Asset type. Determines which directory the manifest lives in."
+    },
+    "architecture": {
+      "type": "string",
+      "description": "Model architecture (e.g., flux, sdxl, sd15, qwen-image, z-image)."
+    },
+    "author": {
+      "type": "string",
+      "description": "Original creator of the model."
+    },
+    "publisher": {
+      "type": "string",
+      "description": "Who published this to the registry (for community LoRAs, distinct from author)."
+    },
+    "license": {
+      "type": "string",
+      "description": "SPDX license identifier or custom license name."
+    },
+    "homepage": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the model's page (HuggingFace, CivitAI, etc.)."
+    },
+    "description": {
+      "type": "string",
+      "description": "Multi-line description of the model."
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "general",
+        "style",
+        "character",
+        "concept",
+        "product",
+        "technique",
+        "acceleration",
+        "editing",
+        "upscaling",
+        "segmentation",
+        "controlnet"
+      ],
+      "description": "Category for discoverability. Primarily used for LoRAs and recipes."
+    },
+    "cloud_available": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this model is available on mods cloud for training and/or inference."
+    },
+    "cloud_inference": {
+      "type": "object",
+      "description": "Cloud inference configuration (only for cloud_available models).",
+      "properties": {
+        "gpu": {
+          "type": "string",
+          "enum": ["A10G", "A100-40GB", "A100-80GB"],
+          "description": "GPU tier used for inference."
+        },
+        "supports_lora": {
+          "type": "boolean",
+          "description": "Whether LoRA can be applied during cloud inference."
+        },
+        "cold_start_seconds": {
+          "type": "integer",
+          "description": "Approximate cold start time in seconds."
+        }
+      }
+    },
+    "cloud_training": {
+      "type": "object",
+      "description": "Cloud training configuration (only for models that support LoRA training on cloud).",
+      "properties": {
+        "gpu": {
+          "type": "string",
+          "enum": ["A10G", "A100-40GB", "A100-80GB"]
+        },
+        "estimated_minutes": {
+          "type": "integer",
+          "description": "Estimated training time in minutes for a standard LoRA job."
+        },
+        "supported_ranks": {
+          "type": "array",
+          "items": { "type": "integer" },
+          "description": "Supported LoRA ranks (e.g., [4, 8, 16, 32])."
+        }
+      }
+    },
+    "variants": {
+      "type": "array",
+      "description": "Multiple file variants (e.g., fp16, fp8, GGUF quantizations).",
+      "items": {
+        "$ref": "#/$defs/variant"
+      }
+    },
+    "file": {
+      "$ref": "#/$defs/fileInfo",
+      "description": "Single file for simple assets (LoRAs, VAEs, etc.)."
+    },
+    "requires": {
+      "type": "array",
+      "description": "Dependencies required to use this model.",
+      "items": {
+        "$ref": "#/$defs/dependency"
+      }
+    },
+    "auth": {
+      "$ref": "#/$defs/authRequirement",
+      "description": "Authentication required to download (e.g., gated HuggingFace models)."
+    },
+    "defaults": {
+      "$ref": "#/$defs/modelDefaults",
+      "description": "Recommended generation parameters."
+    },
+    "base_models": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Compatible base models (for LoRAs)."
+    },
+    "trigger_words": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Trigger words/tokens to activate the LoRA."
+    },
+    "recommended_weight": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 2,
+      "description": "Recommended LoRA weight strength."
+    },
+    "weight_range": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 2,
+      "maxItems": 2,
+      "description": "Min/max LoRA weight range [min, max]."
+    },
+    "training_details": {
+      "type": "object",
+      "description": "How this LoRA was trained (for community LoRAs).",
+      "properties": {
+        "steps": {
+          "type": "integer",
+          "description": "Number of training steps."
+        },
+        "rank": {
+          "type": "integer",
+          "description": "LoRA rank."
+        },
+        "learning_rate": {
+          "type": "number",
+          "description": "Learning rate used."
+        },
+        "optimizer": {
+          "type": "string",
+          "description": "Optimizer (e.g., adamw8bit, prodigy)."
+        },
+        "dataset_size": {
+          "type": "integer",
+          "description": "Number of images in training dataset."
+        },
+        "training_time_minutes": {
+          "type": "integer",
+          "description": "Training time in minutes."
+        },
+        "cloud_trained": {
+          "type": "boolean",
+          "description": "Whether this was trained on mods cloud."
+        },
+        "recipe_id": {
+          "type": "string",
+          "description": "ID of the recipe used for training (links to a recipe manifest)."
+        }
+      }
+    },
+    "sample_images": {
+      "type": "array",
+      "description": "Sample outputs showing the LoRA's effect.",
+      "items": {
+        "$ref": "#/$defs/sampleImage"
+      }
+    },
+    "preprocessor": {
+      "type": "string",
+      "description": "Required preprocessor (for ControlNets)."
+    },
+    "scale_factor": {
+      "type": "integer",
+      "description": "Upscaling factor (for upscalers)."
+    },
+    "clip_vision_model": {
+      "type": "string",
+      "description": "Required CLIP vision model (for IP-Adapters)."
+    },
+    "recipe": {
+      "$ref": "#/$defs/recipeConfig",
+      "description": "Training and generation preset (for recipe type only)."
+    },
+    "preview_images": {
+      "type": "array",
+      "items": { "type": "string", "format": "uri" },
+      "description": "Preview/showcase image URLs."
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Searchable tags."
+    },
+    "rating": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5,
+      "description": "Community rating (0-5)."
+    },
+    "downloads": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Approximate download count."
+    },
+    "added": {
+      "type": "string",
+      "format": "date",
+      "description": "Date added to registry (YYYY-MM-DD)."
+    },
+    "updated": {
+      "type": "string",
+      "format": "date",
+      "description": "Date last updated (YYYY-MM-DD)."
+    }
+  },
+  "oneOf": [
+    {
+      "description": "Model/asset type — must have variants or file.",
+      "not": {
+        "properties": { "type": { "const": "recipe" } }
+      },
+      "anyOf": [
+        { "required": ["variants"] },
+        { "required": ["file"] }
+      ]
+    },
+    {
+      "description": "Recipe type — must have recipe config.",
+      "properties": {
+        "type": { "const": "recipe" }
+      },
+      "required": ["recipe"]
+    }
+  ],
+  "$defs": {
+    "variant": {
+      "type": "object",
+      "required": ["id", "file", "url", "sha256", "size"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Variant identifier (e.g., fp16, fp8, gguf-q8-0)."
+        },
+        "file": {
+          "type": "string",
+          "description": "Filename."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Direct download URL."
+        },
+        "sha256": {
+          "type": "string",
+          "description": "SHA256 hash (lowercase hex, or VERIFY_ prefix for placeholders)."
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "File size in bytes."
+        },
+        "format": {
+          "type": "string",
+          "enum": ["safetensors", "gguf", "pth", "bin", "ckpt", "pt"],
+          "description": "File format."
+        },
+        "precision": {
+          "type": "string",
+          "description": "Numerical precision (e.g., fp16, bf16, fp8-e4m3fn, q8_0, q6_k)."
+        },
+        "vram_required": {
+          "type": "integer",
+          "description": "Minimum VRAM in MB."
+        },
+        "vram_recommended": {
+          "type": "integer",
+          "description": "Recommended VRAM in MB."
+        },
+        "note": {
+          "type": "string",
+          "description": "Human-readable note about this variant."
+        }
+      }
+    },
+    "fileInfo": {
+      "type": "object",
+      "required": ["url", "sha256", "size"],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Direct download URL."
+        },
+        "sha256": {
+          "type": "string",
+          "description": "SHA256 hash."
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "File size in bytes."
+        },
+        "format": {
+          "type": "string",
+          "enum": ["safetensors", "gguf", "pth", "bin", "ckpt", "pt"],
+          "description": "File format."
+        }
+      }
+    },
+    "dependency": {
+      "type": "object",
+      "required": ["id", "type"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID of the required asset."
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of the required asset."
+        },
+        "reason": {
+          "type": "string",
+          "description": "Why this dependency is needed."
+        },
+        "optional_variant": {
+          "type": "string",
+          "description": "Alternative variant that can substitute (e.g., fp8 version)."
+        }
+      }
+    },
+    "authRequirement": {
+      "type": "object",
+      "required": ["provider"],
+      "properties": {
+        "provider": {
+          "type": "string",
+          "description": "Auth provider (e.g., huggingface)."
+        },
+        "terms_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to accept terms."
+        },
+        "gated": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the model requires accepting terms."
+        }
+      }
+    },
+    "modelDefaults": {
+      "type": "object",
+      "properties": {
+        "steps": { "type": "integer", "minimum": 1 },
+        "cfg": { "type": "number", "minimum": 0 },
+        "sampler": { "type": "string" },
+        "scheduler": { "type": "string" },
+        "resolution": {
+          "type": "string",
+          "description": "Default resolution (e.g., 1024x1024)."
+        },
+        "clip_skip": {
+          "type": "integer",
+          "description": "CLIP skip value."
+        }
+      }
+    },
+    "sampleImage": {
+      "type": "object",
+      "required": ["url"],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to sample image."
+        },
+        "prompt": {
+          "type": "string",
+          "description": "Prompt used to generate this image."
+        },
+        "negative_prompt": {
+          "type": "string",
+          "description": "Negative prompt used."
+        },
+        "seed": {
+          "type": "integer",
+          "description": "Seed used for generation."
+        },
+        "steps": {
+          "type": "integer",
+          "description": "Steps used."
+        },
+        "cfg": {
+          "type": "number",
+          "description": "CFG scale used."
+        }
+      }
+    },
+    "recipeConfig": {
+      "type": "object",
+      "required": ["base_model"],
+      "description": "Training + generation preset — shareable tribal knowledge.",
+      "properties": {
+        "base_model": {
+          "type": "string",
+          "description": "Base model ID this recipe is designed for."
+        },
+        "description": {
+          "type": "string",
+          "description": "What this recipe produces / when to use it."
+        },
+        "training": {
+          "type": "object",
+          "description": "Training parameters.",
+          "properties": {
+            "steps": { "type": "integer", "minimum": 1 },
+            "learning_rate": { "type": "number" },
+            "rank": { "type": "integer" },
+            "optimizer": { "type": "string" },
+            "batch_size": { "type": "integer" },
+            "resolution": { "type": "string" },
+            "dataset_min_images": { "type": "integer" },
+            "dataset_max_images": { "type": "integer" },
+            "caption_strategy": {
+              "type": "string",
+              "enum": ["florence-2", "blip", "manual", "none"]
+            },
+            "trigger_word_template": {
+              "type": "string",
+              "description": "Template for trigger word (e.g., 'ohwx person', 'sks style')."
+            }
+          }
+        },
+        "generation": {
+          "$ref": "#/$defs/modelDefaults",
+          "description": "Recommended generation parameters when using a LoRA trained with this recipe."
+        },
+        "recommended_lora_weight": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "tips": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Usage tips and best practices."
+        }
+      }
+    }
+  }
+}

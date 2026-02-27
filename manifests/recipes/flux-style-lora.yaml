@@ -1,0 +1,54 @@
+id: flux-style-lora
+name: "Style Transfer LoRA (Flux)"
+type: recipe
+architecture: flux
+author: mods
+license: mit
+description: |
+  Training recipe for style transfer LoRAs on Flux models.
+  Learn an artistic style (illustration, anime, watercolor, etc.) from
+  15-30 reference images. The LoRA applies the learned aesthetic to any subject.
+
+category: style
+
+recipe:
+  base_model: flux-schnell
+  description: |
+    Best for: artistic styles, illustration aesthetics, rendering techniques.
+    Dataset: 15-30 images in the target style, diverse subjects.
+    Result: trigger word applies the style to any prompt.
+  training:
+    steps: 2000
+    learning_rate: 5e-5
+    rank: 32
+    optimizer: adamw8bit
+    batch_size: 1
+    resolution: "1024x1024"
+    dataset_min_images: 15
+    dataset_max_images: 50
+    caption_strategy: florence-2
+    trigger_word_template: "sks style"
+  generation:
+    steps: 8
+    cfg: 3.5
+    sampler: euler
+    scheduler: normal
+    resolution: "1024x1024"
+  recommended_lora_weight: 0.7
+  tips:
+    - "More images = better style coverage. 20-30 is ideal"
+    - "Include diverse subjects (people, landscapes, objects) all in the target style"
+    - "Higher rank (32) captures style nuance better than faces"
+    - "Lower learning rate (5e-5) prevents overfitting to specific images"
+    - "Weight 0.5-0.8 blends naturally — 1.0 can be too strong"
+    - "Combine with a face LoRA for styled portraits"
+
+cloud_available: true
+cloud_training:
+  gpu: A100-80GB
+  estimated_minutes: 15
+  supported_ranks: [8, 16, 32, 64]
+
+tags: [recipe, style, artistic, illustration, flux, lora-training]
+added: "2026-02-27"
+updated: "2026-02-27"

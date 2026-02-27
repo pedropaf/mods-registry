@@ -17,6 +17,8 @@ file:
   size: 166723584
   format: safetensors
 
+category: acceleration
+
 tags:
   - z-image
   - lora
