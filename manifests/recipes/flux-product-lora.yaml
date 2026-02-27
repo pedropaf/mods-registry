@@ -1,0 +1,55 @@
+id: flux-product-lora
+name: "Product Photography LoRA (Flux)"
+type: recipe
+architecture: flux
+author: mods
+license: mit
+description: |
+  Training recipe for product photography LoRAs on Flux models.
+  Learn a specific product's appearance from 10-15 product photos.
+  Generate the product in new scenes, angles, and contexts.
+  Ideal for e-commerce, marketing, and social media content.
+
+category: product
+
+recipe:
+  base_model: flux-dev
+  description: |
+    Best for: product shots, e-commerce images, marketing visuals.
+    Dataset: 10-15 clean product photos on white/neutral backgrounds.
+    Result: trigger word places the exact product in any scene.
+  training:
+    steps: 1200
+    learning_rate: 1e-4
+    rank: 16
+    optimizer: adamw8bit
+    batch_size: 1
+    resolution: "1024x1024"
+    dataset_min_images: 8
+    dataset_max_images: 20
+    caption_strategy: florence-2
+    trigger_word_template: "ohwx product"
+  generation:
+    steps: 20
+    cfg: 3.5
+    sampler: euler
+    scheduler: normal
+    resolution: "1024x1024"
+  recommended_lora_weight: 0.85
+  tips:
+    - "Use flux-dev (not schnell) for product fidelity — details matter"
+    - "Clean backgrounds in training images help the model isolate the product"
+    - "Include multiple angles: front, side, 3/4, top-down"
+    - "Florence-2 captions work well for product features"
+    - "Higher weight (0.8-0.9) preserves product accuracy"
+    - "Pair with a scene description for lifestyle shots"
+
+cloud_available: true
+cloud_training:
+  gpu: A100-80GB
+  estimated_minutes: 10
+  supported_ranks: [8, 16, 32]
+
+tags: [recipe, product, e-commerce, photography, flux, lora-training]
+added: "2026-02-27"
+updated: "2026-02-27"

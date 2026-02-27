@@ -1,0 +1,55 @@
+id: flux-face-lora
+name: "Face/Portrait LoRA (Flux)"
+type: recipe
+architecture: flux
+author: mods
+license: mit
+description: |
+  Training recipe for face/portrait LoRAs on Flux models.
+  Optimized for learning a specific person's likeness from 10-20 photos.
+  Produces a LoRA that generates consistent portraits with a trigger word.
+  Works with both flux-schnell (fast) and flux-dev (quality).
+
+category: character
+
+recipe:
+  base_model: flux-schnell
+  description: |
+    Best for: headshots, portraits, consistent character identity.
+    Dataset: 10-20 high-quality face photos, varied angles/lighting.
+    Result: trigger word activates the learned face in any prompt.
+  training:
+    steps: 1500
+    learning_rate: 1e-4
+    rank: 16
+    optimizer: adamw8bit
+    batch_size: 1
+    resolution: "1024x1024"
+    dataset_min_images: 8
+    dataset_max_images: 30
+    caption_strategy: florence-2
+    trigger_word_template: "ohwx person"
+  generation:
+    steps: 8
+    cfg: 3.5
+    sampler: euler
+    scheduler: normal
+    resolution: "1024x1024"
+  recommended_lora_weight: 0.8
+  tips:
+    - "Use 10-20 photos with varied angles, expressions, and lighting"
+    - "Avoid sunglasses, heavy makeup, or occlusions in training images"
+    - "Caption with Florence-2 for best results — it describes face features well"
+    - "If likeness is weak, increase steps to 2000 or rank to 32"
+    - "If overfitting (same pose every time), reduce steps to 1000"
+    - "Weight 0.7-0.9 is the sweet spot — too high causes artifacts"
+
+cloud_available: true
+cloud_training:
+  gpu: A100-80GB
+  estimated_minutes: 12
+  supported_ranks: [4, 8, 16, 32]
+
+tags: [recipe, face, portrait, character, flux, lora-training]
+added: "2026-02-27"
+updated: "2026-02-27"

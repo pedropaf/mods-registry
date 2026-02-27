@@ -140,6 +140,16 @@ recommended:
   sampler: euler
   scheduler: simple
 
+cloud_available: true
+cloud_training:
+  gpu: A100-80GB
+  estimated_minutes: 10
+  supported_ranks: [4, 8, 16, 32]
+cloud_inference:
+  gpu: A10G
+  supports_lora: true
+  cold_start_seconds: 75
+
 tags:
   - z-image
   - text-to-image

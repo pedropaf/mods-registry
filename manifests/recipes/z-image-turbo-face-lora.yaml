@@ -1,0 +1,53 @@
+id: z-image-turbo-face-lora
+name: "Face/Portrait LoRA (Z-Image Turbo)"
+type: recipe
+architecture: z-image
+author: mods
+license: mit
+description: |
+  Training recipe for face/portrait LoRAs on Z-Image Turbo.
+  Similar to the Flux face recipe but optimized for Z-Image Turbo's
+  architecture — faster training, faster inference, lower VRAM.
+  Good option for 16GB GPU users.
+
+category: character
+
+recipe:
+  base_model: z-image-turbo
+  description: |
+    Best for: headshots and portraits on consumer GPUs (16GB).
+    Dataset: 10-20 high-quality face photos.
+    Result: fast inference with consistent likeness.
+  training:
+    steps: 1200
+    learning_rate: 1e-4
+    rank: 16
+    optimizer: adamw8bit
+    batch_size: 1
+    resolution: "1024x1024"
+    dataset_min_images: 8
+    dataset_max_images: 25
+    caption_strategy: florence-2
+    trigger_word_template: "ohwx person"
+  generation:
+    steps: 8
+    cfg: 0.0
+    sampler: euler
+    resolution: "1024x1024"
+  recommended_lora_weight: 0.8
+  tips:
+    - "Z-Image Turbo uses CFG 0.0 — don't add guidance"
+    - "Only 8 steps needed — sub-second on a good GPU"
+    - "Training is faster than Flux (~10 min on A100)"
+    - "Quality is close to Flux Schnell but inference is faster"
+    - "Good choice when you need volume over perfection"
+
+cloud_available: true
+cloud_training:
+  gpu: A100-80GB
+  estimated_minutes: 8
+  supported_ranks: [4, 8, 16, 32]
+
+tags: [recipe, face, portrait, character, z-image, turbo, lora-training]
+added: "2026-02-27"
+updated: "2026-02-27"
