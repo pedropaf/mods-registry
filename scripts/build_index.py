@@ -156,6 +156,32 @@ def check_placeholder_hashes(manifest: dict) -> list[str]:
     return warnings
 
 
+def _coerce_floats(obj):
+    """Recursively walk a structure and convert string values that look like
+    scientific-notation floats (e.g. '1e-4', '5e-5') into actual floats.
+    YAML safe_load treats these as strings; JSON and serde need them as numbers."""
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            if isinstance(v, str):
+                try:
+                    if "e" in v.lower() and not v.startswith("0x"):
+                        obj[k] = float(v)
+                except (ValueError, TypeError):
+                    pass
+            else:
+                _coerce_floats(v)
+    elif isinstance(obj, list):
+        for i, v in enumerate(obj):
+            if isinstance(v, str):
+                try:
+                    if "e" in v.lower() and not v.startswith("0x"):
+                        obj[i] = float(v)
+                except (ValueError, TypeError):
+                    pass
+            else:
+                _coerce_floats(v)
+
+
 def build_index(output_path: Path = DEFAULT_OUTPUT) -> bool:
     """Build index.json from all manifests. Returns True if successful."""
     items = []
@@ -232,6 +258,9 @@ def build_index(output_path: Path = DEFAULT_OUTPUT) -> bool:
 
     # Sort items by ID for deterministic output
     items.sort(key=lambda x: x["id"])
+
+    # Fix scientific notation values that YAML parsed as strings (e.g. "1e-4")
+    _coerce_floats(items)
 
     # Count by type
     type_counts = {}

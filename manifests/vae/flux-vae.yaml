@@ -11,7 +11,7 @@ description: |
 
 file:
   url: https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors
-  sha256: "f5b59a26851551b67ae1fe58d32e76486e1e812def4696a4bea97f16604d40a3"
+  sha256: "afc8e28272cd15db3919bacdb6918ce9c1ed22e96cb12c4d5ed0fba823529e38"
   size: 335304388
   format: safetensors
 

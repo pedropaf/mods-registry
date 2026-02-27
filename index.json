@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated_at": "2026-02-27T02:25:36Z",
+  "generated_at": "2026-02-27T16:46:35Z",
   "total_count": 65,
   "type_counts": {
     "upscaler": 3,
@@ -227,8 +227,8 @@
           "id": "fp8",
           "file": "flux1-dev-fp8-e4m3fn.safetensors",
           "url": "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux1-dev-fp8-e4m3fn.safetensors",
-          "sha256": "e2c62660c9d75e928da6c0b9930993190f152f3c5c6f0cca69e77c21db87dd58",
-          "size": 11903959040,
+          "sha256": "47d8dbdc6da6e996ff31567476c0a549afd1a99554b20af2be57f0ccfa93aa36",
+          "size": 11901525888,
           "format": "safetensors",
           "precision": "fp8-e4m3fn",
           "vram_required": 12288,
@@ -309,7 +309,7 @@
         "description": "Best for: headshots, portraits, consistent character identity.\nDataset: 10-20 high-quality face photos, varied angles/lighting.\nResult: trigger word activates the learned face in any prompt.\n",
         "training": {
           "steps": 1500,
-          "learning_rate": "1e-4",
+          "learning_rate": 0.0001,
           "rank": 16,
           "optimizer": "adamw8bit",
           "batch_size": 1,
@@ -545,7 +545,7 @@
         "description": "Best for: product shots, e-commerce images, marketing visuals.\nDataset: 10-15 clean product photos on white/neutral backgrounds.\nResult: trigger word places the exact product in any scene.\n",
         "training": {
           "steps": 1200,
-          "learning_rate": "1e-4",
+          "learning_rate": 0.0001,
           "rank": 16,
           "optimizer": "adamw8bit",
           "batch_size": 1,
@@ -729,7 +729,7 @@
         "description": "Best for: artistic styles, illustration aesthetics, rendering techniques.\nDataset: 15-30 images in the target style, diverse subjects.\nResult: trigger word applies the style to any prompt.\n",
         "training": {
           "steps": 2000,
-          "learning_rate": "5e-5",
+          "learning_rate": 5e-05,
           "rank": 32,
           "optimizer": "adamw8bit",
           "batch_size": 1,
@@ -789,7 +789,7 @@
       "description": "The VAE used by all FLUX models. Required for FLUX.1 Dev and Schnell.\nSame file (ae.safetensors) is bundled in both the Dev and Schnell repos.\n",
       "file": {
         "url": "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors",
-        "sha256": "f5b59a26851551b67ae1fe58d32e76486e1e812def4696a4bea97f16604d40a3",
+        "sha256": "afc8e28272cd15db3919bacdb6918ce9c1ed22e96cb12c4d5ed0fba823529e38",
         "size": 335304388,
         "format": "safetensors"
       },
@@ -3776,7 +3776,7 @@
         "description": "Best for: headshots and portraits on consumer GPUs (16GB).\nDataset: 10-20 high-quality face photos.\nResult: fast inference with consistent likeness.\n",
         "training": {
           "steps": 1200,
-          "learning_rate": "1e-4",
+          "learning_rate": 0.0001,
           "rank": 16,
           "optimizer": "adamw8bit",
           "batch_size": 1,
